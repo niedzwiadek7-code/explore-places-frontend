@@ -1,13 +1,13 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, ThemeProvider } from '@react-navigation/native';
+import {useColorScheme, View} from 'react-native'
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/components/useColorScheme';
-import {DefaultTheme, PaperProvider} from "react-native-paper";
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import {MD3LightTheme, MD3DarkTheme, PaperProvider, Text} from "react-native-paper";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -16,7 +16,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(login)',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -47,23 +47,21 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme()
+  const { theme } = useMaterial3Theme()
 
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'tomato',
-      secondary: 'yellow',
-    },
-  };
+  const paperTheme =
+    colorScheme === 'dark'
+        ? { ...MD3DarkTheme, colors: theme.dark }
+        : { ...MD3LightTheme, colors: theme.light }
 
   return (
-    <PaperProvider theme={theme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+    <PaperProvider theme={paperTheme}>
+        <Stack initialRouteName="(login)">
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
     </PaperProvider>
   );
 }
