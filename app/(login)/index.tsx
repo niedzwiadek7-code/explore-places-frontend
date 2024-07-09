@@ -1,7 +1,11 @@
 import { View } from "react-native";
 import EmailLogin from "@/components/Auth/EmailLogin";
+import {Button} from "react-native-paper";
+import { useRouter } from "expo-router";
 
 export default function LoginPage () {
+  const router = useRouter()
+
   return (
     <View
       style={{
@@ -10,7 +14,13 @@ export default function LoginPage () {
         justifyContent: 'center'
       }}
     >
-      <EmailLogin />
+      <Button
+        icon="email"
+        mode="contained"
+        onPress={() => router.push('/emailLogin')}
+      >
+        Zaloguj się przez email
+      </Button>
     </View>
   )
 }
