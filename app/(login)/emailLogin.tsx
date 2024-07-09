@@ -1,9 +1,9 @@
 import { View } from "react-native";
-import EmailLogin from "@/components/Auth/EmailLogin";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Button, Text, TextInput, useTheme} from "react-native-paper";
 import React from "react";
 import {useRouter} from "expo-router";
+import {AuthSingleton} from "@/services/auth/Auth";
 
 type FormData = {
   email: string
@@ -19,8 +19,13 @@ export default function LoginPage () {
 
   const theme = useTheme()
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      await AuthSingleton.getInstance().sendEmail(data.email)
+      router.navigate('/confirm')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

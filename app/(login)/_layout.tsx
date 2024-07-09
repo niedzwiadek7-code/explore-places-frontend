@@ -23,6 +23,13 @@ export default function LoginLayout() {
           presentation: 'modal'
         }}
       />
+      <Stack.Screen
+        name="confirm"
+        options={{
+          title: 'Oczekiwanie na potwierdzenie',
+          presentation: 'modal',
+        }}
+      />
     </Stack>
   )
 }

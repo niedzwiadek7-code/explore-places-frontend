@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import EmailLogin from "@/components/Auth/EmailLogin";
 import {Button} from "react-native-paper";
 import { useRouter } from "expo-router";
 
