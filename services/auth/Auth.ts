@@ -10,7 +10,7 @@ export class Auth {
   }
 
   async createProfile(email: string) {
-    await this.apiService.post('/api/create-profile/', {
+    await this.apiService.post('/api/users/', {
       email,
       username: email,
     })
