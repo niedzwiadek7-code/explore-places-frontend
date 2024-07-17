@@ -23,9 +23,8 @@ export class Auth {
   }
 
   async verifyEmail(email: string, code: string) {
-    await this.apiService.post('/api/verify-code/', { email, code })
-    return true
-
+    const response = await this.apiService.post<{ access: string }>('/api/verify-code/', { email, code })
+    return response
   }
 }
 

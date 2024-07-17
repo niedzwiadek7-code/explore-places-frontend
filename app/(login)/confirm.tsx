@@ -6,6 +6,7 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {AuthSingleton} from "@/services/auth/Auth";
 import {useToast} from "react-native-paper-toast";
+import {useAuth} from "@/context/auth/Auth";
 
 const styles = StyleSheet.create({
   root: {flex: 1, padding: 20},
@@ -35,10 +36,15 @@ export default function ConfirmPage () {
   const { email } = useLocalSearchParams<Params>()
   const toaster = useToast()
   const theme = useTheme()
+  const { login } = useAuth()
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      await AuthSingleton.getInstance().verifyEmail(email || '', data.code)
+      await login({
+        type: 'email',
+        email: email || '',
+        code: data.code,
+      })
       toaster.show({
         message: 'Zalogowano pomyślnie',
         type: 'success',

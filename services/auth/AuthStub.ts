@@ -13,6 +13,8 @@ export class AuthStub implements Auth {
   }
 
   async verifyEmail() {
-    return true
+    return {
+      access: 'accessToken'
+    }
   }
 }

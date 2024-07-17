@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
 import {MD3LightTheme, MD3DarkTheme, PaperProvider, Text} from "react-native-paper";
 import {ToastProvider} from "react-native-paper-toast";
+import {AuthProvider} from "@/context/auth/Auth";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -59,12 +60,14 @@ function RootLayoutNav() {
   return (
     <PaperProvider theme={paperTheme}>
       <ToastProvider>
-        <Stack initialRouteName="(login)">
-          <Stack.Screen name="(login)" options={{ headerShown: false }} />
-          <Stack.Screen name="(home)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        </Stack>
+        <AuthProvider>
+          <Stack initialRouteName="(login)">
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+            <Stack.Screen name="(home)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          </Stack>
+        </AuthProvider>
       </ToastProvider>
     </PaperProvider>
   );
