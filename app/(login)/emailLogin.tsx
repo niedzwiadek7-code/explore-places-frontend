@@ -2,15 +2,15 @@ import { View } from "react-native";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Button, Text, TextInput, useTheme} from "react-native-paper";
 import React from "react";
-import {useRouter} from "expo-router";
 import {AuthSingleton} from "@/services/auth/Auth";
+import useCustomRouter from "@/hooks/useRouter/useRouter";
 
 type FormData = {
   email: string
 }
 
 export default function LoginPage () {
-  const router = useRouter()
+  const { router } = useCustomRouter()
   const {
     control,
     handleSubmit,

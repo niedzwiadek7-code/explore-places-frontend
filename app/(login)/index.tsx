@@ -1,9 +1,9 @@
 import { View } from "react-native";
 import {Button} from "react-native-paper";
-import { useRouter } from "expo-router";
+import useCustomRouter from "@/hooks/useRouter/useRouter";
 
 export default function LoginPage () {
-  const router = useRouter()
+  const { router } = useCustomRouter()
 
   return (
     <View

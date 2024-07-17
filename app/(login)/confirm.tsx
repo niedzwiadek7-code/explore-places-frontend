@@ -3,10 +3,9 @@ import {Button, Text, TextInput, useTheme} from "react-native-paper";
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from "react-native-confirmation-code-field";
 import React, {useState} from "react";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {useLocalSearchParams, useRouter} from "expo-router";
-import {AuthSingleton} from "@/services/auth/Auth";
 import {useToast} from "react-native-paper-toast";
 import {useAuth} from "@/context/auth/Auth";
+import useCustomRouter from "@/hooks/useRouter/useRouter";
 
 const styles = StyleSheet.create({
   root: {flex: 1, padding: 20},
@@ -32,8 +31,10 @@ type Params = {
 export default function ConfirmPage () {
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  const router = useRouter()
-  const { email } = useLocalSearchParams<Params>()
+  const {
+    router,
+    params: { email }
+  } = useCustomRouter<Params>()
   const toaster = useToast()
   const theme = useTheme()
   const { login } = useAuth()
