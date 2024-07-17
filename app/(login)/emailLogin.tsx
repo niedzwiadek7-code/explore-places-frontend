@@ -22,7 +22,12 @@ export default function LoginPage () {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       await AuthSingleton.getInstance().sendEmail(data.email)
-      router.navigate('/confirm')
+      router.navigate({
+        pathname: '/confirm',
+        params: {
+          email: data.email
+        }
+      })
     } catch (err) {
       console.log(err)
     }

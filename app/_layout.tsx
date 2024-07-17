@@ -1,13 +1,14 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {useColorScheme, View} from 'react-native'
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import {Stack, useRouter} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
 import {MD3LightTheme, MD3DarkTheme, PaperProvider, Text} from "react-native-paper";
+import {ToastProvider} from "react-native-paper-toast";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -57,11 +58,14 @@ function RootLayoutNav() {
 
   return (
     <PaperProvider theme={paperTheme}>
+      <ToastProvider>
         <Stack initialRouteName="(login)">
-            <Stack.Screen name="(login)" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
+      </ToastProvider>
     </PaperProvider>
   );
 }
