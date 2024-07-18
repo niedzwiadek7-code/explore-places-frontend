@@ -1,21 +1,22 @@
-import { View } from "react-native";
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {Button, Text, TextInput, useTheme} from "react-native-paper";
-import React from "react";
-import useCustomRouter from "@/hooks/useRouter/useRouter";
-import {useRouter} from "expo-router";
-import {Auth, AuthSingleton} from "@/services/auth/Auth";
+import { View } from 'react-native'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import {
+  Button, Text, TextInput, useTheme,
+} from 'react-native-paper'
+import React from 'react'
+import useCustomRouter from '@/hooks/useRouter/useRouter'
+import { AuthSingleton } from '@/services/auth/AuthSingleton'
 
 type FormData = {
   email: string
 }
 
-export default function LoginPage () {
+const RegisterPage = () => {
   const { router } = useCustomRouter()
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormData>()
 
   const theme = useTheme()
@@ -27,11 +28,11 @@ export default function LoginPage () {
       router.navigate({
         pathname: '/confirm',
         params: {
-          email: data.email
-        }
+          email: data.email,
+        },
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
 
@@ -40,18 +41,18 @@ export default function LoginPage () {
       style={{
         flex: 1,
         padding: 30,
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <View
         style={{
-          marginBottom: 10
+          marginBottom: 10,
         }}
       >
         <Controller
           control={control}
           rules={{
-            required: true
+            required: true,
           }}
           render={({ field: { value, onChange, onBlur } }) => (
             <TextInput
@@ -68,7 +69,7 @@ export default function LoginPage () {
           <Text
             style={{
               color: 'red',
-              marginTop: 5
+              marginTop: 5,
             }}
           >
             To pole jest wymagane
@@ -87,7 +88,7 @@ export default function LoginPage () {
         style={{
           marginTop: 20,
           textAlign: 'center',
-          color: theme.colors.secondary
+          color: theme.colors.secondary,
         }}
       >
         Masz konto?
@@ -97,7 +98,7 @@ export default function LoginPage () {
         mode="elevated"
         onPress={() => router.push('/emailLogin')}
         style={{
-          marginTop: 5
+          marginTop: 5,
         }}
       >
         Zaloguj się
@@ -107,7 +108,7 @@ export default function LoginPage () {
         mode="outlined"
         onPress={() => router.navigate('/')}
         style={{
-          marginTop: 25
+          marginTop: 25,
         }}
       >
         Zmień metodę logowania
@@ -115,3 +116,5 @@ export default function LoginPage () {
     </View>
   )
 }
+
+export default RegisterPage

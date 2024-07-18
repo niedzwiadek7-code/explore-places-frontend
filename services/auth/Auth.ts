@@ -1,12 +1,11 @@
-import ApiService from "@/services/ApiService/ApiService";
-import { ApiBackendSingleton } from "@/services/ApiService/Singleton";
-import {AuthStub} from "@/services/auth/AuthStub";
+import ApiService from '@/services/ApiService/ApiService'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 export class Auth {
   readonly apiService: ApiService
 
   constructor() {
-     this.apiService = ApiBackendSingleton.getInstance()
+    this.apiService = ApiBackendSingleton.getInstance()
   }
 
   async createProfile(email: string) {
@@ -25,21 +24,5 @@ export class Auth {
   async verifyEmail(email: string, code: string) {
     const response = await this.apiService.post<{ access: string }>('/api/verify-code/', { email, code })
     return response
-  }
-}
-
-export class AuthSingleton {
-  private static instance: Auth
-
-  static getInstance(): Auth {
-    if (!AuthSingleton.instance) {
-      if (process.env.EXPO_PUBLIC_STUB === 'true') {
-        AuthSingleton.instance = new AuthStub()
-      } else {
-        AuthSingleton.instance = new Auth()
-      }
-    }
-
-    return AuthSingleton.instance
   }
 }

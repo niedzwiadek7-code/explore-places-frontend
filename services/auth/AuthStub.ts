@@ -1,5 +1,7 @@
-import {Auth} from "@/services/auth/Auth";
-import ApiService from "@/services/ApiService/ApiService";
+/* eslint-disable class-methods-use-this */
+
+import { Auth } from '@/services/auth/Auth'
+import ApiService from '@/services/ApiService/ApiService'
 
 export class AuthStub implements Auth {
   readonly apiService: ApiService = new ApiService('')
@@ -14,7 +16,7 @@ export class AuthStub implements Auth {
 
   async verifyEmail() {
     return {
-      access: 'accessToken'
+      access: 'accessToken',
     }
   }
 }

@@ -1,8 +1,9 @@
-import { View } from "react-native";
-import {Button} from "react-native-paper";
-import useCustomRouter from "@/hooks/useRouter/useRouter";
+import React from 'react'
+import { View } from 'react-native'
+import { Button } from 'react-native-paper'
+import useCustomRouter from '@/hooks/useRouter/useRouter'
 
-export default function LoginPage () {
+const LoginPage = () => {
   const { router } = useCustomRouter()
 
   return (
@@ -10,7 +11,7 @@ export default function LoginPage () {
       style={{
         flex: 1,
         padding: 30,
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <Button
@@ -23,3 +24,5 @@ export default function LoginPage () {
     </View>
   )
 }
+
+export default LoginPage

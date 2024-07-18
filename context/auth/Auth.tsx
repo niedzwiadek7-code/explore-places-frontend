@@ -1,8 +1,8 @@
 import React, {
-  createContext, ReactNode, useContext, useEffect, useMemo, useState,
+  createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react'
 import * as SecureStore from 'expo-secure-store'
-import {AuthSingleton} from "@/services/auth/Auth";
+import { AuthSingleton } from '@/services/auth/AuthSingleton'
 
 type LoginParams =
   | { type: 'email'; email: string; code: string; }
@@ -33,46 +33,59 @@ type ProviderProps = {
   children: ReactNode,
 }
 
-export const AuthProvider: React.FC<ProviderProps> = (props) => {
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
+  const [token, setToken] = useState<string | null>(null)
+  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadToken = async () => {
-      setIsLoading(true);
-      const token = await SecureStore.getItemAsync('token');
+      // setIsLoading(true);
+      const tokenTemp = await SecureStore.getItemAsync('token')
 
-      if (token) {
-        setToken(token);
+      if (tokenTemp) {
+        setToken(tokenTemp)
       }
-      setIsLoading(false);
+      // setIsLoading(false);
     }
 
-    loadToken();
-  }, []);
+    loadToken()
+  }, [])
 
-  const login = async (params: LoginParams) => {
+  const emailLogin = async (email: string, code: string) => {
+    const response = await AuthSingleton.getInstance().verifyEmail(email, code)
+    setToken(response.access)
+  }
+
+  const login = useCallback(async (params: LoginParams) => {
     switch (params.type) {
       case 'email':
-        const response = await AuthSingleton.getInstance().verifyEmail(params.email, params.code);
-        setToken(response.access);
-        break;
+        await emailLogin(params.email, params.code)
+        break
+      default:
+        break
     }
-  }
+  }, [])
 
   const logout = async (type: LogoutType) => {
     switch (type) {
       case 'email':
-        setToken(null);
-        break;
+        setToken(null)
+        break
+      default:
+        break
     }
   }
 
+  const value = useMemo(
+    () => new AuthClass(token, login, logout),
+    [token, login],
+  )
+
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
-      {props.children}
+    <AuthContext.Provider value={value}>
+      {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
 export const useAuth = () => useContext(AuthContext)

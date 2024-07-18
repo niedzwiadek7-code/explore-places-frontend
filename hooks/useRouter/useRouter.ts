@@ -1,9 +1,9 @@
-import {useLocalSearchParams, useRouter } from "expo-router";
-import { ExpoRouter} from "expo-router/types/expo-router";
-import {useAuth} from "@/context/auth/Auth";
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { ExpoRouter } from 'expo-router/types/expo-router'
+import { useAuth } from '@/context/auth/Auth'
 
 interface ReactHookResult<
-  Params = Record<string, any>,
+  Params = Record<string, string>,
 > {
   params: Params
   router: ExpoRouter.Router,
