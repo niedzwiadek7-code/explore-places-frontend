@@ -10,6 +10,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useToast } from 'react-native-paper-toast'
 import { useAuth } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
+import LoadingButton from '@/components/UI/LoadingButton'
 
 const CELL_COUNT = 6
 
@@ -162,12 +163,14 @@ const ConfirmPage = () => {
         ) => LocalCodeField(localValue, onChange, onBlur)}
       />
 
-      <Button
-        mode="contained"
-        onPress={handleSubmit(onSubmit)}
-      >
-        Zaloguj się
-      </Button>
+      <LoadingButton>
+        <Button
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+        >
+          Zaloguj się
+        </Button>
+      </LoadingButton>
     </View>
   )
 }

@@ -6,6 +6,7 @@ import {
 import React from 'react'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
+import LoadingButton from '@/components/UI/LoadingButton'
 
 type FormData = {
   email: string
@@ -76,12 +77,14 @@ const LoginPage = () => {
         )}
       </View>
 
-      <Button
-        mode="contained"
-        onPress={handleSubmit(onSubmit)}
-      >
-        Zaloguj się
-      </Button>
+      <LoadingButton>
+        <Button
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+        >
+          Zaloguj się
+        </Button>
+      </LoadingButton>
 
       <Text
         style={{
