@@ -8,7 +8,7 @@ type AxiosHeader = {
 export default class ApiService {
   private readonly baseUrl: string
 
-  private readonly token?: string
+  private token?: string
 
   getHeader(headers: HeadersType = {}): AxiosHeader {
     const header: AxiosHeader = {
@@ -76,6 +76,10 @@ export default class ApiService {
       // console.log(err)
       throw new Error()
     }
+  }
+
+  public setToken(token: string) {
+    this.token = token
   }
 
   constructor(baseUrl: string, token?: string) {
