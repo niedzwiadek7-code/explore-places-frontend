@@ -99,7 +99,7 @@ const ConfirmPage = () => {
         type: 'success',
       })
       router.replace({
-        pathname: '(home)',
+        pathname: '(home)/home',
         params: {
           email: email || '',
         },
