@@ -14,6 +14,6 @@ export class Activities {
   }
 
   async getActivities(count: number) {
-    return this.apiService.get<IActivity>(`/api/activities/?count=${count}`)
+    return this.apiService.get<IActivity[]>(`/api/activities/?count=${count}`)
   }
 }

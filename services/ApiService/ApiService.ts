@@ -82,6 +82,10 @@ export default class ApiService {
     this.token = token
   }
 
+  public getToken() {
+    return this.token
+  }
+
   constructor(baseUrl: string, token?: string) {
     this.baseUrl = baseUrl
     if (this.token) {
