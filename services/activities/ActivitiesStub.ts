@@ -3,6 +3,7 @@ import ApiService from '@/services/ApiService/ApiService'
 import {
   activitiesData, unauthorizedError,
 } from '@/services/activities/test/data'
+import { activityTransformer } from '@/services/activities/transformers'
 
 export class ActivitiesStub implements Activities {
   readonly apiService: ApiService = new ApiService('')
@@ -19,6 +20,7 @@ export class ActivitiesStub implements Activities {
     if (this.apiService.getToken() !== 'accessToken') {
       throw new Error(unauthorizedError.detail)
     }
-    return this.activitiesData.slice(0, count)
+    const results = this.activitiesData.slice(0, count)
+    return results.map((iActivity) => activityTransformer(iActivity))
   }
 }

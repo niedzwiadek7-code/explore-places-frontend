@@ -1,6 +1,7 @@
 import ApiService from '@/services/ApiService/ApiService'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 import { IActivity } from '@/services/activities/types'
+import { activityTransformer } from '@/services/activities/transformers'
 
 export class Activities {
   readonly apiService: ApiService
@@ -14,6 +15,7 @@ export class Activities {
   }
 
   async getActivities(count: number) {
-    return this.apiService.get<IActivity[]>(`/api/activities/?count=${count}`)
+    const results = await this.apiService.get<IActivity[]>(`/api/activities/?count=${count}`)
+    return results.map((iActivity) => activityTransformer(iActivity))
   }
 }
