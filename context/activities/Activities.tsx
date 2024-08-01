@@ -3,7 +3,7 @@
 import React, {
   createContext, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react'
-import * as SecureStore from 'expo-secure-store'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Fifo } from '@/utils/collections'
 import { ActivityModel } from '@/models'
 
@@ -44,7 +44,7 @@ export const ActivitiesProvider: React.FC<ProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const loadActivities = async () => {
-      const activities = await SecureStore.getItemAsync('activities')
+      const activities = await AsyncStorage.getItem('activities')
 
       if (activities) {
         const activitiesModels: ActivityModel[] = JSON.parse(activities)
@@ -56,19 +56,19 @@ export const ActivitiesProvider: React.FC<ProviderProps> = ({ children }) => {
   }, [])
 
   const clearActivities = useCallback(async () => {
-    await SecureStore.deleteItemAsync('activities')
+    await AsyncStorage.removeItem('activities')
     setActivitiesQueue(new ActivitiesQueue())
   }, [])
 
   const addActivities = useCallback(async (activities: ActivityModel[]): Promise<void> => {
     activities.forEach((activity) => activitiesQueue.add(activity))
-    await SecureStore.setItemAsync('activities', JSON.stringify(activitiesQueue.toArray()))
+    await AsyncStorage.setItem('activities', JSON.stringify(activitiesQueue.toArray()))
     setActivitiesQueue(activitiesQueue)
   }, [activitiesQueue])
 
   const popActivity = useCallback(async (): Promise<ActivityModel | undefined> => {
     const activity = activitiesQueue.remove()
-    await SecureStore.setItemAsync('activities', JSON.stringify(activitiesQueue.toArray()))
+    await AsyncStorage.setItem('activities', JSON.stringify(activitiesQueue.toArray()))
     setActivitiesQueue(activitiesQueue)
     return activity
   }, [activitiesQueue])
