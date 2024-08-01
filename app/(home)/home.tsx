@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ImageBackground, TouchableOpacity, View } from 'react-native'
 import {
-  Button, Card, Text,
+  Card, IconButton, Text,
 } from 'react-native-paper'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useActivities } from '@/context/activities/Activities'
 import { ActivityModel } from '@/models'
 import { ListItem } from '@/utils/collections'
+import ModalComponent from '@/components/UI/Modal'
 
 const Home = () => {
   const { getActivitiesQueueSize, addActivities, popActivity } = useActivities()
@@ -23,8 +24,8 @@ const Home = () => {
 
     const activityTmp = await popActivity()
     if (activityTmp) {
-      setActivity(activityTmp)
       setImage(activityTmp.images.get(0))
+      setActivity(activityTmp)
     }
   }, [addActivities, getActivitiesQueueSize, popActivity, token])
 
@@ -49,6 +50,7 @@ const Home = () => {
           top: 0,
           bottom: 0,
           width: '20%',
+          height: '85%',
           zIndex: 1000,
         }}
         onPress={() => setImage(image.prev())}
@@ -58,8 +60,8 @@ const Home = () => {
           position: 'absolute',
           right: 0,
           top: 0,
-          bottom: 0,
           width: '20%',
+          height: '85%',
           zIndex: 1000,
         }}
         onPress={() => setImage(image.next())}
@@ -97,22 +99,92 @@ const Home = () => {
             >
               {activity.name}
             </Text>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 15,
+              }}
+            >
+              <IconButton
+                icon="heart"
+                size={35}
+                mode="contained"
+                onPress={() => console.log('hearts')}
+              />
+              <IconButton
+                icon="comment"
+                mode="contained"
+                size={35}
+                onPress={() => console.log('comment')}
+              />
+              <IconButton
+                icon="share"
+                mode="contained"
+                size={35}
+                onPress={() => console.log('share')}
+              />
+              <IconButton
+                icon="map"
+                mode="contained"
+                size={35}
+                onPress={() => console.log('map')}
+              />
+              <ModalComponent
+                button={(
+                  <IconButton
+                    icon="information"
+                    mode="contained"
+                    size={35}
+                    onPress={() => console.log('details')}
+                  />
+                )}
+              >
+                <View>
+                  <Text
+                    variant="titleLarge"
+                    style={{
+                      fontFamily: 'OpenSans',
+                    }}
+                  >
+                    {activity.name}
+                  </Text>
+
+                  <Text
+                    variant="bodyMedium"
+                    style={{
+                      fontFamily: 'OpenSans',
+                      marginTop: 20,
+                    }}
+                  >
+                    {activity.description}
+                  </Text>
+
+                  <Text
+                    variant="titleMedium"
+                    style={{
+                      fontFamily: 'OpenSans',
+                      marginTop: 10,
+                    }}
+                  >
+                    Adres:
+                  </Text>
+                  <Text
+                    variant="bodyMedium"
+                    style={{
+                      fontFamily: 'OpenSans',
+                    }}
+                  >
+                    {activity.address.toString()}
+                  </Text>
+                </View>
+              </ModalComponent>
+            </View>
           </Card.Content>
-          <Button
-            mode="contained-tonal"
-            onPress={fetchData}
-            style={{
-              marginLeft: 10,
-              marginRight: 10,
-              marginTop: 15,
-              marginBottom: 10,
-            }}
-          >
-            Pokaż więcej
-          </Button>
         </Card>
       </ImageBackground>
-      {/* <Text>Home</Text> */}
     </View>
   )
 }

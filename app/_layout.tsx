@@ -32,7 +32,10 @@ SplashScreen.preventAutoHideAsync()
 
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme()
-  const { theme } = useMaterial3Theme()
+  const { theme } = useMaterial3Theme({
+    fallbackSourceColor: '#00A859',
+    // sourceColor: 'blue',
+  })
 
   const paperTheme = colorScheme === 'dark'
     ? { ...MD3DarkTheme, colors: theme.dark }

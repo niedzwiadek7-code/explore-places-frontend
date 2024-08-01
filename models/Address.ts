@@ -42,4 +42,8 @@ export class AddressModel {
   public get zip(): string {
     return this._zip
   }
+
+  public toString(): string {
+    return `${this._street}, ${this._city}, ${this._state}, ${this._country}, ${this._zip}`
+  }
 }
