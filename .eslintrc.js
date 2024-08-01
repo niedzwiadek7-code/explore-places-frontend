@@ -69,5 +69,6 @@ module.exports = {
     ],
     'linebreak-style': 0,
     'no-underscore-dangle': 0,
+    'react/jsx-one-expression-per-line': 0,
   },
 }

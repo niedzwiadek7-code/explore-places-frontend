@@ -1,11 +1,12 @@
 import { AddressModel, CoordinatesModel } from '@/models'
+import { List } from '@/utils/collections'
 
 export class ActivityModel {
   readonly _name: string
 
   readonly _description: string
 
-  readonly _images: string[]
+  readonly _images: List<string>
 
   readonly _address: AddressModel
 
@@ -20,7 +21,7 @@ export class ActivityModel {
   ) {
     this._name = name
     this._description = description
-    this._images = images
+    this._images = new List(images)
     this._address = address
     this._coordinates = coordinates
   }
@@ -41,7 +42,7 @@ export class ActivityModel {
     return this._coordinates
   }
 
-  public get images(): string[] {
+  public get images(): List<string> {
     return this._images
   }
 }

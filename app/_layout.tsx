@@ -58,6 +58,10 @@ const RootLayout = () => {
   const [loaded, error] = useFonts({
     // eslint-disable-next-line global-require
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    // eslint-disable-next-line global-require
+    Montserrat: require('../assets/fonts/Montserrat-VariableFont_wght.ttf'),
+    // eslint-disable-next-line global-require
+    OpenSans: require('../assets/fonts/OpenSans-Regular.ttf'),
     ...FontAwesome.font,
   })
 

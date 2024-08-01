@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, View } from 'react-native'
+import { ImageBackground, TouchableOpacity, View } from 'react-native'
 import {
-  Avatar, Button, Card, Text,
+  Button, Card, Text,
 } from 'react-native-paper'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useActivities } from '@/context/activities/Activities'
 import { ActivityModel } from '@/models'
+import { ListItem } from '@/utils/collections'
 
 const Home = () => {
   const { getActivitiesQueueSize, addActivities, popActivity } = useActivities()
   const { token } = useAuth()
-  const [activity, setActivity] = useState<ActivityModel | undefined>(null)
+  const [activity, setActivity] = useState<ActivityModel | undefined>(undefined)
+  const [image, setImage] = useState<ListItem<string> | undefined>(undefined)
 
   const fetchData = useCallback(async () => {
     if (getActivitiesQueueSize() < 1) {
@@ -20,48 +22,96 @@ const Home = () => {
     }
 
     const activityTmp = await popActivity()
-    setActivity(activityTmp)
+    if (activityTmp) {
+      setActivity(activityTmp)
+      setImage(activityTmp.images.get(0))
+    }
   }, [addActivities, getActivitiesQueueSize, popActivity, token])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
-  if (!activity) {
+  if (!activity || !image) {
     return <Text>Loading...</Text>
   }
 
-  const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
-
   return (
-    <View>
-      <Card>
-        <ImageBackground
-          source={{ uri: 'https://picsum.photos/700' }}
-          // resizeMethod="auto"
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: '20%',
+          zIndex: 1000,
+        }}
+        onPress={() => setImage(image.prev())}
+      />
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '20%',
+          zIndex: 1000,
+        }}
+        onPress={() => setImage(image.next())}
+      />
+      <ImageBackground
+        source={{ uri: image.value }}
+        imageStyle={{
+          borderRadius: 15,
+        }}
+        style={{
+          margin: 10,
+          flex: 1,
+        }}
+      >
+        <Card
           style={{
-            width: 'auto',
-            height: '100%',
+            flex: 1,
+            justifyContent: 'flex-end',
+            backgroundColor: 'rgba(0,0,0,.0)',
           }}
+          mode="contained"
         >
-          <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
           <Card.Content>
-            <Text variant="titleLarge">Card title</Text>
-            <Text variant="bodyMedium">Card content</Text>
-            <Text variant="bodyMedium">
-              {' '}
-              {JSON.stringify(activity)}
-              {' '}
+            <Text
+              variant="titleLarge"
+              style={{
+                fontFamily: 'OpenSans',
+                color: 'white',
+                fontWeight: 900,
+                textDecorationStyle: 'solid',
+                textShadowColor: 'black',
+                textShadowOffset: { width: 1, height: 1 },
+                textShadowRadius: 0.6,
+              }}
+            >
+              {activity.name}
             </Text>
           </Card.Content>
-          {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-          <Card.Actions>
-            <Button>Cancel</Button>
-            <Button onPress={fetchData}>Ok</Button>
-          </Card.Actions>
-        </ImageBackground>
-
-      </Card>
+          <Button
+            mode="contained-tonal"
+            onPress={fetchData}
+            style={{
+              marginLeft: 10,
+              marginRight: 10,
+              marginTop: 15,
+              marginBottom: 10,
+            }}
+          >
+            Pokaż więcej
+          </Button>
+        </Card>
+      </ImageBackground>
       {/* <Text>Home</Text> */}
     </View>
   )

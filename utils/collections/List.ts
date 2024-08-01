@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 export class ListItem<T> {
   private list: List<T>
 
@@ -35,8 +37,13 @@ export class List<T> {
     return this.items.length
   }
 
-  get(index: number) {
-    return new ListItem(this, index, this.items[index])
+  get(indexParam: number) {
+    let index = indexParam
+    const size = this.size()
+    if (index < 0) {
+      index += size
+    }
+    return new ListItem(this, index % size, this.items[index % size])
   }
 
   add(item: T) {
