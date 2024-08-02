@@ -9,6 +9,7 @@ import { useActivities } from '@/context/activities/Activities'
 import { ActivityModel } from '@/models'
 import { ListItem } from '@/utils/collections'
 import ModalComponent from '@/components/UI/Modal'
+import LoadingView from '@/components/UI/LoadingView'
 
 const Home = () => {
   const { getActivitiesQueueSize, addActivities, popActivity } = useActivities()
@@ -34,7 +35,7 @@ const Home = () => {
   }, [fetchData])
 
   if (!activity || !image) {
-    return <Text>Loading...</Text>
+    return <LoadingView />
   }
 
   return (
