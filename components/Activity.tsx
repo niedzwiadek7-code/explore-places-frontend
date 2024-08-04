@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { ImageBackground, TouchableOpacity, View } from 'react-native'
+import {
+  ImageBackground, SafeAreaView, TouchableOpacity, View,
+} from 'react-native'
 import { Card, IconButton, Text } from 'react-native-paper'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
@@ -12,9 +14,9 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [image, setImage] = useState(activity.images.get(0))
 
   return (
-    <View
+    <SafeAreaView
       style={{
-        flex: 1,
+        height: '100%',
       }}
     >
       <TouchableOpacity
@@ -44,6 +46,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
         source={{ uri: image.value }}
         imageStyle={{
           borderRadius: 15,
+          objectFit: 'cover',
         }}
         style={{
           margin: 10,
@@ -159,7 +162,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
           </Card.Content>
         </Card>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   )
 }
 

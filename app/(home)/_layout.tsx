@@ -44,6 +44,7 @@ const Layout = () => {
       <Tabs.Screen
         name="home"
         options={{
+          headerShown: false,
           tabBarLabel: 'Home',
           title: 'Home',
           tabBarIcon: ({ color, size }) => <Icon source="home" size={size} color={color} />,

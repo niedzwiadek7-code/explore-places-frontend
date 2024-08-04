@@ -2,6 +2,8 @@ import { AddressModel, CoordinatesModel } from '@/models'
 import { List } from '@/utils/collections'
 
 export class ActivityModel {
+  readonly _id: number
+
   readonly _name: string
 
   readonly _description: string
@@ -13,17 +15,23 @@ export class ActivityModel {
   readonly _coordinates: CoordinatesModel
 
   constructor(
+    id: number,
     name: string,
     description: string,
     images: string[],
     address: AddressModel,
     coordinates: CoordinatesModel,
   ) {
+    this._id = id
     this._name = name
     this._description = description
     this._images = new List(images)
     this._address = address
     this._coordinates = coordinates
+  }
+
+  public get id(): number {
+    return this._id
   }
 
   public get name(): string {

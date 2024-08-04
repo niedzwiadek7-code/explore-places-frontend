@@ -1,40 +1,41 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { SafeAreaView } from 'react-native'
+import { Text } from 'react-native-paper'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
-import { useActivities } from '@/context/activities/Activities'
 import { ActivityModel } from '@/models'
 import LoadingView from '@/components/UI/LoadingView'
 import Activity from '@/components/Activity'
+import CustomList from '@/components/CustomList'
 
 const Home = () => {
-  const { getActivitiesQueueSize, addActivities, popActivity } = useActivities()
   const { token } = useAuth()
-  const [activity, setActivity] = useState<ActivityModel | undefined>(undefined)
+  const [activities, setActivities] = useState<ActivityModel[]>([])
 
   const fetchData = useCallback(async () => {
-    if (getActivitiesQueueSize() < 1) {
-      const activities = await ActivitiesFactory.create(token).getActivities(2)
-      await addActivities(activities)
-    }
-
-    const activityTmp = await popActivity()
-    if (activityTmp) {
-      setActivity(activityTmp)
-    }
-  }, [addActivities, getActivitiesQueueSize, popActivity, token])
+    const activitiesTmp = await ActivitiesFactory.create(token).getActivities(2)
+    setActivities(activitiesTmp)
+  }, [token])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
-  if (!activity) {
+  if (!activities.length) {
     return <LoadingView />
   }
 
   return (
-    <Activity
-      activity={activity}
-    />
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}
+    >
+      <CustomList
+        data={activities}
+        renderItem={(activity) => <Activity activity={activity} />}
+      />
+    </SafeAreaView>
   )
 }
 
