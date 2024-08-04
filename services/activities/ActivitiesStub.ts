@@ -10,6 +10,8 @@ export class ActivitiesStub implements Activities {
 
   readonly activitiesData = activitiesData
 
+  private executionCount = 0
+
   constructor(token: string) {
     if (token) {
       this.apiService.setToken(token)
@@ -20,7 +22,11 @@ export class ActivitiesStub implements Activities {
     if (this.apiService.getToken() !== 'accessToken') {
       throw new Error(unauthorizedError.detail)
     }
-    const results = this.activitiesData.slice(0, count)
+    const results = this.activitiesData.slice(0, count).map((activity) => ({
+      ...activity,
+      id: activity.id + (this.executionCount * this.activitiesData.length),
+    }))
+    this.executionCount += 1
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 }

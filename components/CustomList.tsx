@@ -6,24 +6,33 @@ type IBasicObj = {
 }
 
 type IProps<T extends IBasicObj> = {
-  data: T[]
+  data: T[],
   renderItem: (item: T) => ReactElement,
+  fetchMoreData?: () => Promise<T[]>,
 }
 
-const CustomList = <T extends IBasicObj>({ data, renderItem }: IProps<T>) => {
+const CustomList = <T extends IBasicObj>({ data, fetchMoreData, renderItem }: IProps<T>) => {
+  const [localData, setLocalData] = useState<T[]>(data)
   const listRef = React.useRef<FlatList>(null)
   const [startScrollY, setStartScrollY] = useState<number>(0)
   const [actualIndex, setActualIndex] = useState<number>(0)
   const windowHeight = Dimensions.get('window').height
 
-  const scrollToIndex = (index: number) => {
-    if (index >= 0 && index < data.length) {
-      setActualIndex(index)
+  const scrollToIndex = async (index: number) => {
+    if (index >= 0 && index < localData.length) {
       if (listRef.current) {
         listRef.current.scrollToIndex({
           index,
           animated: true,
         })
+      }
+      setActualIndex(index)
+    }
+
+    if (index > localData.length - 2) {
+      if (fetchMoreData) {
+        const fetchedData = await fetchMoreData()
+        setLocalData([...localData, ...fetchedData])
       }
     }
   }
@@ -39,7 +48,7 @@ const CustomList = <T extends IBasicObj>({ data, renderItem }: IProps<T>) => {
         flex: 1,
       }}
       ref={listRef}
-      data={data}
+      data={localData}
       renderItem={({ item }) => renderItem(item)}
       keyExtractor={(item) => item.id}
       showsHorizontalScrollIndicator={false}
@@ -48,17 +57,17 @@ const CustomList = <T extends IBasicObj>({ data, renderItem }: IProps<T>) => {
         const { y } = event.nativeEvent.contentOffset
         setStartScrollY(y)
       }}
-      onScrollEndDrag={(event) => {
+      onScrollEndDrag={async (event) => {
         const { y } = event.nativeEvent.contentOffset
         const heightToScroll = windowHeight * 0.15
         const scrolled = y - startScrollY
 
         if (scrolled > heightToScroll) {
-          scrollToIndex(actualIndex + 1)
+          await scrollToIndex(actualIndex + 1)
         } else if (scrolled < -heightToScroll) {
-          scrollToIndex(actualIndex - 1)
+          await scrollToIndex(actualIndex - 1)
         } else {
-          scrollToIndex(actualIndex)
+          await scrollToIndex(actualIndex)
         }
       }}
     />
