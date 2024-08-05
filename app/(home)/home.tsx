@@ -7,7 +7,7 @@ import LoadingView from '@/components/UI/LoadingView'
 import Activity from '@/components/Activity'
 import CustomList from '@/components/CustomList'
 
-const ACTIVITIES_COUNT = 2
+const ACTIVITIES_COUNT = 10
 
 const Home = () => {
   const { token } = useAuth()

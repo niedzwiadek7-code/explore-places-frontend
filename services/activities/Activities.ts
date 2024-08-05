@@ -15,7 +15,7 @@ export class Activities {
   }
 
   async getActivities(count: number) {
-    const results = await this.apiService.get<IActivity[]>(`/api/activities/?count=${count}`)
+    const results = await this.apiService.get<IActivity[]>(`/api/get-activities?count=${count}`)
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 }
