@@ -28,4 +28,9 @@ export class Activities {
     await this.apiService.post(`/api/unlike-activity/${activityId}/`)
     return true
   }
+
+  async getLikedActivities() {
+    const results = await this.apiService.get<IActivity[]>('/api/liked-activities/')
+    return results.map((iActivity) => activityTransformer(iActivity))
+  }
 }
