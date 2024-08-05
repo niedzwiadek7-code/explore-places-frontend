@@ -18,9 +18,10 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
   return new ActivityModel(
     iActivity.id,
     iActivity.name,
-    iActivity.description,
+    iActivity.description || '',
     iActivity.images,
     addressModel,
     coordinatesModel,
+    iActivity.liked_by_user || false,
   )
 }

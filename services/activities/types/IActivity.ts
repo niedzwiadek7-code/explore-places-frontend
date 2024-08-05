@@ -1,7 +1,7 @@
 export type IActivity = {
   id: number
   name: string
-  description: string
+  description: string | null
   images: string[]
   destination_resource: string
   migration_data: Record<string, string>
@@ -13,4 +13,5 @@ export type IActivity = {
   latitude: number
   longitude: number
   owner: string | null
+  liked_by_user?: boolean
 }

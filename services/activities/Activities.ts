@@ -18,4 +18,14 @@ export class Activities {
     const results = await this.apiService.get<IActivity[]>(`/api/get-activities?count=${count}`)
     return results.map((iActivity) => activityTransformer(iActivity))
   }
+
+  async likeActivity(activityId: number) {
+    await this.apiService.post(`/api/like-activity/${activityId}/`)
+    return true
+  }
+
+  async unlikeActivity(activityId: number) {
+    await this.apiService.post(`/api/unlike-activity/${activityId}/`)
+    return true
+  }
 }

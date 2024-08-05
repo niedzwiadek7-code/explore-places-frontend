@@ -1,3 +1,6 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Activities } from '@/services/activities/Activities'
 import ApiService from '@/services/ApiService/ApiService'
 import {
@@ -28,5 +31,13 @@ export class ActivitiesStub implements Activities {
     }))
     this.executionCount += 1
     return results.map((iActivity) => activityTransformer(iActivity))
+  }
+
+  async likeActivity(activityId: number) {
+    return true
+  }
+
+  async unlikeActivity(activityId: number) {
+    return true
   }
 }

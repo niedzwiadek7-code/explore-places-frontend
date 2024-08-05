@@ -14,6 +14,8 @@ export class ActivityModel {
 
   readonly _coordinates: CoordinatesModel
 
+  private _likedByUser: boolean
+
   constructor(
     id: number,
     name: string,
@@ -21,6 +23,7 @@ export class ActivityModel {
     images: string[],
     address: AddressModel,
     coordinates: CoordinatesModel,
+    likedByUser: boolean,
   ) {
     this._id = id
     this._name = name
@@ -28,6 +31,7 @@ export class ActivityModel {
     this._images = new List(images)
     this._address = address
     this._coordinates = coordinates
+    this._likedByUser = likedByUser
   }
 
   public get id(): number {
@@ -52,5 +56,9 @@ export class ActivityModel {
 
   public get images(): List<string> {
     return this._images
+  }
+
+  public get likedByUser(): boolean {
+    return this._likedByUser
   }
 }

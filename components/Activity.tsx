@@ -5,6 +5,8 @@ import {
 import { Card, IconButton, Text } from 'react-native-paper'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
+import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
+import { useAuth } from '@/context/auth/Auth'
 
 type Props = {
   activity: ActivityModel
@@ -12,6 +14,19 @@ type Props = {
 
 const Activity: React.FC<Props> = ({ activity }) => {
   const [image, setImage] = useState(activity.images.get(0))
+  const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
+  const { token } = useAuth()
+
+  const likeAction = async () => {
+    if (likedByUser) {
+      setLikedByUser(false)
+      await ActivitiesFactory.create(token).unlikeActivity(activity.id)
+      return
+    }
+
+    setLikedByUser(true)
+    await ActivitiesFactory.create(token).likeActivity(activity.id)
+  }
 
   return (
     <SafeAreaView
@@ -88,24 +103,28 @@ const Activity: React.FC<Props> = ({ activity }) => {
               <IconButton
                 icon="heart"
                 size={35}
-                mode="contained"
-                onPress={() => console.log('hearts')}
+                iconColor={likedByUser ? 'red' : 'white'}
+                containerColor={likedByUser ? 'rgba(50,0,0,.5)' : 'rgba(0,0,0,.5)'}
+                onPress={likeAction}
               />
               <IconButton
                 icon="comment"
-                mode="contained"
+                iconColor="white"
+                containerColor="rgba(0,0,0,.5)"
                 size={35}
                 onPress={() => console.log('comment')}
               />
               <IconButton
                 icon="share"
-                mode="contained"
+                iconColor="white"
+                containerColor="rgba(0,0,0,.5)"
                 size={35}
                 onPress={() => console.log('share')}
               />
               <IconButton
                 icon="map"
-                mode="contained"
+                iconColor="white"
+                containerColor="rgba(0,0,0,.5)"
                 size={35}
                 onPress={() => console.log('map')}
               />
@@ -113,9 +132,9 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 button={(
                   <IconButton
                     icon="information"
-                    mode="contained"
+                    iconColor="white"
+                    containerColor="rgba(0,0,0,.5)"
                     size={35}
-                    onPress={() => console.log('details')}
                   />
                 )}
               >
