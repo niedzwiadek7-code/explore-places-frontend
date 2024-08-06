@@ -1,4 +1,6 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, {
+  ReactElement, useRef, useState,
+} from 'react'
 import { FlatList } from 'react-native'
 
 type IBasicObj = {
@@ -9,11 +11,24 @@ type IProps<T extends IBasicObj> = {
   data: T[],
   renderItem: (item: T) => ReactElement,
   fetchMoreData?: () => Promise<T[]>,
+  index?: number,
 }
 
-const CustomList = <T extends IBasicObj>({ data, fetchMoreData, renderItem }: IProps<T>) => {
+const CustomList = <T extends IBasicObj>(
+  {
+    data,
+    fetchMoreData,
+    renderItem,
+    index = 0,
+  }: IProps<T>,
+) => {
   const [localData, setLocalData] = useState<T[]>(data)
   const listRef = useRef<FlatList>(null)
+
+  // listRef.current?.scrollToIndex({
+  //   index,
+  //   animated: true,
+  // })
 
   return (
     <FlatList
@@ -28,7 +43,7 @@ const CustomList = <T extends IBasicObj>({ data, fetchMoreData, renderItem }: IP
       ref={listRef}
       data={localData}
       renderItem={({ item }) => renderItem(item)}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       onViewableItemsChanged={async ({ viewableItems }) => {
@@ -39,6 +54,15 @@ const CustomList = <T extends IBasicObj>({ data, fetchMoreData, renderItem }: IP
         }
       }}
       pagingEnabled
+      onLayout={async () => {
+        // TODO: Fix this hack
+        const wait = new Promise((resolve) => setTimeout(resolve, 0))
+        await wait
+        listRef.current?.scrollToIndex({
+          index,
+          animated: false,
+        })
+      }}
     />
   )
 }

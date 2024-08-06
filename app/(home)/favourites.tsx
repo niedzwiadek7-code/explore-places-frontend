@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
+  BackHandler,
   FlatList, ImageBackground, SafeAreaView,
 } from 'react-native'
 import { Card, Text } from 'react-native-paper'
@@ -9,10 +10,28 @@ import { useAuth } from '@/context/auth/Auth'
 import { ActivityModel } from '@/models'
 import { useFetch } from '@/hooks/useFetch'
 import LoadingView from '@/components/UI/LoadingView'
+import CustomList from '@/components/CustomList'
+import Activity from '@/components/Activity'
 
 const TabTwoScreen = () => {
   // TODO: show this points on map
   const { token } = useAuth()
+  const [showList, setShowList] = useState(false)
+  const [index, setIndex] = useState<number>(0)
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        if (showList) {
+          setShowList(false)
+        }
+        return true
+      },
+    )
+
+    return () => backHandler.remove()
+  }, [showList])
 
   const fetchData = useCallback(
     async (): Promise<ActivityModel[]> => ActivitiesFactory.create(token).getLikedActivities(),
@@ -36,6 +55,11 @@ const TabTwoScreen = () => {
       style={{
         flex: 0.5,
         height: 275,
+      }}
+      onTouchEnd={() => {
+        setShowList(!showList)
+        const localIndex = data.findIndex((activity) => activity.id === item.id)
+        setIndex(localIndex)
       }}
     >
       <ImageBackground
@@ -86,34 +110,43 @@ const TabTwoScreen = () => {
       <Tabs>
         <TabScreen
           label="Polubione"
-          // icon="heart"
         >
           <SafeAreaView style={{
             flex: 1,
             marginVertical: 5,
           }}
           >
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id.toString()}
-              numColumns={2}
-              showsHorizontalScrollIndicator
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
-              contentContainerStyle={{
-                flex: 1,
-              }}
-            />
+            {
+              showList
+                ? (
+                  <CustomList
+                    data={data}
+                    renderItem={(activity) => <Activity activity={activity} />}
+                    index={index}
+                  />
+                ) : (
+                  <FlatList
+                    data={data}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    numColumns={2}
+                    showsHorizontalScrollIndicator
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                    }}
+                    contentContainerStyle={{
+                      flex: 1,
+                    }}
+                  />
+                )
+             }
           </SafeAreaView>
         </TabScreen>
 
         <TabScreen
           label="Zapisane"
-          // icon="map"
         >
           <SafeAreaView>
             <Text>Zapisane</Text>
