@@ -5,7 +5,6 @@ import {
 import {
   Button, Card, IconButton, Text,
 } from 'react-native-paper'
-import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
@@ -143,6 +142,15 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     gap: 15,
                   }}
                 >
+                  <Text
+                    variant="titleMedium"
+                    style={{
+                      fontFamily: 'OpenSans',
+                    }}
+                  >
+                    {activity.address.toString()}
+                  </Text>
+
                   <View
                     style={{
                       height: 450,
