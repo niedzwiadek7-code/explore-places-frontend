@@ -20,10 +20,12 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const likeAction = async () => {
     if (likedByUser) {
       setLikedByUser(false)
+      activity.unlike()
       await ActivitiesFactory.create(token).unlikeActivity(activity.id)
       return
     }
 
+    activity.like()
     setLikedByUser(true)
     await ActivitiesFactory.create(token).likeActivity(activity.id)
   }

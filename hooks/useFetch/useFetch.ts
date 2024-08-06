@@ -14,6 +14,7 @@ interface FetchHookProps<T> {
 interface FetchHookResult<T> {
   data: DataType<T>
   loading: boolean
+  setData: (data: DataType<T>) => void
 }
 
 const useFetch = <T>({
@@ -42,6 +43,7 @@ const useFetch = <T>({
   return {
     data,
     loading,
+    setData,
   }
 }
 

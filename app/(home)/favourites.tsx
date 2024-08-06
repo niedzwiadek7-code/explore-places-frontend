@@ -41,10 +41,15 @@ const TabTwoScreen = () => {
   const {
     data,
     loading,
+    setData,
   } = useFetch({
     fetchData,
     defaultData: [],
   })
+
+  useEffect(() => {
+    setData(data.filter((activity) => activity.likedByUser))
+  }, [showList])
 
   if (loading) {
     return <LoadingView />

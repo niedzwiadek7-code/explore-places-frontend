@@ -61,4 +61,12 @@ export class ActivityModel {
   public get likedByUser(): boolean {
     return this._likedByUser
   }
+
+  public like(): void {
+    this._likedByUser = true
+  }
+
+  public unlike(): void {
+    this._likedByUser = false
+  }
 }
