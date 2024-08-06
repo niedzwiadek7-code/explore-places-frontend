@@ -7604,6 +7604,18 @@ react-native-helmet-async@2.0.4:
     react-fast-compare "^3.2.2"
     shallowequal "^1.1.0"
 
+react-native-pager-view@^6.3.3:
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-6.3.3.tgz#00c4426eb3d3b60fa8d5cf430a759209a32c2715"
+  integrity sha512-HViKBlfN/kBJUSu5mRL/V9Bkf1j7uDZozGAjbzh4o9XYo11qVcIK7IwvfzqrkNerVSDy/cAmZcXbcyWnII8xMA==
+
+react-native-paper-tabs@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/react-native-paper-tabs/-/react-native-paper-tabs-0.10.4.tgz#29eaa455aa0f7c6877c1b0d46914fa4a33f8e8c5"
+  integrity sha512-sIBau/9PdLhNUw4TvnHLvVy4NXwrv82r3r2ZGs7ng+Jr445YLPCfwq09u34pnCOCp7Z2JRv1UPQlqAHbXUcvMQ==
+  dependencies:
+    color "^4.2.3"
+
 react-native-paper-toast@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-paper-toast/-/react-native-paper-toast-2.0.0.tgz#389e71a4cd4139962f2e83c73edba570f1f0ce6b"

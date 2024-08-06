@@ -3,6 +3,7 @@ import {
   FlatList, ImageBackground, SafeAreaView,
 } from 'react-native'
 import { Card, Text } from 'react-native-paper'
+import { TabsProvider, Tabs, TabScreen } from 'react-native-paper-tabs'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivityModel } from '@/models'
@@ -79,27 +80,47 @@ const TabTwoScreen = () => {
   )
 
   return (
-    <SafeAreaView style={{
-      flex: 1,
-      marginVertical: 5,
-    }}
+    <TabsProvider
+      defaultIndex={0}
     >
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        showsHorizontalScrollIndicator
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}
-        contentContainerStyle={{
-          flex: 1,
-        }}
-      />
-    </SafeAreaView>
+      <Tabs>
+        <TabScreen
+          label="Polubione"
+          // icon="heart"
+        >
+          <SafeAreaView style={{
+            flex: 1,
+            marginVertical: 5,
+          }}
+          >
+            <FlatList
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={2}
+              showsHorizontalScrollIndicator
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}
+              contentContainerStyle={{
+                flex: 1,
+              }}
+            />
+          </SafeAreaView>
+        </TabScreen>
+
+        <TabScreen
+          label="Zapisane"
+          // icon="map"
+        >
+          <SafeAreaView>
+            <Text>Zapisane</Text>
+          </SafeAreaView>
+        </TabScreen>
+      </Tabs>
+    </TabsProvider>
   )
 }
 
