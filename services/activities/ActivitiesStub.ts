@@ -40,4 +40,10 @@ export class ActivitiesStub implements Activities {
   async unlikeActivity(activityId: number) {
     return true
   }
+
+  async getLikedActivities() {
+    return this.activitiesData
+      .filter((activity) => activity.liked_by_user)
+      .map((iActivity) => activityTransformer(iActivity))
+  }
 }
