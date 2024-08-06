@@ -14,12 +14,12 @@ class AuthClass {
 
   login: (params: LoginParams) => Promise<void>
 
-  logout: (type: LogoutType) => Promise<void>
+  logout: () => Promise<void>
 
   constructor(
     token: (string | null) = null,
     login: (params: LoginParams) => Promise<void> = async () => {},
-    logout: (type: LogoutType) => Promise<void> = async () => {},
+    logout: () => Promise<void> = async () => {},
   ) {
     this.token = token
     this.login = login
@@ -66,14 +66,8 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
     }
   }, [])
 
-  const logout = async (type: LogoutType) => {
-    switch (type) {
-      case 'email':
-        setToken(null)
-        break
-      default:
-        break
-    }
+  const logout = async () => {
+    setToken(null)
   }
 
   const value = useMemo(
