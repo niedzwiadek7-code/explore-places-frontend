@@ -1,27 +1,40 @@
 import React from 'react'
-import { View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
+import themeBackground from '@/assets/images/theme/primary.jpg'
 
 const LoginPage = () => {
   const { router } = useCustomRouter()
 
   return (
-    <View
+    <ImageBackground
+      source={themeBackground}
       style={{
         flex: 1,
-        padding: 30,
         justifyContent: 'center',
       }}
+      imageStyle={{
+        opacity: 0.7,
+      }}
     >
-      <Button
-        icon="email"
-        mode="contained"
-        onPress={() => router.push('/emailLogin')}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          padding: 30,
+        }}
       >
-        Zaloguj się przez email
-      </Button>
-    </View>
+        <Button
+          icon="email"
+          mode="contained"
+          onPress={() => router.push('/emailLogin')}
+        >
+          Zaloguj się przez email
+        </Button>
+      </View>
+    </ImageBackground>
+
   )
 }
 

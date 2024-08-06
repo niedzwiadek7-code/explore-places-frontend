@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import {
   Button, Text, TextInput, useTheme,
@@ -7,6 +7,7 @@ import React from 'react'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import LoadingButton from '@/components/UI/LoadingButton'
+import themeBackground from '@/assets/images/theme/primary.jpg'
 
 type FormData = {
   email: string
@@ -38,85 +39,96 @@ const RegisterPage = () => {
   }
 
   return (
-    <View
+    <ImageBackground
+      source={themeBackground}
       style={{
         flex: 1,
-        padding: 30,
         justifyContent: 'center',
+      }}
+      imageStyle={{
+        opacity: 0.7,
       }}
     >
       <View
         style={{
-          marginBottom: 10,
+          flex: 1,
+          padding: 30,
+          justifyContent: 'center',
         }}
       >
-        <Controller
-          control={control}
-          rules={{
-            required: true,
+        <View
+          style={{
+            marginBottom: 10,
           }}
-          render={({ field: { value, onChange, onBlur } }) => (
-            <TextInput
-              label="Email"
-              mode="outlined"
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-            />
-          )}
-          name="email"
-        />
-        {errors.email && (
-          <Text
-            style={{
-              color: 'red',
-              marginTop: 5,
-            }}
-          >
-            To pole jest wymagane
-          </Text>
-        )}
-      </View>
-
-      <LoadingButton>
-        <Button
-          mode="contained"
-          onPress={handleSubmit(onSubmit)}
         >
-          Zarejestruj się
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <TextInput
+                label="Email"
+                mode="outlined"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+              />
+            )}
+            name="email"
+          />
+          {errors.email && (
+            <Text
+              style={{
+                color: 'red',
+                marginTop: 5,
+              }}
+            >
+              To pole jest wymagane
+            </Text>
+          )}
+        </View>
+
+        <LoadingButton>
+          <Button
+            mode="contained"
+            onPress={handleSubmit(onSubmit)}
+          >
+            Zarejestruj się
+          </Button>
+        </LoadingButton>
+
+        <Text
+          style={{
+            marginTop: 20,
+            textAlign: 'center',
+            color: theme.colors.secondary,
+          }}
+        >
+          Masz konto?
+        </Text>
+
+        <Button
+          mode="elevated"
+          onPress={() => router.push('/emailLogin')}
+          style={{
+            marginTop: 5,
+          }}
+        >
+          Zaloguj się
         </Button>
-      </LoadingButton>
 
-      <Text
-        style={{
-          marginTop: 20,
-          textAlign: 'center',
-          color: theme.colors.secondary,
-        }}
-      >
-        Masz konto?
-      </Text>
-
-      <Button
-        mode="elevated"
-        onPress={() => router.push('/emailLogin')}
-        style={{
-          marginTop: 5,
-        }}
-      >
-        Zaloguj się
-      </Button>
-
-      <Button
-        mode="outlined"
-        onPress={() => router.navigate('/')}
-        style={{
-          marginTop: 25,
-        }}
-      >
-        Zmień metodę logowania
-      </Button>
-    </View>
+        <Button
+          mode="outlined"
+          onPress={() => router.navigate('/')}
+          style={{
+            marginTop: 25,
+          }}
+        >
+          Zmień metodę logowania
+        </Button>
+      </View>
+    </ImageBackground>
   )
 }
 

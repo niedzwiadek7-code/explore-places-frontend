@@ -1,4 +1,4 @@
-import { View, Platform } from 'react-native'
+import { View, Platform, ImageBackground } from 'react-native'
 import {
   Button, Text, TextInput, useTheme,
 } from 'react-native-paper'
@@ -11,6 +11,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useAuth } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
+import themeBackground from '@/assets/images/theme/primary.jpg'
 
 const CELL_COUNT = 6
 
@@ -115,63 +116,74 @@ const ConfirmPage = () => {
   } = useForm<FormData>()
 
   return (
-    <View
+    <ImageBackground
+      source={themeBackground}
       style={{
-        display: 'flex',
         flex: 1,
-        padding: 30,
         justifyContent: 'center',
-        gap: 20,
+      }}
+      imageStyle={{
+        opacity: 0.7,
       }}
     >
-      <Text
-        variant="titleLarge"
+      <View
         style={{
-          textAlign: 'center',
+          display: 'flex',
+          flex: 1,
+          padding: 30,
+          justifyContent: 'center',
+          gap: 20,
         }}
       >
-        {' '}
-        Kod weryfikacyjny
-        {' '}
-      </Text>
-
-      <Text
-        style={{
-          textAlign: 'center',
-        }}
-      >
-        {' '}
-        Wprowadź kod weryfikacyjny, który otrzymałeś na email:
-      </Text>
-
-      <Text
-        style={{
-          textAlign: 'center',
-        }}
-      >
-        {email}
-      </Text>
-
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        name="code"
-        render={(
-          { field: { value: localValue, onChange, onBlur } },
-        ) => LocalCodeField(localValue, onChange, onBlur)}
-      />
-
-      <LoadingButton>
-        <Button
-          mode="contained"
-          onPress={handleSubmit(onSubmit)}
+        <Text
+          variant="titleLarge"
+          style={{
+            textAlign: 'center',
+          }}
         >
-          Zaloguj się
-        </Button>
-      </LoadingButton>
-    </View>
+          {' '}
+          Kod weryfikacyjny
+          {' '}
+        </Text>
+
+        <Text
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          {' '}
+          Wprowadź kod weryfikacyjny, który otrzymałeś na email:
+        </Text>
+
+        <Text
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          {email}
+        </Text>
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          name="code"
+          render={(
+            { field: { value: localValue, onChange, onBlur } },
+          ) => LocalCodeField(localValue, onChange, onBlur)}
+        />
+
+        <LoadingButton>
+          <Button
+            mode="contained"
+            onPress={handleSubmit(onSubmit)}
+          >
+            Zaloguj się
+          </Button>
+        </LoadingButton>
+      </View>
+    </ImageBackground>
   )
 }
 
