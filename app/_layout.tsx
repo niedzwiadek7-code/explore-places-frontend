@@ -15,7 +15,6 @@ import {
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
 import { AuthProvider } from '@/context/auth/Auth'
-import { ActivitiesProvider } from '@/context/activities/Activities'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -45,12 +44,10 @@ const RootLayoutNav = () => {
     <PaperProvider theme={paperTheme}>
       <ToastProvider>
         <AuthProvider>
-          <ActivitiesProvider>
-            <Stack initialRouteName="(login)">
-              <Stack.Screen name="(login)" options={{ headerShown: false }} />
-              <Stack.Screen name="(home)" options={{ headerShown: false }} />
-            </Stack>
-          </ActivitiesProvider>
+          <Stack initialRouteName="(login)">
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+            <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          </Stack>
         </AuthProvider>
       </ToastProvider>
     </PaperProvider>
