@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import {
   ImageBackground, SafeAreaView, TouchableOpacity, View,
 } from 'react-native'
-import { Card, IconButton, Text } from 'react-native-paper'
+import {
+  Button, Card, IconButton, Text,
+} from 'react-native-paper'
+import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
+import MapPoint from '@/components/Map/MapPoint'
 
 type Props = {
   activity: ActivityModel
@@ -123,13 +127,40 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 size={35}
                 onPress={() => console.log('share')}
               />
-              <IconButton
-                icon="map"
-                iconColor="white"
-                containerColor="rgba(0,0,0,.5)"
-                size={35}
-                onPress={() => console.log('map')}
-              />
+
+              <ModalComponent
+                button={(
+                  <IconButton
+                    icon="map"
+                    iconColor="white"
+                    containerColor="rgba(0,0,0,.5)"
+                    size={35}
+                  />
+                )}
+              >
+                <View
+                  style={{
+                    gap: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      height: 450,
+                    }}
+                  >
+                    <MapPoint coordinates={activity.coordinates} />
+                  </View>
+
+                  <Button
+                    icon="map"
+                    mode="contained"
+                    onPress={() => console.log('navigate')}
+                  >
+                    Wyznacz trasę
+                  </Button>
+                </View>
+              </ModalComponent>
+
               <ModalComponent
                 button={(
                   <IconButton
