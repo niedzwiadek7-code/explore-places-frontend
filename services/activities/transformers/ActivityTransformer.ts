@@ -1,5 +1,7 @@
 import { IActivity } from '@/services/activities/types'
-import { ActivityModel, AddressModel, CoordinatesModel } from '@/models'
+import {
+  ActivityModel, AddressModel, CoordinatesModel, ExternalLinksModel,
+} from '@/models'
 
 export const activityTransformer = (iActivity: IActivity): ActivityModel => {
   const addressModel = new AddressModel(
@@ -15,6 +17,11 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     iActivity.longitude,
   )
 
+  const externalLinks = new ExternalLinksModel(
+    iActivity.wikipedia_url ? iActivity.wikipedia_url : undefined,
+    iActivity?.website_url ? iActivity.website_url : undefined,
+  )
+
   return new ActivityModel(
     iActivity.id,
     iActivity.name,
@@ -23,5 +30,6 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     addressModel,
     coordinatesModel,
     iActivity.liked_by_user || false,
+    externalLinks,
   )
 }

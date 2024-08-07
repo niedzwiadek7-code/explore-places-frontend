@@ -53,6 +53,7 @@ const Layout = () => {
       <Tabs.Screen
         name="favourites"
         options={{
+          unmountOnBlur: true,
           tabBarLabel: 'Favourites',
           title: 'Favourites',
           tabBarIcon: ({ color, size }) => <Icon source="heart" size={size} color={color} />,

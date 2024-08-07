@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import {
-  ImageBackground, SafeAreaView, TouchableOpacity, View,
+  Dimensions,
+  ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
 } from 'react-native'
 import {
-  Button, Card, IconButton, Text,
+  Button, Card, IconButton, Text, useTheme,
 } from 'react-native-paper'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
@@ -19,6 +20,18 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [image, setImage] = useState(activity.images.get(0))
   const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
   const { token } = useAuth()
+  const theme = useTheme()
+
+  const openURL = async (url?: string) => {
+    try {
+      if (!url) {
+        return
+      }
+      await Linking.openURL(url)
+    } catch (error) {
+      console.error("Couldn't load page", error)
+    }
+  }
 
   const likeAction = async () => {
     if (likedByUser) {
@@ -179,11 +192,16 @@ const Activity: React.FC<Props> = ({ activity }) => {
                   />
                 )}
               >
-                <View>
+                <ScrollView
+                  style={{
+                    maxHeight: Dimensions.get('window').height * 0.7,
+                  }}
+                >
                   <Text
                     variant="titleLarge"
                     style={{
                       fontFamily: 'OpenSans',
+                      color: theme.colors.primary,
                     }}
                   >
                     {activity.name}
@@ -204,6 +222,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     style={{
                       fontFamily: 'OpenSans',
                       marginTop: 10,
+                      color: theme.colors.primary,
                     }}
                   >
                     Adres:
@@ -216,7 +235,46 @@ const Activity: React.FC<Props> = ({ activity }) => {
                   >
                     {activity.address.toString()}
                   </Text>
-                </View>
+
+                  <Text
+                    variant="titleMedium"
+                    style={{
+                      fontFamily: 'OpenSans',
+                      marginTop: 10,
+                      color: theme.colors.primary,
+                    }}
+                  >
+                    Linki zewnętrzne:
+                  </Text>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                    }}
+                  >
+                    {
+                      activity.externalLinks.wikipedia ? (
+                        <IconButton
+                          icon="wikipedia"
+                          size={40}
+                          iconColor="black"
+                          mode="contained"
+                          onPress={() => openURL(activity.externalLinks.wikipedia)}
+                        />
+                      ) : null
+                    }
+                    {
+                      activity.externalLinks.website ? (
+                        <IconButton
+                          icon="web"
+                          size={40}
+                          mode="contained"
+                          onPress={() => openURL(activity.externalLinks.website)}
+                        />
+                      ) : null
+                    }
+                  </View>
+                </ScrollView>
               </ModalComponent>
             </View>
           </Card.Content>

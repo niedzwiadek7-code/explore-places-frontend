@@ -13,5 +13,7 @@ export type IActivity = {
   latitude: number
   longitude: number
   owner: string | null
-  liked_by_user?: boolean
+  liked_by_user?: boolean,
+  wikipedia_url?: string | null,
+  website_url?: string | null,
 }

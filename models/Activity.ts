@@ -1,4 +1,4 @@
-import { AddressModel, CoordinatesModel } from '@/models'
+import { AddressModel, CoordinatesModel, ExternalLinksModel } from '@/models'
 import { List } from '@/utils/collections'
 
 export class ActivityModel {
@@ -16,6 +16,8 @@ export class ActivityModel {
 
   private _likedByUser: boolean
 
+  readonly _external: ExternalLinksModel
+
   constructor(
     id: number,
     name: string,
@@ -24,6 +26,7 @@ export class ActivityModel {
     address: AddressModel,
     coordinates: CoordinatesModel,
     likedByUser: boolean,
+    externalLinks: ExternalLinksModel,
   ) {
     this._id = id
     this._name = name
@@ -32,6 +35,7 @@ export class ActivityModel {
     this._address = address
     this._coordinates = coordinates
     this._likedByUser = likedByUser
+    this._external = externalLinks
   }
 
   public get id(): number {
@@ -68,5 +72,9 @@ export class ActivityModel {
 
   public unlike(): void {
     this._likedByUser = false
+  }
+
+  public get externalLinks(): ExternalLinksModel {
+    return this._external
   }
 }
