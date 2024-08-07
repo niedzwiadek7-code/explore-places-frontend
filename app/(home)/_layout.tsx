@@ -45,8 +45,8 @@ const Layout = () => {
         name="home"
         options={{
           headerShown: false,
-          tabBarLabel: 'Home',
-          title: 'Home',
+          tabBarLabel: 'Strona główna',
+          title: 'Strona główna',
           tabBarIcon: ({ color, size }) => <Icon source="home" size={size} color={color} />,
         }}
       />
@@ -54,16 +54,16 @@ const Layout = () => {
         name="favourites"
         options={{
           unmountOnBlur: true,
-          tabBarLabel: 'Favourites',
-          title: 'Favourites',
+          tabBarLabel: 'Ulubione',
+          title: 'Ulubione',
           tabBarIcon: ({ color, size }) => <Icon source="heart" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          tabBarLabel: 'Settings',
-          title: 'Settings',
+          tabBarLabel: 'Ustawienia',
+          title: 'Ustawienia',
           tabBarIcon: ({ color, size }) => <Icon source="cog" size={size} color={color} />,
         }}
       />
