@@ -16,4 +16,5 @@ export type IActivity = {
   liked_by_user?: boolean,
   wikipedia_url?: string | null,
   website_url?: string | null,
+  tags: string[]
 }

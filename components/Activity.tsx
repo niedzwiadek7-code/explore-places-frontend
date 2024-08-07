@@ -4,7 +4,7 @@ import {
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
 } from 'react-native'
 import {
-  Button, Card, IconButton, Text, useTheme,
+  Button, Card, Chip, IconButton, Text, useTheme,
 } from 'react-native-paper'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
@@ -274,6 +274,29 @@ const Activity: React.FC<Props> = ({ activity }) => {
                       ) : null
                     }
                   </View>
+
+                  {
+                    activity.tags.length > 0 ? (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          flexWrap: 'wrap',
+                          marginTop: 15,
+                          gap: 5,
+                        }}
+                      >
+                        {
+                          activity.tags.map((tag) => (
+                            <Chip
+                              key={tag}
+                            >
+                              {tag}
+                            </Chip>
+                          ))
+                        }
+                      </View>
+                    ) : null
+                  }
                 </ScrollView>
               </ModalComponent>
             </View>

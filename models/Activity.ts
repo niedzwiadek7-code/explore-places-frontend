@@ -18,6 +18,8 @@ export class ActivityModel {
 
   readonly _external: ExternalLinksModel
 
+  readonly _tags: string[]
+
   constructor(
     id: number,
     name: string,
@@ -27,6 +29,7 @@ export class ActivityModel {
     coordinates: CoordinatesModel,
     likedByUser: boolean,
     externalLinks: ExternalLinksModel,
+    tags: string[] = [],
   ) {
     this._id = id
     this._name = name
@@ -36,6 +39,7 @@ export class ActivityModel {
     this._coordinates = coordinates
     this._likedByUser = likedByUser
     this._external = externalLinks
+    this._tags = tags
   }
 
   public get id(): number {
@@ -76,5 +80,9 @@ export class ActivityModel {
 
   public get externalLinks(): ExternalLinksModel {
     return this._external
+  }
+
+  public get tags(): string[] {
+    return this._tags
   }
 }

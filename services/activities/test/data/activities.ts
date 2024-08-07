@@ -21,6 +21,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.63108825683594,
     longitude: 18.067359924316406,
     owner: null,
+    tags: [],
   },
   {
     id: 243,
@@ -42,6 +43,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.91859817504883,
     longitude: 18.111377716064453,
     owner: null,
+    tags: [],
   },
   {
     id: 244,
@@ -63,6 +65,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.58771514892578,
     longitude: 18.429973602294922,
     owner: null,
+    tags: [],
   },
   {
     id: 245,
@@ -84,6 +87,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.81710433959961,
     longitude: 18.05459976196289,
     owner: null,
+    tags: [],
   },
   {
     id: 246,
@@ -105,6 +109,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.701927185058594,
     longitude: 18.103351593017578,
     owner: null,
+    tags: [],
   },
   {
     id: 247,
@@ -126,6 +131,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.83466339111328,
     longitude: 18.40036964416504,
     owner: null,
+    tags: [],
   },
   {
     id: 248,
@@ -147,6 +153,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76434326171875,
     longitude: 18.092578887939453,
     owner: null,
+    tags: [],
   },
   {
     id: 249,
@@ -168,6 +175,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76295852661133,
     longitude: 18.089420318603516,
     owner: null,
+    tags: [],
   },
   {
     id: 250,
@@ -189,6 +197,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.761959075927734,
     longitude: 18.089420318603516,
     owner: null,
+    tags: [],
   },
   {
     id: 251,
@@ -210,6 +219,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76094055175781,
     longitude: 18.08732032775879,
     owner: null,
+    tags: [],
   },
 
   {
@@ -232,6 +242,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.63108825683594,
     longitude: 18.067359924316406,
     owner: null,
+    tags: [],
   },
   {
     id: 343,
@@ -253,6 +264,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.91859817504883,
     longitude: 18.111377716064453,
     owner: null,
+    tags: [],
   },
   {
     id: 344,
@@ -274,6 +286,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.58771514892578,
     longitude: 18.429973602294922,
     owner: null,
+    tags: [],
   },
   {
     id: 345,
@@ -295,6 +308,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.81710433959961,
     longitude: 18.05459976196289,
     owner: null,
+    tags: [],
   },
   {
     id: 346,
@@ -316,6 +330,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.701927185058594,
     longitude: 18.103351593017578,
     owner: null,
+    tags: [],
   },
   {
     id: 347,
@@ -337,6 +352,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.83466339111328,
     longitude: 18.40036964416504,
     owner: null,
+    tags: [],
   },
   {
     id: 348,
@@ -358,6 +374,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76434326171875,
     longitude: 18.092578887939453,
     owner: null,
+    tags: [],
   },
   {
     id: 349,
@@ -379,6 +396,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76295852661133,
     longitude: 18.089420318603516,
     owner: null,
+    tags: [],
   },
   {
     id: 350,
@@ -400,6 +418,7 @@ export const activitiesData: IActivity[] = [
     latitude: 51.761959075927734,
     longitude: 18.089420318603516,
     owner: null,
+    tags: [],
   },
   {
     id: 351,
@@ -421,5 +440,6 @@ export const activitiesData: IActivity[] = [
     latitude: 51.76094055175781,
     longitude: 18.08732032775879,
     owner: null,
+    tags: [],
   },
 ]
