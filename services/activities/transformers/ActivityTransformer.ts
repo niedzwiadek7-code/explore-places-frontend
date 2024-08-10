@@ -5,21 +5,21 @@ import {
 
 export const activityTransformer = (iActivity: IActivity): ActivityModel => {
   const addressModel = new AddressModel(
-    iActivity.address,
-    iActivity.city || '',
-    iActivity.state,
-    iActivity.country,
-    iActivity.postal_code,
+    iActivity.address.street,
+    iActivity.address.city || '',
+    iActivity.address.state,
+    iActivity.address.country,
+    iActivity.address.postal_code,
   )
 
   const coordinatesModel = new CoordinatesModel(
-    iActivity.latitude,
-    iActivity.longitude,
+    iActivity.coordinates.latitude,
+    iActivity.coordinates.longitude,
   )
 
   const externalLinks = new ExternalLinksModel(
-    iActivity.wikipedia_url ? iActivity.wikipedia_url : undefined,
-    iActivity?.website_url ? iActivity.website_url : undefined,
+    iActivity.external_links?.wikipedia_url || undefined,
+    iActivity.external_links?.website_url || undefined,
   )
 
   return new ActivityModel(

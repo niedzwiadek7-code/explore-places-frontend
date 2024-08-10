@@ -5,16 +5,29 @@ export type IActivity = {
   images: string[]
   destination_resource: string
   migration_data: Record<string, string>
-  address: string
-  city: string | null
-  state: string
-  country: string
-  postal_code: string
-  latitude: number
-  longitude: number
   owner: string | null
-  liked_by_user?: boolean,
-  wikipedia_url?: string | null,
-  website_url?: string | null,
+  liked_by_user?: boolean
+
+  address: {
+    id: number,
+    street: string
+    city: string | null
+    state: string
+    country: string
+    postal_code: string
+  }
+
+  coordinates: {
+    id: number
+    latitude: number
+    longitude: number
+  }
+
+  external_links: {
+    id: number
+    wikipedia_url: string | null
+    website_url: string | null
+  }
+
   tags: string[]
 }
