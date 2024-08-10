@@ -15,22 +15,22 @@ export class Activities {
   }
 
   async getActivities(count: number) {
-    const results = await this.apiService.get<IActivity[]>(`/api/get-activities?count=${count}`)
+    const results = await this.apiService.get<IActivity[]>(`/api/activities/get-activities?count=${count}`)
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 
   async likeActivity(activityId: number) {
-    await this.apiService.post(`/api/like-activity/${activityId}/`)
+    await this.apiService.post(`/api/activities/like-activity/${activityId}/`)
     return true
   }
 
   async unlikeActivity(activityId: number) {
-    await this.apiService.post(`/api/unlike-activity/${activityId}/`)
+    await this.apiService.post(`/api/activities/unlike-activity/${activityId}/`)
     return true
   }
 
   async getLikedActivities() {
-    const results = await this.apiService.get<IActivity[]>('/api/liked-activities/')
+    const results = await this.apiService.get<IActivity[]>('/api/activities/liked-activities/')
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 }

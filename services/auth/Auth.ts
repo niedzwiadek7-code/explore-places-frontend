@@ -9,7 +9,7 @@ export class Auth {
   }
 
   async createProfile(email: string) {
-    await this.apiService.post('/api/users/', {
+    await this.apiService.post('/api/accounts/users/', {
       email,
       username: email,
     })
@@ -17,12 +17,12 @@ export class Auth {
   }
 
   async sendEmail(email: string) {
-    await this.apiService.post('/api/send-verification-code/', { email })
+    await this.apiService.post('/api/accounts/send-verification-code/', { email })
     return true
   }
 
   async verifyEmail(email: string, code: string) {
-    const response = await this.apiService.post<{ access: string }, any>('/api/verify-code/', { email, code })
+    const response = await this.apiService.post<{ access: string }, any>('/api/accounts/verify-code/', { email, code })
     return response
   }
 }
