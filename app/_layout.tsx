@@ -14,7 +14,8 @@ import {
   MD3LightTheme, MD3DarkTheme, PaperProvider,
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
-import { AuthProvider } from '@/context/auth/Auth'
+import { AuthProvider, useAuth } from '@/context/auth/Auth'
+import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,6 +37,16 @@ const RootLayoutNav = () => {
     // sourceColor: 'blue',
   })
 
+  const { token } = useAuth()
+
+  useEffect(() => {
+    if (!token) {
+      ActivitiesFactory.create(token).getActivityViewsService().unmount()
+      return
+    }
+    ActivitiesFactory.create(token).getActivityViewsService().init()
+  }, [token])
+
   const paperTheme = colorScheme === 'dark'
     ? { ...MD3DarkTheme, colors: theme.dark }
     : { ...MD3LightTheme, colors: theme.light }
@@ -43,12 +54,10 @@ const RootLayoutNav = () => {
   return (
     <PaperProvider theme={paperTheme}>
       <ToastProvider>
-        <AuthProvider>
-          <Stack initialRouteName="(login)">
-            <Stack.Screen name="(login)" options={{ headerShown: false }} />
-            <Stack.Screen name="(home)" options={{ headerShown: false }} />
-          </Stack>
-        </AuthProvider>
+        <Stack initialRouteName="(login)">
+          <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          <Stack.Screen name="(home)" options={{ headerShown: false }} />
+        </Stack>
       </ToastProvider>
     </PaperProvider>
   )
@@ -80,7 +89,11 @@ const RootLayout = () => {
     return null
   }
 
-  return <RootLayoutNav />
+  return (
+    <AuthProvider>
+      <RootLayoutNav />
+    </AuthProvider>
+  )
 }
 
 export default RootLayout

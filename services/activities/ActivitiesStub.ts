@@ -7,6 +7,7 @@ import {
   activitiesData, unauthorizedError,
 } from '@/services/activities/test/data'
 import { activityTransformer } from '@/services/activities/transformers'
+import { ActivitiesView, ActivitiesViewSingleton } from '@/services/activities/ActivitiesView'
 
 export class ActivitiesStub implements Activities {
   readonly apiService: ApiService = new ApiService('')
@@ -45,5 +46,10 @@ export class ActivitiesStub implements Activities {
     return this.activitiesData
       .filter((activity) => activity.liked_by_user)
       .map((iActivity) => activityTransformer(iActivity))
+  }
+
+  getActivityViewsService(): ActivitiesView {
+    const requestFn = async () => {}
+    return ActivitiesViewSingleton.getInstance(requestFn)
   }
 }

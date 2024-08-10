@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dimensions,
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
@@ -21,6 +21,10 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
   const { token } = useAuth()
   const theme = useTheme()
+
+  const trackViewedActivity = async () => {
+    await ActivitiesFactory.create(token).getActivityViewsService().trackViewedActivity(activity)
+  }
 
   const openURL = async (url?: string) => {
     try {
@@ -51,6 +55,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
       style={{
         height: '100%',
       }}
+      onTouchStart={trackViewedActivity}
     >
       <TouchableOpacity
         style={{

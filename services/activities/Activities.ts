@@ -2,6 +2,7 @@ import ApiService from '@/services/ApiService/ApiService'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 import { IActivity } from '@/services/activities/types'
 import { activityTransformer } from '@/services/activities/transformers'
+import { ActivitiesView, ActivitiesViewSingleton } from '@/services/activities/ActivitiesView'
 
 export class Activities {
   readonly apiService: ApiService
@@ -32,5 +33,13 @@ export class Activities {
   async getLikedActivities() {
     const results = await this.apiService.get<IActivity[]>('/api/activities/liked-activities/')
     return results.map((iActivity) => activityTransformer(iActivity))
+  }
+
+  getActivityViewsService(): ActivitiesView {
+    const requestFn = async (activityIds: number[]) => {
+      await this.apiService.post('/api/activities/track-views/', { activityIds })
+    }
+
+    return ActivitiesViewSingleton.getInstance(requestFn)
   }
 }
