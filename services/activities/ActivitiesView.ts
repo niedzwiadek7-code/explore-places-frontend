@@ -39,7 +39,7 @@ export class ActivitiesView {
   }
 
   async sendBatchedViews() {
-    console.log('Sending batched views')
+    // console.log('Sending batched views')
     if (this._viewedActivities.length === 0) {
       return
     }
