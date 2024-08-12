@@ -19,7 +19,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAh_I-MLrLdY9hdKrBrGY4lnZJqcTskLRM"
+        }
+      },
+      "package": "com.niedzwiadek7.travelapp"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +37,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a7b35ba2-89a9-4cb4-9c97-2d49f1898ddc"
+      }
+    },
+    "owner": "niedzwiadek7"
   }
 }
