@@ -6,6 +6,7 @@ import {
 import {
   Button, Card, Chip, IconButton, Text, useTheme,
 } from 'react-native-paper'
+import { useToast } from 'react-native-paper-toast'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
@@ -21,6 +22,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
   const { token } = useAuth()
   const theme = useTheme()
+  const toaster = useToast()
 
   const trackViewedActivity = async () => {
     await ActivitiesFactory.create(token).getActivityViewsService().trackViewedActivity(activity)
@@ -48,6 +50,29 @@ const Activity: React.FC<Props> = ({ activity }) => {
     activity.like()
     setLikedByUser(true)
     await ActivitiesFactory.create(token).likeActivity(activity.id)
+  }
+
+  const openGoogleMaps = () => {
+    const { latitude, longitude } = activity.coordinates
+    const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
+
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (supported) {
+          Linking.openURL(url)
+        } else {
+          toaster.show({
+            message: 'Nie można otworzyć Google Maps',
+            type: 'error',
+          })
+        }
+      })
+      .catch(() => {
+        toaster.show({
+          message: 'Nie można otworzyć Google Maps',
+          type: 'error',
+        })
+      })
   }
 
   return (
@@ -145,47 +170,13 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 onPress={() => console.log('share')}
               />
 
-              <ModalComponent
-                button={(
-                  <IconButton
-                    icon="map"
-                    iconColor="white"
-                    containerColor="rgba(0,0,0,.5)"
-                    size={35}
-                  />
-                )}
-              >
-                <View
-                  style={{
-                    gap: 15,
-                  }}
-                >
-                  <Text
-                    variant="titleMedium"
-                    style={{
-                      fontFamily: 'OpenSans',
-                    }}
-                  >
-                    {activity.address.toString()}
-                  </Text>
-
-                  <View
-                    style={{
-                      height: 450,
-                    }}
-                  >
-                    <MapPoint coordinates={activity.coordinates} />
-                  </View>
-
-                  <Button
-                    icon="map"
-                    mode="contained"
-                    onPress={() => console.log('navigate')}
-                  >
-                    Wyznacz trasę
-                  </Button>
-                </View>
-              </ModalComponent>
+              <IconButton
+                icon="map"
+                iconColor="white"
+                containerColor="rgba(0,0,0,.5)"
+                size={35}
+                onPress={openGoogleMaps}
+              />
 
               <ModalComponent
                 button={(
