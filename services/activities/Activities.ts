@@ -1,8 +1,9 @@
 import ApiService from '@/services/ApiService/ApiService'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
-import { IActivity } from '@/services/activities/types'
-import { activityTransformer } from '@/services/activities/transformers'
+import { IActivity, IGetActivitiesData } from '@/services/activities/types'
+import { activityTransformer, getActivitiesDataRequestTransformer } from '@/services/activities/transformers'
 import { ActivitiesView, ActivitiesViewSingleton } from '@/services/activities/ActivitiesView'
+import { CoordinatesModel } from '@/models'
 
 export class Activities {
   readonly apiService: ApiService
@@ -15,8 +16,18 @@ export class Activities {
     }
   }
 
-  async getActivities(count: number) {
-    const results = await this.apiService.get<IActivity[]>(`/api/activities/get-activities?count=${count}`)
+  async getActivities(
+    count: number,
+    coordinates?: CoordinatesModel,
+  ) {
+    const results = await this.apiService.post<
+      IActivity[],
+      IGetActivitiesData
+    >(
+      `/api/activities/get-activities/?count=${count}`,
+      getActivitiesDataRequestTransformer(coordinates),
+    )
+
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
+import * as Location from 'expo-location'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
-import { ActivityModel } from '@/models'
+import { ActivityModel, CoordinatesModel } from '@/models'
 import LoadingView from '@/components/UI/LoadingView'
 import Activity from '@/components/Activity'
 import CustomList from '@/components/CustomList'
@@ -12,9 +13,33 @@ const ACTIVITIES_COUNT = 10
 const Home = () => {
   const { token } = useAuth()
   const [activities, setActivities] = useState<ActivityModel[]>([])
+  const [actualPosition, setActualPosition] = useState<CoordinatesModel | null>(null)
+
+  const getActualPosition = async (): Promise<CoordinatesModel | null> => {
+    if (!actualPosition) {
+      const { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        return null
+      }
+      const location = await Location.getCurrentPositionAsync({})
+      setActualPosition(
+        new CoordinatesModel(
+          location.coords.latitude,
+          location.coords.longitude,
+        ),
+      )
+    }
+    return actualPosition
+  }
 
   const fetchData = useCallback(
-    async () => ActivitiesFactory.create(token).getActivities(ACTIVITIES_COUNT),
+    async () => {
+      const coordinates = await getActualPosition()
+      return ActivitiesFactory.create(token).getActivities(
+        ACTIVITIES_COUNT,
+        coordinates || undefined,
+      )
+    },
     [token],
   )
 
