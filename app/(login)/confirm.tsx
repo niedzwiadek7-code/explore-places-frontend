@@ -8,6 +8,7 @@ import {
 import React, { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 // import { useToast } from 'react-native-paper-toast'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
@@ -84,7 +85,7 @@ const ConfirmPage = () => {
     router,
     params: { email },
   } = useCustomRouter<Params>()
-  // const toaster = useToast()
+  const { t } = useTranslation('translation', { keyPrefix: 'login_confirm' })
 
   const { login } = useAuth()
 
@@ -95,10 +96,6 @@ const ConfirmPage = () => {
         email: email || '',
         code: data.code,
       })
-      // toaster.show({
-      //   message: 'Zalogowano pomyślnie',
-      //   type: 'success',
-      // })
       router.replace({
         pathname: '(home)/home',
         params: {
@@ -141,9 +138,7 @@ const ConfirmPage = () => {
             textAlign: 'center',
           }}
         >
-          {' '}
-          Kod weryfikacyjny
-          {' '}
+          {t('verification_code')}
         </Text>
 
         <Text
@@ -151,8 +146,7 @@ const ConfirmPage = () => {
             textAlign: 'center',
           }}
         >
-          {' '}
-          Wprowadź kod weryfikacyjny, który otrzymałeś na email:
+          {t('enter_verification_code')}
         </Text>
 
         <Text
@@ -179,7 +173,7 @@ const ConfirmPage = () => {
             mode="contained"
             onPress={handleSubmit(onSubmit)}
           >
-            Zaloguj się
+            {t('submit')}
           </Button>
         </LoadingButton>
       </View>

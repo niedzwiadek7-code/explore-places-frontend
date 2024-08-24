@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Dimensions,
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
 } from 'react-native'
 import {
-  Button, Card, Chip, IconButton, Text, useTheme,
+  Card, Chip, IconButton, Text, useTheme,
 } from 'react-native-paper'
 import { useToast } from 'react-native-paper-toast'
+import { useTranslation } from 'react-i18next'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
-import MapPoint from '@/components/Map/MapPoint'
 
 type Props = {
   activity: ActivityModel
@@ -23,6 +23,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const { token } = useAuth()
   const theme = useTheme()
   const toaster = useToast()
+  const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
 
   const trackViewedActivity = async () => {
     await ActivitiesFactory.create(token).getActivityViewsService().trackViewedActivity(activity)
@@ -62,14 +63,14 @@ const Activity: React.FC<Props> = ({ activity }) => {
           Linking.openURL(url)
         } else {
           toaster.show({
-            message: 'Nie można otworzyć Google Maps',
+            message: t('cant_open_google_maps'),
             type: 'error',
           })
         }
       })
       .catch(() => {
         toaster.show({
-          message: 'Nie można otworzyć Google Maps',
+          message: t('cant_open_google_maps'),
           type: 'error',
         })
       })
@@ -221,7 +222,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                       color: theme.colors.primary,
                     }}
                   >
-                    Adres:
+                    {t('address')}
                   </Text>
                   <Text
                     variant="bodyMedium"
@@ -240,7 +241,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                       color: theme.colors.primary,
                     }}
                   >
-                    Linki zewnętrzne:
+                    {t('external_links')}
                   </Text>
 
                   <View

@@ -1,11 +1,13 @@
 import React from 'react'
 import { ImageBackground, View } from 'react-native'
 import { Button } from 'react-native-paper'
+import { useTranslation } from 'react-i18next'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import themeBackground from '@/assets/images/theme/primary.jpg'
 
 const LoginPage = () => {
   const { router } = useCustomRouter()
+  const { t } = useTranslation('translation', { keyPrefix: 'login_select' })
 
   return (
     <ImageBackground
@@ -30,7 +32,7 @@ const LoginPage = () => {
           mode="contained"
           onPress={() => router.push('/emailLogin')}
         >
-          Zaloguj się przez email
+          {t('email_login')}
         </Button>
       </View>
     </ImageBackground>

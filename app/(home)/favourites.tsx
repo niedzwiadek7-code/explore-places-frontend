@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { Card, Text } from 'react-native-paper'
 import { TabsProvider, Tabs, TabScreen } from 'react-native-paper-tabs'
+import { useTranslation } from 'react-i18next'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivityModel } from '@/models'
@@ -18,6 +19,7 @@ const TabTwoScreen = () => {
   const { token } = useAuth()
   const [showList, setShowList] = useState(false)
   const [index, setIndex] = useState<number>(0)
+  const { t } = useTranslation('translation', { keyPrefix: 'favourites' })
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -114,7 +116,7 @@ const TabTwoScreen = () => {
     >
       <Tabs>
         <TabScreen
-          label="Polubione"
+          label={t('likes')}
         >
           <SafeAreaView style={{
             flex: 1,
@@ -151,10 +153,10 @@ const TabTwoScreen = () => {
         </TabScreen>
 
         <TabScreen
-          label="Zapisane"
+          label={t('saved')}
         >
           <SafeAreaView>
-            <Text>Zapisane</Text>
+            <Text>{t('saved')}</Text>
           </SafeAreaView>
         </TabScreen>
       </Tabs>

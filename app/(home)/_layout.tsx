@@ -3,10 +3,12 @@
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { BottomNavigation, Icon } from 'react-native-paper'
+import { useTranslation } from 'react-i18next'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 
 const Layout = () => {
   const { router } = useCustomRouter()
+  const { t } = useTranslation('translation', { keyPrefix: 'home' })
 
   return (
     <Tabs
@@ -45,8 +47,8 @@ const Layout = () => {
         name="home"
         options={{
           headerShown: false,
-          tabBarLabel: 'Strona główna',
-          title: 'Strona główna',
+          tabBarLabel: t('home_page'),
+          title: t('home_page'),
           tabBarIcon: ({ color, size }) => <Icon source="home" size={size} color={color} />,
         }}
       />
@@ -54,16 +56,16 @@ const Layout = () => {
         name="favourites"
         options={{
           unmountOnBlur: true,
-          tabBarLabel: 'Ulubione',
-          title: 'Ulubione',
+          tabBarLabel: t('favourites'),
+          title: t('favourites'),
           tabBarIcon: ({ color, size }) => <Icon source="heart" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          tabBarLabel: 'Ustawienia',
-          title: 'Ustawienia',
+          tabBarLabel: t('settings'),
+          title: t('settings'),
           tabBarIcon: ({ color, size }) => <Icon source="cog" size={size} color={color} />,
         }}
       />

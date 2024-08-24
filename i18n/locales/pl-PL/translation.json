@@ -1,0 +1,48 @@
+{
+  "login_select": {
+    "email_login": "Zaloguj się za pomocą e-maila"
+  },
+  "settings": {
+    "theme": "Motyw",
+    "change_theme": "Zmień motyw aplikacji",
+    "in_progress": "Funkcjonalność w trakcie realizacji",
+    "language": "Język",
+    "change_language": "Zmień język aplikacji",
+    "pick_language": "Wybierz język",
+    "logout": "Wyloguj się",
+    "app_logout": "Wyloguj się z aplikacji"
+  },
+  "home": {
+    "home_page": "Strona główna",
+    "favourites": "Ulubione",
+    "settings": "Ustawienia"
+  },
+  "favourites": {
+    "likes": "Polubienia",
+    "saved": "Zapisane"
+  },
+  "activity_component": {
+    "cant_open_google_maps": "Nie można otworzyć Google Maps",
+    "address": "Adres",
+    "external_links": "Linki zewnętrzne"
+  },
+  "login_confirm": {
+    "verification_code": "Kod weryfikacyjny",
+    "enter_verification_code": "Wprowadź kod weryfikacyjny, który otrzymałeś na swoją skrzynkę e-mail",
+    "submit": "Zaloguj się"
+  },
+  "email_login": {
+    "required_field": "To pole jest wymagane",
+    "login": "Zaloguj się",
+    "no_account": "Nie masz jeszcze konta?",
+    "register": "Zarejestruj się",
+    "change_method": "Zmień metodę logowania"
+  },
+  "email_register": {
+    "required_field": "To pole jest wymagane",
+    "register": "Zarejestruj się",
+    "already_account": "Masz już konto?",
+    "login": "Zaloguj się",
+    "change_method": "Zmień metodę logowania"
+  }
+}

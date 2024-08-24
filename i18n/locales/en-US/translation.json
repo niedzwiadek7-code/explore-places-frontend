@@ -1,0 +1,48 @@
+{
+  "login_select": {
+    "email_login": "Log in with email"
+  },
+  "settings": {
+    "theme": "Theme",
+    "change_theme": "Change the app theme",
+    "in_progress": "Feature in progress",
+    "language": "Language",
+    "change_language": "Change app language",
+    "pick_language": "Pick a language",
+    "logout": "Log out",
+    "app_logout": "Log out from the app"
+  },
+  "home": {
+    "home_page": "Home page",
+    "favourites": "Favorites",
+    "settings": "Settings"
+  },
+  "favourites": {
+    "likes": "Likes",
+    "saved": "Saved"
+  },
+  "activity_component": {
+    "cant_open_google_maps": "Can't open Google Maps",
+    "address": "Address",
+    "external_links": "External links"
+  },
+  "login_confirm": {
+    "verification_code": "Verification code",
+    "enter_verification_code": "Enter the verification code you received in your email",
+    "submit": "Log in"
+  },
+  "email_login": {
+    "required_field": "This field is required",
+    "login": "Log in",
+    "no_account": "Don't have an account?",
+    "register": "Sign up",
+    "change_method": "Change login method"
+  },
+  "email_register": {
+    "required_field": "This field is required",
+    "register": "Sign up",
+    "already_account": "Already have an account?",
+    "login": "Log in",
+    "change_method": "Change login method"
+  }
+}

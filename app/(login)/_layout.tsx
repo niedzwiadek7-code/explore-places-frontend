@@ -6,14 +6,12 @@ const LoginLayout = () => (
     <Stack.Screen
       name="index"
       options={{
-        title: 'Zaloguj się',
         headerShown: false,
       }}
     />
     <Stack.Screen
       name="emailLogin"
       options={{
-        title: 'Logowanie przez email',
         headerShown: false,
         presentation: 'modal',
       }}
@@ -21,7 +19,6 @@ const LoginLayout = () => (
     <Stack.Screen
       name="emailRegister"
       options={{
-        title: 'Rejestracja przez email',
         headerShown: false,
         presentation: 'modal',
       }}
@@ -29,7 +26,6 @@ const LoginLayout = () => (
     <Stack.Screen
       name="confirm"
       options={{
-        title: 'Oczekiwanie na potwierdzenie',
         presentation: 'modal',
         headerShown: false,
       }}

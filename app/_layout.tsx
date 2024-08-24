@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import 'react-native-reanimated'
+import '@/i18n'
 
 import { useMaterial3Theme } from '@pchmn/expo-material3-theme'
 import {

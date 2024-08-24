@@ -4,6 +4,7 @@ import {
   Button, Text, TextInput, useTheme,
 } from 'react-native-paper'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
@@ -20,6 +21,7 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>()
+  const { t } = useTranslation('translation', { keyPrefix: 'email_login' })
 
   const theme = useTheme()
 
@@ -84,7 +86,7 @@ const LoginPage = () => {
               marginTop: 5,
             }}
           >
-            To pole jest wymagane
+            {t('required_field')}
           </Text>
           )}
         </View>
@@ -94,7 +96,7 @@ const LoginPage = () => {
             mode="contained"
             onPress={handleSubmit(onSubmit)}
           >
-            Zaloguj się
+            {t('login')}
           </Button>
         </LoadingButton>
 
@@ -105,7 +107,7 @@ const LoginPage = () => {
             color: theme.colors.secondary,
           }}
         >
-          Nie masz konta?
+          {t('no_account')}
         </Text>
 
         <Button
@@ -115,7 +117,7 @@ const LoginPage = () => {
             marginTop: 5,
           }}
         >
-          Zarejestruj się
+          {t('register')}
         </Button>
 
         <Button
@@ -125,7 +127,7 @@ const LoginPage = () => {
             marginTop: 25,
           }}
         >
-          Zmień metodę logowania
+          {t('change_method')}
         </Button>
       </View>
     </ImageBackground>
