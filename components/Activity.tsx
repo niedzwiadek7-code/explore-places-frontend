@@ -12,6 +12,7 @@ import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
+import Tags from '@/components/Tags'
 
 type Props = {
   activity: ActivityModel
@@ -273,26 +274,9 @@ const Activity: React.FC<Props> = ({ activity }) => {
                   </View>
 
                   {
-                    activity.tags.length > 0 ? (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          flexWrap: 'wrap',
-                          marginTop: 15,
-                          gap: 5,
-                        }}
-                      >
-                        {
-                          activity.tags.map((tag) => (
-                            <Chip
-                              key={tag}
-                            >
-                              {tag}
-                            </Chip>
-                          ))
-                        }
-                      </View>
-                    ) : null
+                    activity.tags.length > 0
+                      ? <Tags tags={activity.tags} />
+                      : null
                   }
                 </ScrollView>
               </ModalComponent>
