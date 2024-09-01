@@ -32,5 +32,6 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     iActivity.liked_by_user || false,
     externalLinks,
     iActivity.tags,
+    iActivity.translation,
   )
 }

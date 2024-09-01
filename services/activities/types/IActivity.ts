@@ -18,7 +18,6 @@ export type IActivity = {
   }
 
   coordinates: {
-    id: number
     latitude: number
     longitude: number
   }
@@ -29,5 +28,15 @@ export type IActivity = {
     website_url: string | null
   }
 
-  tags: string[]
+  tags: string[],
+
+  translation?: {
+    id: number,
+    name: string,
+    description: string | null,
+    activity: number,
+    language: string
+  },
+  point_field: string,
+  original_language: string
 }

@@ -18,6 +18,7 @@ export class Activities {
 
   async getActivities(
     count: number,
+    language: string,
     coordinates?: CoordinatesModel,
   ) {
     const results = await this.apiService.post<
@@ -25,7 +26,7 @@ export class Activities {
       IGetActivitiesData
     >(
       `/api/activities/get-activities/?count=${count}`,
-      getActivitiesDataRequestTransformer(coordinates),
+      getActivitiesDataRequestTransformer(language, coordinates),
     )
 
     return results.map((iActivity) => activityTransformer(iActivity))

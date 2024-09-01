@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import * as Location from 'expo-location'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/context/auth/Auth'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { ActivityModel, CoordinatesModel } from '@/models'
@@ -14,6 +15,7 @@ const Home = () => {
   const { token } = useAuth()
   const [activities, setActivities] = useState<ActivityModel[]>([])
   const [actualPosition, setActualPosition] = useState<CoordinatesModel | null>(null)
+  const { i18n } = useTranslation()
 
   const getActualPosition = async (): Promise<CoordinatesModel | null> => {
     if (!actualPosition) {
@@ -37,6 +39,7 @@ const Home = () => {
       const coordinates = await getActualPosition()
       return ActivitiesFactory.create(token).getActivities(
         ACTIVITIES_COUNT,
+        i18n.language,
         coordinates || undefined,
       )
     },

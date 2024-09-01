@@ -1,12 +1,23 @@
-import { AddressModel, CoordinatesModel, ExternalLinksModel } from '@/models'
 import { List } from '@/utils/collections'
+import { AddressModel } from './Address'
+import { CoordinatesModel } from './Coordinates'
+import { ExternalLinksModel } from './ExternalLinks'
+import { TranslatedField } from './TranslatedField'
+
+type TranslatedObj = {
+  id: number,
+  name: string,
+  description: string | null,
+  activity: number,
+  language: string
+}
 
 export class ActivityModel {
   readonly _id: number
 
-  readonly _name: string
+  readonly _name: TranslatedField
 
-  readonly _description: string
+  readonly _description: TranslatedField
 
   readonly _images: List<string>
 
@@ -30,10 +41,11 @@ export class ActivityModel {
     likedByUser: boolean,
     externalLinks: ExternalLinksModel,
     tags: string[] = [],
+    translation: TranslatedObj | undefined = undefined,
   ) {
     this._id = id
-    this._name = name
-    this._description = description
+    this._name = new TranslatedField(name, translation?.name)
+    this._description = new TranslatedField(description, translation?.description || undefined)
     this._images = new List(images)
     this._address = address
     this._coordinates = coordinates
@@ -46,11 +58,11 @@ export class ActivityModel {
     return this._id
   }
 
-  public get name(): string {
+  public get name(): TranslatedField {
     return this._name
   }
 
-  public get description(): string {
+  public get description(): TranslatedField {
     return this._description
   }
 

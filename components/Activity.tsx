@@ -4,7 +4,7 @@ import {
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
 } from 'react-native'
 import {
-  Card, Chip, IconButton, Text, useTheme,
+  Card, IconButton, Text, useTheme,
 } from 'react-native-paper'
 import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +13,7 @@ import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
 import { useAuth } from '@/context/auth/Auth'
 import Tags from '@/components/Tags'
+import { useLocalTransaction } from '@/hooks/useLocalTranslation'
 
 type Props = {
   activity: ActivityModel
@@ -25,6 +26,11 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const theme = useTheme()
   const toaster = useToast()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
+  const {
+    isTranslated,
+    toggleTranslation,
+    localTranslate,
+  } = useLocalTransaction()
 
   const trackViewedActivity = async () => {
     await ActivitiesFactory.create(token).getActivityViewsService().trackViewedActivity(activity)
@@ -139,7 +145,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 textShadowRadius: 0.6,
               }}
             >
-              {activity.name}
+              {localTranslate(activity.name)}
             </Text>
 
             <View
@@ -202,7 +208,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                       color: theme.colors.primary,
                     }}
                   >
-                    {activity.name}
+                    {localTranslate(activity.name)}
                   </Text>
 
                   <Text
@@ -212,8 +218,26 @@ const Activity: React.FC<Props> = ({ activity }) => {
                       marginTop: 20,
                     }}
                   >
-                    {activity.description}
+                    {localTranslate(activity.description)}
                   </Text>
+
+                  {
+                    activity.name?.translated && (
+                      <Text
+                        onPress={() => toggleTranslation()}
+                        style={{
+                          fontWeight: 'bold',
+                          color: theme.colors.primary,
+                        }}
+                      >
+                        {
+                          isTranslated
+                            ? t('show_original')
+                            : t('show_translated')
+                        }
+                      </Text>
+                    )
+                  }
 
                   <Text
                     variant="titleMedium"

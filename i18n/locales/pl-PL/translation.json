@@ -24,7 +24,9 @@
   "activity_component": {
     "cant_open_google_maps": "Nie można otworzyć Google Maps",
     "address": "Adres",
-    "external_links": "Linki zewnętrzne"
+    "external_links": "Linki zewnętrzne",
+    "show_translated": "Pokaż tłumaczenie",
+    "show_original": "Zobacz oryginał"
   },
   "login_confirm": {
     "verification_code": "Kod weryfikacyjny",
