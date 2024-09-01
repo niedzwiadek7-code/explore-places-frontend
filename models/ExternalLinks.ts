@@ -15,4 +15,8 @@ export class ExternalLinksModel {
   public get website(): string | undefined {
     return this._website
   }
+
+  public linkExists(): boolean {
+    return Object.values(this).some((value) => Boolean(value))
+  }
 }

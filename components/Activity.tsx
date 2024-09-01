@@ -258,44 +258,50 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     {activity.address.toString()}
                   </Text>
 
-                  <Text
-                    variant="titleMedium"
-                    style={{
-                      fontFamily: 'OpenSans',
-                      marginTop: 10,
-                      color: theme.colors.primary,
-                    }}
-                  >
-                    {t('external_links')}
-                  </Text>
+                  {
+                    activity.externalLinks.linkExists() && (
+                      <>
+                        <Text
+                          variant="titleMedium"
+                          style={{
+                            fontFamily: 'OpenSans',
+                            marginTop: 10,
+                            color: theme.colors.primary,
+                          }}
+                        >
+                          {t('external_links')}
+                        </Text>
 
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                    }}
-                  >
-                    {
-                      activity.externalLinks.wikipedia ? (
-                        <IconButton
-                          icon="wikipedia"
-                          size={40}
-                          iconColor="black"
-                          mode="contained"
-                          onPress={() => openURL(activity.externalLinks.wikipedia)}
-                        />
-                      ) : null
-                    }
-                    {
-                      activity.externalLinks.website ? (
-                        <IconButton
-                          icon="web"
-                          size={40}
-                          mode="contained"
-                          onPress={() => openURL(activity.externalLinks.website)}
-                        />
-                      ) : null
-                    }
-                  </View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                          }}
+                        >
+                          {
+                          activity.externalLinks.wikipedia ? (
+                            <IconButton
+                              icon="wikipedia"
+                              size={40}
+                              iconColor="black"
+                              mode="contained"
+                              onPress={() => openURL(activity.externalLinks.wikipedia)}
+                            />
+                          ) : null
+                        }
+                          {
+                          activity.externalLinks.website ? (
+                            <IconButton
+                              icon="web"
+                              size={40}
+                              mode="contained"
+                              onPress={() => openURL(activity.externalLinks.website)}
+                            />
+                          ) : null
+                        }
+                        </View>
+                      </>
+                    )
+                  }
 
                   {
                     activity.tags.length > 0
