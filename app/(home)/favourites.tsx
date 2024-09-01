@@ -19,7 +19,7 @@ const TabTwoScreen = () => {
   const { token } = useAuth()
   const [showList, setShowList] = useState(false)
   const [index, setIndex] = useState<number>(0)
-  const { t } = useTranslation('translation', { keyPrefix: 'favourites' })
+  const { t, i18n } = useTranslation('translation', { keyPrefix: 'favourites' })
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -36,7 +36,9 @@ const TabTwoScreen = () => {
   }, [showList])
 
   const fetchData = useCallback(
-    async (): Promise<ActivityModel[]> => ActivitiesFactory.create(token).getLikedActivities(),
+    async (): Promise<ActivityModel[]> => ActivitiesFactory.create(token).getLikedActivities(
+      i18n.language,
+    ),
     [token],
   )
 
@@ -102,7 +104,7 @@ const TabTwoScreen = () => {
                 textShadowRadius: 0.6,
               }}
             >
-              {item.name}
+              {item.name.original}
             </Text>
           </Card.Content>
         </Card>

@@ -1,6 +1,6 @@
 import ApiService from '@/services/ApiService/ApiService'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
-import { IActivity, IGetActivitiesData } from '@/services/activities/types'
+import { IActivity, IGetActivitiesData, IGetLikedActivitiesData } from '@/services/activities/types'
 import { activityTransformer, getActivitiesDataRequestTransformer } from '@/services/activities/transformers'
 import { ActivitiesView, ActivitiesViewSingleton } from '@/services/activities/ActivitiesView'
 import { CoordinatesModel } from '@/models'
@@ -42,8 +42,13 @@ export class Activities {
     return true
   }
 
-  async getLikedActivities() {
-    const results = await this.apiService.get<IActivity[]>('/api/activities/liked-activities/')
+  async getLikedActivities(language: string) {
+    const results = await this.apiService.post<IActivity[], IGetLikedActivitiesData>(
+      '/api/activities/liked-activities/',
+      {
+        language: language.split('-')[0],
+      },
+    )
     return results.map((iActivity) => activityTransformer(iActivity))
   }
 

@@ -49,7 +49,8 @@ export class ActivitiesView {
       this._viewedActivities = []
       await AsyncStorage.setItem('viewedActivities', JSON.stringify([]))
     } catch (err) {
-      console.error('Error sending batched views', err)
+      console.error('Error sending batched views')
+      console.log(err)
     }
   }
 
