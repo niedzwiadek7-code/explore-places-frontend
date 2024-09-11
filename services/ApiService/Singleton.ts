@@ -17,7 +17,7 @@ export class ApiBackendSingleton {
     }
   }
 
-  public static setSessionId(sessionId: string) {
+  public static setSessionId(sessionId?: string) {
     if (ApiBackendSingleton.instance) {
       ApiBackendSingleton.instance.setSessionId(sessionId)
     }

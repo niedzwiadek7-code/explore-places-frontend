@@ -126,4 +126,8 @@ export class Auth {
 
     return { status: 'ERROR' }
   }
+
+  async logout(): Promise<void> {
+    await this.apiService.post('/_allauth/app/v1/auth/logout')
+  }
 }

@@ -206,7 +206,7 @@ export default class ApiService {
     return this.token
   }
 
-  public setSessionId(sessionId: string) {
+  public setSessionId(sessionId?: string) {
     this._sessionId = sessionId
   }
 

@@ -51,4 +51,8 @@ export class AuthStub implements Auth {
     }
     return { status: 'ERROR' }
   }
+
+  async logout(): Promise<void> {
+    await Promise.resolve()
+  }
 }

@@ -5,9 +5,10 @@ import { SafeAreaView } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useTranslation } from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useAuth } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import ModalComponent from '@/components/UI/Modal'
+import { AuthSingleton } from '@/services/auth/AuthSingleton'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 const renderIcon = (color: string, style: object, icon: string) => (
   <List.Icon color={color} style={style} icon={icon} />
@@ -19,13 +20,13 @@ const renderFlag = (isoCode: string) => (
 
 const Settings = () => {
   const { t, i18n } = useTranslation('translation', { keyPrefix: 'settings' })
-  const { logout } = useAuth()
   const {
     router,
   } = useCustomRouter()
 
   const localLogout = async () => {
-    await logout()
+    await AuthSingleton.getInstance().logout()
+    ApiBackendSingleton.setSessionId()
     router.replace('/')
   }
 
