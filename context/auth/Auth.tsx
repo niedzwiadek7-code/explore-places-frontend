@@ -1,29 +1,17 @@
 import React, {
-  createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState,
+  createContext, ReactNode, useContext, useEffect, useMemo, useState,
 } from 'react'
-import * as SecureStore from 'expo-secure-store'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
-
-type LoginParams =
-  | { type: 'email'; email: string; code: string; }
-
-type LogoutType = 'email'
+import LoadingView from '@/components/UI/LoadingView'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 class AuthClass {
   token: string | null
 
-  login: (params: LoginParams) => Promise<void>
-
-  logout: () => Promise<void>
-
   constructor(
     token: (string | null) = null,
-    login: (params: LoginParams) => Promise<void> = async () => {},
-    logout: () => Promise<void> = async () => {},
   ) {
     this.token = token
-    this.login = login
-    this.logout = logout
   }
 }
 
@@ -35,45 +23,27 @@ type ProviderProps = {
 
 export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const loadToken = async () => {
-      // setIsLoading(true);
-      const tokenTemp = await SecureStore.getItemAsync('token')
-
-      if (tokenTemp) {
-        setToken(tokenTemp)
-      }
-      // setIsLoading(false);
+    const getConfig = async () => {
+      const result = await AuthSingleton.getInstance().config()
+      setToken(result.csrfToken)
+      ApiBackendSingleton.setToken(result.csrfToken)
+      setIsLoading(false)
     }
 
-    loadToken()
+    getConfig()
   }, [])
-
-  const emailLogin = async (email: string, code: string) => {
-    const response = await AuthSingleton.getInstance().verifyEmail(email, code)
-    setToken(response.access)
-  }
-
-  const login = useCallback(async (params: LoginParams) => {
-    switch (params.type) {
-      case 'email':
-        await emailLogin(params.email, params.code)
-        break
-      default:
-        break
-    }
-  }, [])
-
-  const logout = async () => {
-    setToken(null)
-  }
 
   const value = useMemo(
-    () => new AuthClass(token, login, logout),
-    [token, login],
+    () => new AuthClass(token),
+    [token],
   )
+
+  if (isLoading) {
+    return <LoadingView />
+  }
 
   return (
     <AuthContext.Provider value={value}>

@@ -31,21 +31,33 @@
   "login_confirm": {
     "verification_code": "Verification code",
     "enter_verification_code": "Enter the verification code you received in your email",
-    "submit": "Log in"
+    "submit": "Log in",
+    "incorrect_code": "Incorrect code",
+    "backend_error": "Unexpected error"
   },
   "email_login": {
     "required_field": "This field is required",
     "login": "Log in",
     "no_account": "Don't have an account?",
     "register": "Sign up",
-    "change_method": "Change login method"
+    "change_method": "Change login method",
+    "duplicate_email": "This email is already in use",
+    "invalid_email": "Invalid email",
+    "password": "Password",
+    "use_verification_code": "Use verification code",
+    "use_password": "Use password",
+    "invalid_password": "Invalid password",
+    "backend_error": "Unexpected error"
   },
   "email_register": {
     "required_field": "This field is required",
     "register": "Sign up",
     "already_account": "Already have an account?",
     "login": "Log in",
-    "change_method": "Change login method"
+    "change_method": "Change login method",
+    "invalid_email": "Invalid email",
+    "password_length": "Password must be at least 8 characters long",
+    "password": "Password"
   },
   "tags": {
     "accommodations": "Accommodations",

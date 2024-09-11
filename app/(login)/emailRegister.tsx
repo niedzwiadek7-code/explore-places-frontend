@@ -1,7 +1,7 @@
 import { ImageBackground, View } from 'react-native'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import {
-  Button, Text, TextInput, useTheme,
+  Button, HelperText, Text, TextInput, useTheme,
 } from 'react-native-paper'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,9 +9,11 @@ import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import LoadingButton from '@/components/UI/LoadingButton'
 import themeBackground from '@/assets/images/theme/primary.jpg'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 type FormData = {
-  email: string
+  email: string,
+  password: string,
 }
 
 const RegisterPage = () => {
@@ -20,21 +22,40 @@ const RegisterPage = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>({
+    mode: 'onChange',
+  })
 
   const theme = useTheme()
   const { t } = useTranslation('translation', { keyPrefix: 'email_register' })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      await AuthSingleton.getInstance().createProfile(data.email)
-      await AuthSingleton.getInstance().sendEmail(data.email)
-      router.navigate({
-        pathname: '/confirm',
-        params: {
-          email: data.email,
-        },
-      })
+      const response = await AuthSingleton.getInstance().createProfile(
+        data.email,
+        data.password,
+      )
+      if (response.status === 'SUCCESS') {
+        router.replace({
+          pathname: '(home)/home',
+          params: {
+            email: data.email || '',
+          },
+        })
+
+        if (response.sessionId) {
+          ApiBackendSingleton.setSessionId(response.sessionId)
+        }
+        return
+      }
+      if (response.status === 'EMAIL_TAKEN') {
+        router.replace({
+          pathname: '(login)/emailLogin',
+          params: {
+            email: data.email || '',
+          },
+        })
+      }
     } catch (err) {
       // console.log(err)
     }
@@ -58,37 +79,98 @@ const RegisterPage = () => {
           justifyContent: 'center',
         }}
       >
+        <Text
+          variant="titleLarge"
+          style={{
+            textAlign: 'center',
+            marginBottom: 15,
+          }}
+        >
+          {t('register')}
+        </Text>
+
         <View
           style={{
             marginBottom: 10,
+            gap: 5,
           }}
         >
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <TextInput
-                label="Email"
-                mode="outlined"
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-              />
-            )}
-            name="email"
-          />
-          {errors.email && (
-            <Text
-              style={{
-                color: 'red',
-                marginTop: 5,
+          <View>
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: t('required_field'),
+                },
+                validate: (value) => {
+                  if (!value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)) {
+                    return t('invalid_email')
+                  }
+                  return true
+                },
               }}
-            >
-              {t('required_field')}
-            </Text>
-          )}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <TextInput
+                  label="Email"
+                  mode="flat"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  error={Boolean(errors.email?.message)}
+                />
+              )}
+              name="email"
+            />
+            {
+              errors.email?.message && (
+                <HelperText
+                  type="error"
+                  visible={Boolean(errors.email?.message)}
+                >
+                  {errors.email?.message}
+                </HelperText>
+              )
+            }
+          </View>
+
+          <View>
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: t('required_field'),
+                },
+                minLength: {
+                  value: 8,
+                  message: t('password_length'),
+                },
+              }}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <TextInput
+                  label={t('password')}
+                  mode="flat"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  secureTextEntry
+                  error={Boolean(errors.password?.message)}
+                />
+              )}
+              name="password"
+            />
+            {
+              errors.password?.message && (
+                <HelperText
+                  type="error"
+                  visible={Boolean(errors.password?.message)}
+                >
+                  {errors.password?.message}
+                </HelperText>
+              )
+            }
+          </View>
         </View>
 
         <LoadingButton>
@@ -124,7 +206,7 @@ const RegisterPage = () => {
           mode="outlined"
           onPress={() => router.navigate('/')}
           style={{
-            marginTop: 25,
+            marginTop: 15,
           }}
         >
           {t('change_method')}

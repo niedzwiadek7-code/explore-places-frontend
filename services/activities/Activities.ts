@@ -29,7 +29,11 @@ export class Activities {
       getActivitiesDataRequestTransformer(language, coordinates),
     )
 
-    return results.map((iActivity) => activityTransformer(iActivity))
+    if (!results.data) {
+      return []
+    }
+
+    return results.data.map((iActivity) => activityTransformer(iActivity))
   }
 
   async likeActivity(activityId: number) {
@@ -49,7 +53,12 @@ export class Activities {
         language: language.split('-')[0],
       },
     )
-    return results.map((iActivity) => activityTransformer(iActivity))
+
+    if (!results.data) {
+      return []
+    }
+
+    return results.data.map((iActivity) => activityTransformer(iActivity))
   }
 
   getActivityViewsService(): ActivitiesView {

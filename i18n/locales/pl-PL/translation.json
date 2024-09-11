@@ -31,21 +31,33 @@
   "login_confirm": {
     "verification_code": "Kod weryfikacyjny",
     "enter_verification_code": "Wprowadź kod weryfikacyjny, który otrzymałeś na swoją skrzynkę e-mail",
-    "submit": "Zaloguj się"
+    "submit": "Zaloguj się",
+    "incorrect_code": "Nieprawidłowy kod weryfikacyjny",
+    "backend_error": "Nieoczekiwany błąd"
   },
   "email_login": {
     "required_field": "To pole jest wymagane",
     "login": "Zaloguj się",
     "no_account": "Nie masz jeszcze konta?",
     "register": "Zarejestruj się",
-    "change_method": "Zmień metodę logowania"
+    "change_method": "Zmień metodę logowania",
+    "duplicate_email": "Ten e-mail jest już zarejestrowany",
+    "invalid_email": "Nieprawidłowy adres e-mail",
+    "password": "Hasło",
+    "use_verification_code": "Użyj kodu weryfikacyjnego",
+    "use_password": "Użyj hasła",
+    "invalid_password": "Nieprawidłowe hasło",
+    "backend_error": "Nieoczekiwany błąd"
   },
   "email_register": {
     "required_field": "To pole jest wymagane",
     "register": "Zarejestruj się",
     "already_account": "Masz już konto?",
     "login": "Zaloguj się",
-    "change_method": "Zmień metodę logowania"
+    "change_method": "Zmień metodę logowania",
+    "invalid_email": "Nieprawidłowy adres e-mail",
+    "password_length": "Hasło musi mieć co najmniej 8 znaków",
+    "password": "Hasło"
   },
   "tags": {
     "accommodations": "Zakwaterowanie",

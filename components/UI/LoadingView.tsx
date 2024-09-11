@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { ActivityIndicator, Text } from 'react-native-paper'
+import { ActivityIndicator } from 'react-native-paper'
 
 const LoadingView: React.FC = () => (
   <View style={{

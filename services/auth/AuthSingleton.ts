@@ -1,5 +1,6 @@
 import { AuthStub } from '@/services/auth/AuthStub'
 import { Auth } from '@/services/auth/Auth'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 export class AuthSingleton {
   private static instance: Auth
@@ -9,7 +10,8 @@ export class AuthSingleton {
       if (process.env.EXPO_PUBLIC_STUB === 'true') {
         AuthSingleton.instance = new AuthStub()
       } else {
-        AuthSingleton.instance = new Auth()
+        const apiService = ApiBackendSingleton.getInstance()
+        AuthSingleton.instance = new Auth(apiService)
       }
     }
 

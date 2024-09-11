@@ -1,6 +1,6 @@
 import { View, Platform, ImageBackground } from 'react-native'
 import {
-  Button, Text, TextInput, useTheme,
+  Button, HelperText, Text, TextInput, useTheme,
 } from 'react-native-paper'
 import {
   CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell,
@@ -9,10 +9,13 @@ import React, { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 // import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
+import { useToast } from 'react-native-paper-toast'
 import { useAuth } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
 import themeBackground from '@/assets/images/theme/primary.jpg'
+import { AuthSingleton } from '@/services/auth/AuthSingleton'
+import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 const CELL_COUNT = 6
 
@@ -54,22 +57,26 @@ const LocalCodeField = (
       onChangeText={onChange}
       onBlur={onBlur}
       cellCount={CELL_COUNT}
-      keyboardType="number-pad"
+      keyboardType="ascii-capable"
       textContentType="oneTimeCode"
       autoComplete={getAutoCompleteType()}
       renderCell={({ index, symbol, isFocused }) => (
         // TODO: improve cells style (bottom border)
         <TextInput
           key={index}
+          mode="flat"
           style={[
             {
               width: 40,
               height: 40,
               backgroundColor: '#FFFFFF',
               borderColor: 'white',
+              // borderWidth: 1,
+            },
+            isFocused && {
+              borderColor: theme.colors.primary,
               borderWidth: 2,
             },
-            isFocused && { borderColor: theme.colors.primary },
           ]}
           onLayout={getCellOnLayoutHandler(index)}
         >
@@ -86,31 +93,46 @@ const ConfirmPage = () => {
     params: { email },
   } = useCustomRouter<Params>()
   const { t } = useTranslation('translation', { keyPrefix: 'login_confirm' })
-
-  const { login } = useAuth()
-
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      await login({
-        type: 'email',
-        email: email || '',
-        code: data.code,
-      })
-      router.replace({
-        pathname: '(home)/home',
-        params: {
-          email: email || '',
-        },
-      })
-    } catch (err) {
-      // console.log(err)
-    }
-  }
+  const toast = useToast()
 
   const {
     control,
     handleSubmit,
-  } = useForm<FormData>()
+    formState: { errors },
+    setError,
+  } = useForm<FormData>({
+    mode: 'onChange',
+  })
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      const response = await AuthSingleton.getInstance().verifyEmail(data.code)
+      if (response.status === 'SUCCESS') {
+        router.replace({
+          pathname: '(home)/home',
+        })
+
+        if (response.sessionId) {
+          ApiBackendSingleton.setSessionId(response.sessionId)
+        }
+        return
+      }
+      if (response.status === 'INCORRECT_CODE') {
+        setError('code', {
+          type: 'manual',
+          message: t('incorrect_code'),
+        })
+      }
+      if (response.status === 'ERROR') {
+        toast.show({
+          message: t('backend_error'),
+          type: 'error',
+        })
+      }
+    } catch (err) {
+      // console.log(err)
+    }
+  }
 
   return (
     <ImageBackground
@@ -157,16 +179,26 @@ const ConfirmPage = () => {
           {email}
         </Text>
 
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          name="code"
-          render={(
-            { field: { value: localValue, onChange, onBlur } },
-          ) => LocalCodeField(localValue, onChange, onBlur)}
-        />
+        <View>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            name="code"
+            render={(
+              { field: { value: localValue, onChange, onBlur } },
+            ) => LocalCodeField(localValue, onChange, onBlur)}
+          />
+
+          {
+            errors.code?.message && (
+              <HelperText type="error">
+                {errors.code.message}
+              </HelperText>
+            )
+          }
+        </View>
 
         <LoadingButton>
           <Button
