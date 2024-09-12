@@ -16,6 +16,8 @@ import {
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
 import { AuthProvider } from '@/context/auth/Auth'
+import useCustomRouter from '@/hooks/useRouter/useRouter'
+import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,6 +38,16 @@ const RootLayoutNav = () => {
     // fallbackSourceColor: '#3B5998',
     sourceColor: '#3B5998',
   })
+
+  const { sessionId } = useCustomRouter()
+
+  useEffect(() => {
+    if (!sessionId) {
+      ActivitiesSingleton.getInstance().getActivityViewsService().unmount()
+      return
+    }
+    ActivitiesSingleton.getInstance().getActivityViewsService().init()
+  }, [sessionId])
 
   const paperTheme = colorScheme === 'dark'
     ? { ...MD3DarkTheme, colors: theme.dark }

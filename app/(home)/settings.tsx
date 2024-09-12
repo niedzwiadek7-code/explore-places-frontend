@@ -1,14 +1,13 @@
-import React from 'react'
-import { List } from 'react-native-paper'
+import React, { useState } from 'react'
+import { ActivityIndicator, List } from 'react-native-paper'
 import { useToast } from 'react-native-paper-toast'
 import { SafeAreaView } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useTranslation } from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import useCustomRouter from '@/hooks/useRouter/useRouter'
 import ModalComponent from '@/components/UI/Modal'
+import { useAuth } from '@/context/auth/Auth'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
-import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 const renderIcon = (color: string, style: object, icon: string) => (
   <List.Icon color={color} style={style} icon={icon} />
@@ -20,21 +19,28 @@ const renderFlag = (isoCode: string) => (
 
 const Settings = () => {
   const { t, i18n } = useTranslation('translation', { keyPrefix: 'settings' })
-  const {
-    router,
-  } = useCustomRouter()
+  const { logout } = useAuth()
 
-  const localLogout = async () => {
-    await AuthSingleton.getInstance().logout()
-    ApiBackendSingleton.setSessionId()
-    router.replace('/')
-  }
+  const [isLogout, setIsLogout] = useState(false)
 
   const toaster = useToast()
 
   const changeLanguage = async (lang: string) => {
     await AsyncStorage.setItem('language', lang)
     await i18n.changeLanguage(lang)
+  }
+
+  const localLogout = async () => {
+    setIsLogout(true)
+    await AuthSingleton.getInstance().logout()
+    await logout()
+  }
+
+  const showLoading = (shouldShow: boolean) => {
+    if (shouldShow) {
+      return <ActivityIndicator />
+    }
+    return null
   }
 
   return (
@@ -83,9 +89,11 @@ const Settings = () => {
         </SafeAreaView>
       </ModalComponent>
       <List.Item
+        disabled={isLogout}
         title={t('logout')}
         description={t('app_logout')}
         left={({ color, style }) => renderIcon(color, style, 'logout')}
+        right={() => showLoading(isLogout)}
         onPress={localLogout}
       />
     </>

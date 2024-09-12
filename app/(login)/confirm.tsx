@@ -7,7 +7,6 @@ import {
 } from 'react-native-confirmation-code-field'
 import React, { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-// import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
 import { useToast } from 'react-native-paper-toast'
 import { useAuth } from '@/context/auth/Auth'
@@ -15,7 +14,6 @@ import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
 import themeBackground from '@/assets/images/theme/primary.jpg'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
-import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 
 const CELL_COUNT = 6
 
@@ -89,11 +87,11 @@ const LocalCodeField = (
 
 const ConfirmPage = () => {
   const {
-    router,
     params: { email },
   } = useCustomRouter<Params>()
   const { t } = useTranslation('translation', { keyPrefix: 'login_confirm' })
   const toast = useToast()
+  const { login } = useAuth()
 
   const {
     control,
@@ -108,12 +106,9 @@ const ConfirmPage = () => {
     try {
       const response = await AuthSingleton.getInstance().verifyEmail(data.code)
       if (response.status === 'SUCCESS') {
-        router.replace({
-          pathname: '(home)/home',
-        })
-
         if (response.sessionId) {
-          ApiBackendSingleton.setSessionId(response.sessionId)
+          await login(response.sessionId)
+          return
         }
         return
       }

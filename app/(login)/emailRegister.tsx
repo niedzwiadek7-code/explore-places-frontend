@@ -10,6 +10,7 @@ import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import LoadingButton from '@/components/UI/LoadingButton'
 import themeBackground from '@/assets/images/theme/primary.jpg'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
+import { useAuth } from '@/context/auth/Auth'
 
 type FormData = {
   email: string,
@@ -18,6 +19,7 @@ type FormData = {
 
 const RegisterPage = () => {
   const { router } = useCustomRouter()
+  const { login } = useAuth()
   const {
     control,
     handleSubmit,
@@ -36,15 +38,8 @@ const RegisterPage = () => {
         data.password,
       )
       if (response.status === 'SUCCESS') {
-        router.replace({
-          pathname: '(home)/home',
-          params: {
-            email: data.email || '',
-          },
-        })
-
         if (response.sessionId) {
-          ApiBackendSingleton.setSessionId(response.sessionId)
+          await login(response.sessionId)
         }
         return
       }

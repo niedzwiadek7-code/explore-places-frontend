@@ -11,12 +11,20 @@ class AuthClass {
 
   sessionId: string | null
 
+  login: (sessionId: string) => Promise<void>
+
+  logout: () => Promise<void>
+
   constructor(
     token: (string | null) = null,
     sessionId: (string | null) = null,
+    login: (sessionIdLoc: string) => Promise<void> = async () => {},
+    logout: () => Promise<void> = async () => {},
   ) {
     this.token = token
     this.sessionId = sessionId
+    this.login = login
+    this.logout = logout
   }
 }
 
@@ -48,8 +56,21 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
     getConfig()
   }, [])
 
+  const login = async (sessionIdLoc: string) => {
+    console.log('Auth context login', sessionIdLoc)
+    ApiBackendSingleton.setSessionId(sessionIdLoc)
+    await AsyncStorage.setItem('sessionId', sessionIdLoc)
+    setSessionId(sessionIdLoc)
+  }
+
+  const logout = async () => {
+    ApiBackendSingleton.setSessionId()
+    await AsyncStorage.removeItem('sessionId')
+    setSessionId(null)
+  }
+
   const value = useMemo(
-    () => new AuthClass(token, sessionId),
+    () => new AuthClass(token, sessionId, login, logout),
     [token, sessionId],
   )
 

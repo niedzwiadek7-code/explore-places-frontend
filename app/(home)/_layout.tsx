@@ -17,14 +17,18 @@ const Layout = () => {
         const sessionResult = await AuthSingleton.getInstance().getSessionDetails()
         if (sessionResult.status !== 'SUCCESS') {
           router.replace({
-            pathname: '(home)/home',
+            pathname: '(login)',
           })
         }
+      } else {
+        router.replace({
+          pathname: '(login)',
+        })
       }
     }
 
     handleLoginUser()
-  }, [])
+  }, [sessionId])
 
   return (
     <Tabs

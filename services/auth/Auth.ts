@@ -128,7 +128,7 @@ export class Auth {
   }
 
   async logout(): Promise<void> {
-    await this.apiService.post('/_allauth/app/v1/auth/logout')
+    await this.apiService.delete('/_allauth/app/v1/auth/session')
   }
 
   async getSessionDetails(): Promise<{
@@ -140,7 +140,6 @@ export class Auth {
       case 'SUCCESS':
         return { status: 'SUCCESS' }
       case 'AUTH ERROR':
-        this.apiService.setSessionId()
         return { status: 'AUTH ERROR' }
       default:
         this.apiService.setSessionId()

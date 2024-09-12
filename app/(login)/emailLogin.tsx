@@ -11,6 +11,7 @@ import useCustomRouter from '@/hooks/useRouter/useRouter'
 import LoadingButton from '@/components/UI/LoadingButton'
 import themeBackground from '@/assets/images/theme/primary.jpg'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
+import { useAuth } from '@/context/auth/Auth'
 
 type FormData = {
   email: string
@@ -41,6 +42,8 @@ const LoginPage = () => {
     params: { email },
   } = useCustomRouter<Params>()
 
+  const { login } = useAuth()
+
   useEffect(() => {
     if (email) {
       setError('email', {
@@ -58,15 +61,8 @@ const LoginPage = () => {
       if (isPasswordLogin) {
         const response = await AuthSingleton.getInstance().loginWithPassword(data.email, data.password || '')
         if (response.status === 'SUCCESS') {
-          router.replace({
-            pathname: '(home)/home',
-            params: {
-              email: data.email || '',
-            },
-          })
-
           if (response.sessionId) {
-            ApiBackendSingleton.setSessionId(response.sessionId)
+            await login(response.sessionId)
           }
         } else if (response.status === 'INCORRECT_CREDENTIALS') {
           setError('password', {
@@ -90,7 +86,7 @@ const LoginPage = () => {
           })
 
           if (response.sessionId) {
-            ApiBackendSingleton.setSessionId(response.sessionId)
+            login(response.sessionId)
           }
         } else {
           toast.show({
