@@ -16,12 +16,6 @@ export class ActivitiesStub implements Activities {
 
   private executionCount = 0
 
-  constructor(token: string) {
-    if (token) {
-      this.apiService.setToken(token)
-    }
-  }
-
   async getActivities(count: number) {
     if (this.apiService.getToken() !== 'accessToken') {
       throw new Error(unauthorizedError.detail)

@@ -15,8 +15,7 @@ import {
   MD3LightTheme, MD3DarkTheme, PaperProvider,
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
-import { AuthProvider, useAuth } from '@/context/auth/Auth'
-import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
+import { AuthProvider } from '@/context/auth/Auth'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -37,16 +36,6 @@ const RootLayoutNav = () => {
     // fallbackSourceColor: '#3B5998',
     sourceColor: '#3B5998',
   })
-
-  const { token } = useAuth()
-
-  useEffect(() => {
-    if (!token) {
-      ActivitiesFactory.create(token).getActivityViewsService().unmount()
-      return
-    }
-    ActivitiesFactory.create(token).getActivityViewsService().init()
-  }, [token])
 
   const paperTheme = colorScheme === 'dark'
     ? { ...MD3DarkTheme, colors: theme.dark }

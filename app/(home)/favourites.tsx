@@ -6,8 +6,7 @@ import {
 import { Card, Text } from 'react-native-paper'
 import { TabsProvider, Tabs, TabScreen } from 'react-native-paper-tabs'
 import { useTranslation } from 'react-i18next'
-import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
-import { useAuth } from '@/context/auth/Auth'
+import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import { ActivityModel } from '@/models'
 import { useFetch } from '@/hooks/useFetch'
 import LoadingView from '@/components/UI/LoadingView'
@@ -16,7 +15,6 @@ import Activity from '@/components/Activity'
 
 const TabTwoScreen = () => {
   // TODO: show this points on map
-  const { token } = useAuth()
   const [showList, setShowList] = useState(false)
   const [index, setIndex] = useState<number>(0)
   const { t, i18n } = useTranslation('translation', { keyPrefix: 'favourites' })
@@ -36,10 +34,10 @@ const TabTwoScreen = () => {
   }, [showList])
 
   const fetchData = useCallback(
-    async (): Promise<ActivityModel[]> => ActivitiesFactory.create(token).getLikedActivities(
+    async (): Promise<ActivityModel[]> => ActivitiesSingleton.getInstance().getLikedActivities(
       i18n.language,
     ),
-    [token],
+    [i18n.language],
   )
 
   const {

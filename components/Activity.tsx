@@ -10,8 +10,7 @@ import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
 import { ActivityModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
-import { ActivitiesFactory } from '@/services/activities/ActivitiesFactory'
-import { useAuth } from '@/context/auth/Auth'
+import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import Tags from '@/components/Tags'
 import { useLocalTransaction } from '@/hooks/useLocalTranslation'
 
@@ -22,7 +21,6 @@ type Props = {
 const Activity: React.FC<Props> = ({ activity }) => {
   const [image, setImage] = useState(activity.images.get(0))
   const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
-  const { token } = useAuth()
   const theme = useTheme()
   const toaster = useToast()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
@@ -33,7 +31,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   } = useLocalTransaction()
 
   const trackViewedActivity = async () => {
-    await ActivitiesFactory.create(token).getActivityViewsService().trackViewedActivity(activity)
+    await ActivitiesSingleton.getInstance().getActivityViewsService().trackViewedActivity(activity)
   }
 
   const openURL = async (url?: string) => {
@@ -51,13 +49,13 @@ const Activity: React.FC<Props> = ({ activity }) => {
     if (likedByUser) {
       setLikedByUser(false)
       activity.unlike()
-      await ActivitiesFactory.create(token).unlikeActivity(activity.id)
+      await ActivitiesSingleton.getInstance().unlikeActivity(activity.id)
       return
     }
 
     activity.like()
     setLikedByUser(true)
-    await ActivitiesFactory.create(token).likeActivity(activity.id)
+    await ActivitiesSingleton.getInstance().likeActivity(activity.id)
   }
 
   const openGoogleMaps = () => {

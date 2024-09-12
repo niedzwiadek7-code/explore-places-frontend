@@ -1,5 +1,4 @@
 import ApiService from '@/services/ApiService/ApiService'
-import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
 import { IActivity, IGetActivitiesData, IGetLikedActivitiesData } from '@/services/activities/types'
 import { activityTransformer, getActivitiesDataRequestTransformer } from '@/services/activities/transformers'
 import { ActivitiesView, ActivitiesViewSingleton } from '@/services/activities/ActivitiesView'
@@ -8,12 +7,8 @@ import { CoordinatesModel } from '@/models'
 export class Activities {
   readonly apiService: ApiService
 
-  constructor(token: string) {
-    this.apiService = ApiBackendSingleton.getInstance()
-
-    if (token) {
-      ApiBackendSingleton.setToken(token)
-    }
+  constructor(apiBackendService: ApiService) {
+    this.apiService = apiBackendService
   }
 
   async getActivities(
