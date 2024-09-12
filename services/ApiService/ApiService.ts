@@ -24,7 +24,9 @@ const handleResponse = async <T>(response: Response): Promise<StandardResponse<T
 
   let result: 'VALIDATION ERROR' | 'AUTH ERROR' | 'ERROR' = 'ERROR'
 
-  if (response.status === 401) {
+  const authErrorStatuses = [401, 403, 410]
+
+  if (authErrorStatuses.includes(response.status)) {
     result = 'AUTH ERROR'
   } else if (response.status >= 400 && response.status < 500) {
     result = 'VALIDATION ERROR'
@@ -210,7 +212,7 @@ export default class ApiService {
     this._sessionId = sessionId
   }
 
-  public sessionId() {
+  public get sessionId() {
     return this._sessionId
   }
 

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import ApiService from '@/services/ApiService/ApiService'
 
 export class ApiBackendSingleton {
@@ -20,6 +21,7 @@ export class ApiBackendSingleton {
   public static setSessionId(sessionId?: string) {
     if (ApiBackendSingleton.instance) {
       ApiBackendSingleton.instance.setSessionId(sessionId)
+      AsyncStorage.setItem('sessionId', sessionId || '')
     }
   }
 }

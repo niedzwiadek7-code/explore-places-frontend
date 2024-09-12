@@ -1,14 +1,30 @@
 /* eslint-disable react/no-unstable-nested-components */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Tabs } from 'expo-router'
 import { BottomNavigation, Icon } from 'react-native-paper'
 import { useTranslation } from 'react-i18next'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
+import { AuthSingleton } from '@/services/auth/AuthSingleton'
 
 const Layout = () => {
-  const { router } = useCustomRouter()
+  const { router, sessionId } = useCustomRouter()
   const { t } = useTranslation('translation', { keyPrefix: 'home' })
+
+  useEffect(() => {
+    const handleLoginUser = async () => {
+      if (sessionId) {
+        const sessionResult = await AuthSingleton.getInstance().getSessionDetails()
+        if (sessionResult.status !== 'SUCCESS') {
+          router.replace({
+            pathname: '(home)/home',
+          })
+        }
+      }
+    }
+
+    handleLoginUser()
+  }, [])
 
   return (
     <Tabs

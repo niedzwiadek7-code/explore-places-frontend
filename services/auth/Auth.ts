@@ -130,4 +130,21 @@ export class Auth {
   async logout(): Promise<void> {
     await this.apiService.post('/_allauth/app/v1/auth/logout')
   }
+
+  async getSessionDetails(): Promise<{
+    status: 'SUCCESS' | 'AUTH ERROR' | 'ERROR',
+  }> {
+    const response = await this.apiService.get<IProfileResponse | IError>('/_allauth/app/v1/auth/session')
+
+    switch (response.result) {
+      case 'SUCCESS':
+        return { status: 'SUCCESS' }
+      case 'AUTH ERROR':
+        this.apiService.setSessionId()
+        return { status: 'AUTH ERROR' }
+      default:
+        this.apiService.setSessionId()
+        return { status: 'ERROR' }
+    }
+  }
 }

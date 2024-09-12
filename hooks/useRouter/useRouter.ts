@@ -7,18 +7,20 @@ interface ReactHookResult<
 > {
   params: Params
   router: ExpoRouter.Router,
-  token: string | null
+  token: string | null,
+  sessionId: string | null,
 }
 
 const useCustomRouter = <Params>(): ReactHookResult<Params> => {
   const params: Params = useLocalSearchParams() as Params
   const router = useRouter()
-  const { token } = useAuth()
+  const { token, sessionId } = useAuth()
 
   return {
     params,
     router,
     token,
+    sessionId,
   }
 }
 

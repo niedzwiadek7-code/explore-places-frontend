@@ -55,4 +55,10 @@ export class AuthStub implements Auth {
   async logout(): Promise<void> {
     await Promise.resolve()
   }
+
+  async getSessionDetails(): Promise<{
+    status: 'SUCCESS' | 'AUTH ERROR' | 'ERROR',
+  }> {
+    return { status: 'SUCCESS' }
+  }
 }
