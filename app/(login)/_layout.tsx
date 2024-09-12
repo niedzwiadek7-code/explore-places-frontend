@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Stack } from 'expo-router'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
+import LoadingView from '@/components/UI/LoadingView'
 
 const LoginLayout = () => {
   const { router, sessionId } = useCustomRouter()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const handleLoginUser = async () => {
+      setLoading(true)
       if (sessionId) {
         const sessionResult = await AuthSingleton.getInstance().getSessionDetails()
         if (sessionResult.status === 'SUCCESS') {
@@ -16,10 +19,15 @@ const LoginLayout = () => {
           })
         }
       }
+      setLoading(false)
     }
 
     handleLoginUser()
   }, [sessionId, router])
+
+  if (loading) {
+    return <LoadingView />
+  }
 
   return (
     <Stack>
