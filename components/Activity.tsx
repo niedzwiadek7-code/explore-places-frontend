@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import {
   Dimensions,
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
@@ -316,4 +316,4 @@ const Activity: React.FC<Props> = ({ activity }) => {
   )
 }
 
-export default Activity
+export default memo(Activity)

@@ -1,7 +1,7 @@
 import React, {
-  ReactElement, useRef, useState,
+  ReactElement, memo, useRef, useState,
 } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, ViewToken } from 'react-native'
 
 type IBasicObj = {
   id: string | number
@@ -24,6 +24,22 @@ const CustomList = <T extends IBasicObj>(
 ) => {
   const [localData, setLocalData] = useState<T[]>(data)
   const listRef = useRef<FlatList>(null)
+  const [isFetching, setIsFetching] = useState(false)
+
+  const handleFetchMoreData = async (
+    viewableItems: ViewToken<T>[],
+  ) => {
+    if (isFetching) {
+      return
+    }
+    const actualIndex = viewableItems[0].index
+    if (actualIndex && actualIndex > localData.length - 5 && fetchMoreData) {
+      setIsFetching(true)
+      const newData = await fetchMoreData()
+      setLocalData([...localData, ...newData])
+      setIsFetching(false)
+    }
+  }
 
   // listRef.current?.scrollToIndex({
   //   index,
@@ -46,13 +62,7 @@ const CustomList = <T extends IBasicObj>(
       keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      onViewableItemsChanged={async ({ viewableItems }) => {
-        const actualIndex = viewableItems[0].index
-        if (actualIndex && actualIndex > localData.length - 2 && fetchMoreData) {
-          const newData = await fetchMoreData()
-          setLocalData([...localData, ...newData])
-        }
-      }}
+      onViewableItemsChanged={async ({ viewableItems }) => handleFetchMoreData(viewableItems)}
       pagingEnabled
       onLayout={async () => {
         // TODO: Fix this hack
