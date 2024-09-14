@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Storage from '@/services/storage/Storage'
 import { ActivityModel } from '@/models'
 
 export class ActivitiesView {
@@ -17,11 +17,11 @@ export class ActivitiesView {
       return
     }
     this._viewedActivities.push(activity.id)
-    await AsyncStorage.setItem('viewedActivities', JSON.stringify(this._viewedActivities))
+    await Storage.setItem('viewedActivities', JSON.stringify(this._viewedActivities))
   }
 
   async init() {
-    const viewedActivities = await AsyncStorage.getItem('viewedActivities')
+    const viewedActivities = await Storage.getItem('viewedActivities')
     this._viewedActivities = viewedActivities ? JSON.parse(viewedActivities) : []
     await this.sendBatchedViews()
 
@@ -47,7 +47,7 @@ export class ActivitiesView {
     try {
       await this._sendViewedActivityToBackend(this._viewedActivities)
       this._viewedActivities = []
-      await AsyncStorage.setItem('viewedActivities', JSON.stringify([]))
+      await Storage.setItem('viewedActivities', JSON.stringify([]))
     } catch (err) {
       console.error('Error sending batched views')
       console.log(err)

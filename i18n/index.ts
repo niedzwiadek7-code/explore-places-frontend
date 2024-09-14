@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import * as Localization from 'expo-localization'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Storage from '@/services/storage/Storage'
 import translationEn from './locales/en-US/translation.json'
 import translationPl from './locales/pl-PL/translation.json'
 
@@ -15,11 +15,11 @@ const resources = {
 }
 
 const initI18n = async () => {
-  let savedLanguage = await AsyncStorage.getItem('language')
+  let savedLanguage = await Storage.getItem('language')
 
   if (!savedLanguage) {
     savedLanguage = Localization.locale
-    await AsyncStorage.setItem('language', savedLanguage)
+    await Storage.setItem('language', savedLanguage)
   }
 
   i18n.use(initReactI18next).init({

@@ -94,7 +94,7 @@ export default class ApiService {
       const response = await fetch(url, {
         headers,
         method: 'GET',
-        credentials: 'omit',
+        credentials: 'same-origin',
       })
       const standardResponse = await handleResponse<T>(response)
 

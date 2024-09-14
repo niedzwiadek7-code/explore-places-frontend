@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import ApiService from '@/services/ApiService/ApiService'
 import { ICookies, IError, IProfileResponse } from '@/services/auth/types'
 
@@ -12,6 +13,15 @@ export class Auth {
     const result = await this.apiService.get('/_allauth/browser/v1/config')
 
     const getCsrfToken = () => {
+      if (Platform.OS === 'web') {
+        const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
+        const csrfToken = cookies.find((cookie) => cookie.startsWith('csrftoken'))
+        if (!csrfToken) {
+          return ''
+        }
+        return csrfToken.split('=')[1]
+      }
+
       const param = result.headers['set-cookie']
       return param.split(';')[0].split('=')[1]
     }

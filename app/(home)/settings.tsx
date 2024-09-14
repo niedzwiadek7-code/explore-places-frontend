@@ -4,7 +4,7 @@ import { useToast } from 'react-native-paper-toast'
 import { SafeAreaView } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useTranslation } from 'react-i18next'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Storage from '@/services/storage/Storage'
 import ModalComponent from '@/components/UI/Modal'
 import { useAuth } from '@/context/auth/Auth'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
@@ -26,7 +26,7 @@ const Settings = () => {
   const toaster = useToast()
 
   const changeLanguage = async (lang: string) => {
-    await AsyncStorage.setItem('language', lang)
+    await Storage.setItem('language', lang)
     await i18n.changeLanguage(lang)
   }
 

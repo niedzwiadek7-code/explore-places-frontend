@@ -1,7 +1,7 @@
 import React, {
   createContext, ReactNode, useContext, useEffect, useMemo, useState,
 } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Storage from '@/services/storage/Storage'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
 import LoadingView from '@/components/UI/LoadingView'
 import { ApiBackendSingleton } from '@/services/ApiService/Singleton'
@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
       setToken(result.csrfToken)
       ApiBackendSingleton.setToken(result.csrfToken)
 
-      const sessionIdTmp = await AsyncStorage.getItem('sessionId')
+      const sessionIdTmp = await Storage.getItem('sessionId')
       if (sessionIdTmp) {
         setSessionId(sessionIdTmp)
         ApiBackendSingleton.setSessionId(sessionIdTmp)
@@ -57,15 +57,14 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
   }, [])
 
   const login = async (sessionIdLoc: string) => {
-    console.log('Auth context login', sessionIdLoc)
     ApiBackendSingleton.setSessionId(sessionIdLoc)
-    await AsyncStorage.setItem('sessionId', sessionIdLoc)
+    await Storage.setItem('sessionId', sessionIdLoc)
     setSessionId(sessionIdLoc)
   }
 
   const logout = async () => {
     ApiBackendSingleton.setSessionId()
-    await AsyncStorage.removeItem('sessionId')
+    await Storage.removeItem('sessionId')
     setSessionId(null)
   }
 
