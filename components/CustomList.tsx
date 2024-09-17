@@ -63,6 +63,7 @@ const CustomList = <T extends IBasicObj>(
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       onViewableItemsChanged={async ({ viewableItems }) => handleFetchMoreData(viewableItems)}
+      initialNumToRender={10}
       pagingEnabled
       onLayout={async () => {
         // TODO: Fix this hack

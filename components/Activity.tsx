@@ -114,11 +114,11 @@ const Activity: React.FC<Props> = ({ activity }) => {
       <ImageBackground
         source={{ uri: image.value }}
         imageStyle={{
-          borderRadius: 15,
+          // borderRadius: 15,
           objectFit: 'cover',
         }}
         style={{
-          margin: 10,
+          // margin: 10,
           flex: 1,
         }}
       >

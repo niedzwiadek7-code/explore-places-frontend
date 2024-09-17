@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, Image } from 'react-native'
 import * as Location from 'expo-location'
 import { useTranslation } from 'react-i18next'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
@@ -34,11 +34,23 @@ const Home = () => {
   const fetchData = useCallback(
     async () => {
       const coordinates = await getActualPosition()
-      return ActivitiesSingleton.getInstance().getActivities(
+      const activitiesFetched = await ActivitiesSingleton.getInstance().getActivities(
         ACTIVITIES_COUNT,
         i18n.language,
         coordinates || undefined,
       )
+
+      const activityPromises = activitiesFetched.reduce<Promise<boolean>[]>(
+        (acc, activity) => {
+          const imagePromises = activity.images.items.map((e) => Image.prefetch(e))
+          acc.push(...imagePromises)
+          return acc
+        },
+        [],
+      )
+
+      Promise.all(activityPromises)
+      return activitiesFetched
     },
     [i18n.language],
   )
