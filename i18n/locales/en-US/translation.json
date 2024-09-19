@@ -26,7 +26,8 @@
     "address": "Address",
     "external_links": "External links",
     "show_translated": "Show translation",
-    "show_original": "Show original"
+    "show_original": "Show original",
+    "away": "from you"
   },
   "login_confirm": {
     "verification_code": "Verification code",

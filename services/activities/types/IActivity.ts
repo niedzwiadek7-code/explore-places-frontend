@@ -7,6 +7,7 @@ export type IActivity = {
   migration_data: Record<string, string>
   owner: string | null
   liked_by_user?: boolean
+  distance?: number
 
   address: {
     id: number,

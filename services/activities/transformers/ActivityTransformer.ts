@@ -31,6 +31,7 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     coordinatesModel,
     iActivity.liked_by_user || false,
     externalLinks,
+    iActivity.distance,
     iActivity.tags,
     iActivity.translation,
   )

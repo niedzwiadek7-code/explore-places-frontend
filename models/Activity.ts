@@ -27,6 +27,8 @@ export class ActivityModel {
 
   private _likedByUser: boolean
 
+  private _distance?: number
+
   readonly _external: ExternalLinksModel
 
   readonly _tags: string[]
@@ -40,6 +42,7 @@ export class ActivityModel {
     coordinates: CoordinatesModel,
     likedByUser: boolean,
     externalLinks: ExternalLinksModel,
+    distance?: number,
     tags: string[] = [],
     translation: TranslatedObj | undefined = undefined,
   ) {
@@ -52,6 +55,10 @@ export class ActivityModel {
     this._likedByUser = likedByUser
     this._external = externalLinks
     this._tags = tags
+
+    if (distance) {
+      this._distance = distance
+    }
   }
 
   public get id(): number {
@@ -88,6 +95,10 @@ export class ActivityModel {
 
   public unlike(): void {
     this._likedByUser = false
+  }
+
+  public get distance(): number | undefined {
+    return this._distance
   }
 
   public get externalLinks(): ExternalLinksModel {

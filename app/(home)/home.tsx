@@ -13,7 +13,6 @@ const LOCATION_REFRESH_INTERVAL = 10000
 
 const Home = () => {
   const [activities, setActivities] = useState<ActivityModel[]>([])
-  const [actualPosition, setActualPosition] = useState<CoordinatesModel | null>(null)
   const { i18n } = useTranslation()
 
   const getActualPosition = async (): Promise<CoordinatesModel | null> => {
@@ -22,13 +21,10 @@ const Home = () => {
       return null
     }
     const location = await Location.getCurrentPositionAsync({})
-    setActualPosition(
-      new CoordinatesModel(
-        location.coords.latitude,
-        location.coords.longitude,
-      ),
+    return new CoordinatesModel(
+      location.coords.latitude,
+      location.coords.longitude,
     )
-    return actualPosition
   }
 
   const fetchData = useCallback(

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import {
   Dimensions,
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
@@ -8,7 +8,8 @@ import {
 } from 'react-native-paper'
 import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
-import { ActivityModel } from '@/models'
+import * as Location from 'expo-location'
+import { ActivityModel, CoordinatesModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import Tags from '@/components/Tags'
@@ -24,6 +25,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const theme = useTheme()
   const toaster = useToast()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
+  const [distance, setDistance] = useState<number | null>(activity.distance || null)
   const {
     isTranslated,
     toggleTranslation,
@@ -44,6 +46,33 @@ const Activity: React.FC<Props> = ({ activity }) => {
       console.error("Couldn't load page", error)
     }
   }
+
+  const getActualPosition = async (): Promise<CoordinatesModel | null> => {
+    const { status } = await Location.requestForegroundPermissionsAsync()
+    if (status !== 'granted') {
+      return null
+    }
+    const location = await Location.getCurrentPositionAsync({})
+    return new CoordinatesModel(
+      location.coords.latitude,
+      location.coords.longitude,
+    )
+  }
+
+  useEffect(() => {
+    const getDistance = async () => {
+      const coordinates = await getActualPosition()
+      if (!coordinates) {
+        return
+      }
+      const distanceTmp = CoordinatesModel.getDistance(
+        activity.coordinates,
+        coordinates,
+      )
+      setDistance(distanceTmp)
+    }
+    getDistance()
+  }, [])
 
   const likeAction = async () => {
     if (likedByUser) {
@@ -145,6 +174,25 @@ const Activity: React.FC<Props> = ({ activity }) => {
             >
               {localTranslate(activity.name)}
             </Text>
+
+            {
+              distance && (
+                <Text
+                  variant="bodyLarge"
+                  style={{
+                    fontFamily: 'OpenSans',
+                    color: 'white',
+                    // fontWeight: 900,
+                    textDecorationStyle: 'solid',
+                    textShadowColor: 'black',
+                    textShadowOffset: { width: 1, height: 1 },
+                    textShadowRadius: 0.6,
+                  }}
+                >
+                  {`${CoordinatesModel.transformDistance(distance)} ${t('away')}`}
+                </Text>
+              )
+            }
 
             <View
               style={{
