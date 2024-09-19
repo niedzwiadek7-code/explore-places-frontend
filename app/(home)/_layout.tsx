@@ -1,42 +1,22 @@
 /* eslint-disable react/no-unstable-nested-components */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Tabs } from 'expo-router'
 import { BottomNavigation, Icon } from 'react-native-paper'
 import { useTranslation } from 'react-i18next'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
-import { AuthSingleton } from '@/services/auth/AuthSingleton'
-import LoadingView from '@/components/UI/LoadingView'
 
 const Layout = () => {
-  const { router, sessionId } = useCustomRouter()
+  const { router, authenticated, isMounted } = useCustomRouter()
   const { t } = useTranslation('translation', { keyPrefix: 'home' })
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const handleLoginUser = async () => {
-      setLoading(true)
-      if (sessionId) {
-        const sessionResult = await AuthSingleton.getInstance().getSessionDetails()
-        if (sessionResult.status !== 'SUCCESS') {
-          router.replace({
-            pathname: '(login)',
-          })
-        }
-      } else {
-        router.replace({
-          pathname: '(login)',
-        })
-      }
-      setLoading(false)
+    if (isMounted && !authenticated) {
+      router.replace({
+        pathname: '(login)',
+      })
     }
-
-    handleLoginUser()
-  }, [sessionId])
-
-  if (loading) {
-    return <LoadingView />
-  }
+  }, [authenticated, isMounted, router])
 
   return (
     <Tabs

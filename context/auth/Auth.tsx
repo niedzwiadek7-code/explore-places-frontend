@@ -11,6 +11,8 @@ class AuthClass {
 
   sessionId: string | null
 
+  authenticated: boolean
+
   login: (sessionId: string) => Promise<void>
 
   logout: () => Promise<void>
@@ -18,11 +20,13 @@ class AuthClass {
   constructor(
     token: (string | null) = null,
     sessionId: (string | null) = null,
+    authenticated: boolean = false,
     login: (sessionIdLoc: string) => Promise<void> = async () => {},
     logout: () => Promise<void> = async () => {},
   ) {
     this.token = token
     this.sessionId = sessionId
+    this.authenticated = authenticated
     this.login = login
     this.logout = logout
   }
@@ -38,6 +42,36 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [sessionId, setSessionId] = useState<string | null>(null)
+  const [authenticated, setAuthenticated] = useState(false)
+
+  const isAuthenticatedFn = async (sessionIdTmp?: string): Promise<boolean> => {
+    if (!sessionIdTmp) {
+      return false
+    }
+
+    const sessionResult = await AuthSingleton.getInstance().getSessionDetails()
+    return sessionResult.status === 'SUCCESS'
+  }
+
+  const login = async (sessionIdLoc: string) => {
+    setIsLoading(true)
+    ApiBackendSingleton.setSessionId(sessionIdLoc)
+    await Storage.setItem('sessionId', sessionIdLoc)
+    setSessionId(sessionIdLoc)
+
+    const isAuthenticated = await isAuthenticatedFn(sessionIdLoc)
+    setAuthenticated(isAuthenticated)
+    setIsLoading(false)
+  }
+
+  const logout = async () => {
+    setIsLoading(true)
+    ApiBackendSingleton.setSessionId()
+    await Storage.removeItem('sessionId')
+    setSessionId(null)
+    setAuthenticated(false)
+    setIsLoading(false)
+  }
 
   useEffect(() => {
     const getConfig = async () => {
@@ -47,8 +81,7 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
 
       const sessionIdTmp = await Storage.getItem('sessionId')
       if (sessionIdTmp) {
-        setSessionId(sessionIdTmp)
-        ApiBackendSingleton.setSessionId(sessionIdTmp)
+        await login(sessionIdTmp)
       }
       setIsLoading(false)
     }
@@ -56,21 +89,9 @@ export const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
     getConfig()
   }, [])
 
-  const login = async (sessionIdLoc: string) => {
-    ApiBackendSingleton.setSessionId(sessionIdLoc)
-    await Storage.setItem('sessionId', sessionIdLoc)
-    setSessionId(sessionIdLoc)
-  }
-
-  const logout = async () => {
-    ApiBackendSingleton.setSessionId()
-    await Storage.removeItem('sessionId')
-    setSessionId(null)
-  }
-
   const value = useMemo(
-    () => new AuthClass(token, sessionId, login, logout),
-    [token, sessionId],
+    () => new AuthClass(token, sessionId, authenticated, login, logout),
+    [token, sessionId, authenticated],
   )
 
   if (isLoading) {
