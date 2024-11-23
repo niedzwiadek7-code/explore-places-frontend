@@ -29,6 +29,7 @@ const Home = () => {
 
   const fetchData = useCallback(
     async () => {
+      // console.log(i18n.language)
       const coordinates = await getActualPosition()
       const activitiesFetched = await ActivitiesSingleton.getInstance().getActivities(
         ACTIVITIES_COUNT,

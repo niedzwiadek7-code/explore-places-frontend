@@ -150,6 +150,9 @@ export class Auth {
       case 'SUCCESS':
         return { status: 'SUCCESS' }
       case 'AUTH ERROR':
+        if (response.statusCode === 410) {
+          this.apiService.setSessionId()
+        }
         return { status: 'AUTH ERROR' }
       default:
         this.apiService.setSessionId()

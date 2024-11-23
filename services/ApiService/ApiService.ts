@@ -117,6 +117,8 @@ export default class ApiService {
     const url = `${this.baseUrl}${endpoint}`
     const headers = this.getHeader()
 
+    // console.log('url', url)
+
     try {
       const response = await fetch(url, {
         headers,
