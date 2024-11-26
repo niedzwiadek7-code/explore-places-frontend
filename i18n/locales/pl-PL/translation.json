@@ -29,6 +29,9 @@
     "show_original": "Zobacz oryginał",
     "away": "stąd",
     "comment": {
+      "ago": "temu",
+      "required_field": "Komentarz nie może być pusty",
+      "type_comment": "Napisz swój komentarz",
       "comments": "Komentarze",
       "add_comment": "Dodaj komentarz",
       "send": "Wyślij",

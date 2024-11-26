@@ -29,6 +29,9 @@
     "show_original": "Show original",
     "away": "from you",
     "comment": {
+      "ago": "ago",
+      "required_field": "Comment cannot be empty",
+      "type_comment": "Type a comment",
       "comments": "Comments",
       "add_comment": "Add a comment",
       "send": "Send",

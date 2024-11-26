@@ -65,7 +65,7 @@ export class Activities {
   }
 
   async createComment(activityId: number, comment: string) {
-    const result = await this.apiService.post('/api/activities/comments', { activityId, comment })
+    const result = await this.apiService.post('/api/activities/comments/', { activity: activityId, comment })
     return result.result === 'SUCCESS'
   }
 }
