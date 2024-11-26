@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Activities } from '@/services/activities/Activities'
-import ApiService from '@/services/ApiService/ApiService'
+import ApiService, {StandardResponse} from '@/services/ApiService/ApiService'
 import {
   activitiesData, unauthorizedError,
 } from '@/services/activities/test/data'
@@ -45,5 +45,26 @@ export class ActivitiesStub implements Activities {
   getActivityViewsService(): ActivitiesView {
     const requestFn = async () => {}
     return ActivitiesViewSingleton.getInstance(requestFn)
+  }
+
+  async createComment(activityId: number, comment: string): Promise<boolean> {
+    const activity = this.activitiesData.find((a) => a.id === activityId)
+    if (!activity) {
+      return false
+    }
+
+    if (!activity.comments) {
+      activity.comments = []
+    }
+
+    activity.comments.push({
+      id: activity.comments.length + 1,
+      comment,
+      created_at: new Date().toISOString(),
+      activity: activityId,
+      user: 'testUser',
+    })
+
+    return true
   }
 }

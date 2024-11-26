@@ -37,7 +37,15 @@ export type IActivity = {
     description: string | null,
     activity: number,
     language: string
-  },
+  } | null,
   point_field: string,
   original_language: string
+
+  comments?: Array<{
+    id: number
+    comment: string
+    created_at: string
+    activity: number,
+    user: string
+  }>
 }

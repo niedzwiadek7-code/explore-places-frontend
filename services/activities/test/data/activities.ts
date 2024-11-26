@@ -2,480 +2,488 @@ import { IActivity } from '@/services/activities/types'
 
 export const activitiesData: IActivity[] = [
   {
-    id: 48796,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.99604797363281,
-      longitude: 14.987081527709961,
+    "id": 38,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.169219970703125,
+      "longitude": 14.096352577209473
     },
-    address: {
-      id: 8481,
-      street: 'Bukačov ',
-      city: 'Kouřim',
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28161',
+    "distance": 418252.98942234233,
+    "address": {
+      "id": 30,
+      "street": " ",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38775"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 35,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Sko%C4%8Dick%C3%BD%20hrad",
+      "website_url": null
     },
-    translation: {
-      id: 2805,
-      language: 'en',
-      name: "At St. Vojtěch's",
-      description: 'Hradiště u svatého Vojtěch is a prehistoric hillfort and a prehistoric to early medieval settlement southeast of the town of Kouřim in the district of Kolín. The site is located in the neighborhood of the Bukačovský mill and was named after the defunct church of St. Audrey, which stood on it. Only terrain indications of the rampart survived from the fortifications of the hillfort. Hradiště has been protected as a cultural monument since 1965. The oldest unfortified settlement was located on the oval terrace above the river Výrovka already in the Eneolithic period during the řivnáč culture. Infrequent finds also prove the settlement by members of the Únětic-Véteřov culture, while in the late Bronze Age a fortified fort of the Knovíz-Štita culture was built here.',
-      activity: 48796,
+    "translation": {
+      "id": 75,
+      "language": "en",
+      "name": "Roost",
+      "description": "Skočice Castle is a nature reserve, registered no. 975, located near the village of Skočice in the Strakonice district. The reason for the protection is the complex of relatively very natural forest vegetation in the top part of the Hrad u Skočice hill. This location is the only one in the Strakonice district where the natural growth of flowering beech of the Eu–Fagenion sub-girder has been preserved. Valuable natural forest growth covers the western peak part (including the area of ​​the prehistoric hillfort) and the eastern culminating part. The flat ridges and gentler south-facing slopes of both peaks are covered mainly with deciduous growths with a predominance of beech, which have the character of acidophilous beech forests to beech oak forests with transitions to flowering beech forests. The area is managed by the Agency for Nature and Landscape Protection of the Czech Republic.",
+      "activity": 38
     },
-    name: 'U svatého Vojtěcha',
-    description: 'Hradiště u svatého Vojtěcha je pravěké hradiště a pravěké až raně středověké sídliště jihovýchodně od města Kouřim v okrese Kolín. Lokalita se nachází v sousedství Bukačovského mlýna a byla pojmenována po zaniklém kostelu svatého Vojtěcha, který na ní stával. Z opevnění hradiště se dochovaly jen terénní náznaky valu. Hradiště je od roku 1965 chráněno jako kulturní památka.Nejstarší neopevněné sídliště se na oválné terase nad říčkou Výrovkou nacházelo už v eneolitu v období řivnáčské kultury. Nepříliš časté nálezy dokládají také osídlení příslušníky úněticko-věteřovské kultury, zatímco v pozdní době bronzové zde bylo postaveno opevněné hradiště knovízsko-štítarské kultury.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Kou%C5%99im%2C_Buka%C4%8Dov%2C_informa%C4%8Dn%C3%AD_tabule.jpg/400px-Kou%C5%99im%2C_Buka%C4%8Dov%2C_informa%C4%8Dn%C3%AD_tabule.jpg',
+    "comments": [
+      {
+        "id": 2,
+        "comment": "Dobra aktywnosc",
+        "created_at": "2024-11-26T17:06:07.822265Z",
+        "activity": 38,
+        "user": "damiankliber@gmail.com",
+      }
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q37428239',
-    },
-    point_field: 'SRID=4326;POINT (14.987081527709961 49.99604797363281)',
-    tags: [
-      'fortifications',
-      'historic',
-      'monuments_and_memorials',
-      'archaeology',
-      'interesting_places',
-      'other_archaeological_sites',
-      'hillforts',
-      'monuments',
+    "name": "Hrad",
+    "description": "Skočický hrad je přírodní rezervace ev. č. 975 nacházející se poblíž obce Skočice v okrese Strakonice. Důvodem ochrany je komplex relativně velmi přirozené lesní vegetace ve vrcholové části vrchu Hradu u Skočic. Na této lokalitě se jako na jediné v okrese Strakonice zachoval přirozený porost květnaté bučiny podsvazu Eu–Fagenion. Cenné přirozené lesní porosty pokrývají západní vrcholovou část (včetně prostoru prehistorického hradiště) a východní kulminační část. Ploché hřbety a mírnější jižně orientované svahy obou vrcholů jsou kryté převážně listnatými porosty s převahou buku, které mají charakter acidofilních bučin až bukových doubrav s přechody ke květnatým bučinám. Oblast spravuje Agentura ochrany přírody a krajiny ČR.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Natural_reservation_Skocicky_hrad_in_winter_%2824%29.JPG/400px-Natural_reservation_Skocicky_hrad_in_winter_%2824%29.JPG"
     ],
-    original_language: 'cs',
-    owner: null,
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "N3051152617"
+    },
+    "point_field": "SRID=4326;POINT (14.096352577209473 49.169219970703125)",
+    "tags": [
+      "mountain_peaks",
+      "geological_formations",
+      "natural",
+      "interesting_places",
+      "nature_reserves",
+      "nature_reserves_others"
+    ],
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48798,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.99652862548828,
-      longitude: 14.972167015075684,
+    "id": 39,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.16875076293945,
+      "longitude": 14.095664978027344
     },
-    address: {
-      id: 8483,
-      street: 'Ruská 273',
-      city: 'Kouřim',
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28161',
+    "distance": 418325.06477819465,
+    "address": {
+      "id": 30,
+      "street": " ",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38775"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 36,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Sko%C4%8Dick%C3%BD%20hrad",
+      "website_url": "https://wiki.openstreetmap.org/wiki/EEA:Nationally_designated_areas_import"
     },
-    translation: {
-      id: 2784,
-      language: 'en',
-      name: 'Museum of Folk Buildings in Kouřimi',
-      description: 'The Museum of Folk Buildings in Kouřim is part of the Regional Museum in Kolín, a contribution organization of the Central Bohemian Region. It was founded in 1972 in the surroundings of an old orchard and opened to the public in 1976. The founders of the regional rescue open-air museum soon conceived the ambition to transform it into the only open-air museum in the Czech Republic, which collects architectural monuments from the entire territory of Bohemia and thus offers a direct comparison of various regional types of folk architecture from the period from the 17th to the 19th century. The museum is also the venue for many ethnographic and other accompanying programs throughout the year, it is also used by filmmakers. It also includes the Regional Expert Center for the Care of Traditional Folk Culture. The museum is a member of the Czech Association of Outdoor Museums.',
-      activity: 48798,
+    "translation": {
+      "id": 77,
+      "language": "en",
+      "name": "Skočice Castle",
+      "description": "Skočice Castle is a nature reserve, registered no. 975, located near the village of Skočice in the Strakonice district. The reason for the protection is the complex of relatively very natural forest vegetation in the top part of the Hrad u Skočice hill. This location is the only one in the Strakonice district where the natural growth of flowering beech of the Eu–Fagenion sub-girder has been preserved. Valuable natural forest growth covers the western peak part (including the area of ​​the prehistoric hillfort) and the eastern culminating part. The flat ridges and gentler south-facing slopes of both peaks are covered mainly with deciduous growths with a predominance of beech, which have the character of acidophilous beech forests to beech oak forests with transitions to flowering beech forests. The area is managed by the Agency for Nature and Landscape Protection of the Czech Republic.",
+      "activity": 39
     },
-    name: 'Muzeum lidových staveb v Kouřimi',
-    description: 'Muzeum lidových staveb v Kouřimi je součástí Regionálního muzea v Kolíně, příspěvkové organizace Středočeského kraje. Bylo založeno roku 1972 v prostředí starého ovocného sadu a veřejnosti zpřístupněno v roce 1976. Zřizovatelé regionálního záchranného skanzenu brzy pojali ambice přeměnit jej v jediný skanzen v České republice, který shromažďuje stavitelské památky z celého území Čech a nabízí tak přímé srovnání různých regionálních typů lidové architektury z období od 17. do 19. století. Muzeum je celoročně také dějištěm mnoha národopisných a dalších doprovodných programů, využívají jej též filmaři. Působí při něm také Regionální odborné pracoviště pro péči o tradiční lidovou kulturu. Muzeum je členem Českého svazu muzeí v přírodě.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Skanzen_Kourim_2.jpg/400px-Skanzen_Kourim_2.jpg',
+    "comments": [],
+    "name": "Skočický hrad",
+    "description": "Skočický hrad je přírodní rezervace ev. č. 975 nacházející se poblíž obce Skočice v okrese Strakonice. Důvodem ochrany je komplex relativně velmi přirozené lesní vegetace ve vrcholové části vrchu Hradu u Skočic. Na této lokalitě se jako na jediné v okrese Strakonice zachoval přirozený porost květnaté bučiny podsvazu Eu–Fagenion. Cenné přirozené lesní porosty pokrývají západní vrcholovou část (včetně prostoru prehistorického hradiště) a východní kulminační část. Ploché hřbety a mírnější jižně orientované svahy obou vrcholů jsou kryté převážně listnatými porosty s převahou buku, které mají charakter acidofilních bučin až bukových doubrav s přechody ke květnatým bučinám. Oblast spravuje Agentura ochrany přírody a krajiny ČR.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Natural_reservation_Skocicky_hrad_in_winter_%2824%29.JPG/400px-Natural_reservation_Skocicky_hrad_in_winter_%2824%29.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q12039021',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "R2332585"
     },
-    point_field: 'SRID=4326;POINT (14.972167015075684 49.99652862548828)',
-    tags: [
-      'museums',
-      'cultural',
-      'interesting_places',
-      'open_air_museums',
+    "point_field": "SRID=4326;POINT (14.095664978027344 49.16875076293945)",
+    "tags": [
+      "natural",
+      "interesting_places",
+      "nature_reserves",
+      "nature_reserves_others"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48795,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.99489212036133,
-      longitude: 14.958891868591309,
+    "id": 41,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.113338470458984,
+      "longitude": 14.19135570526123
     },
-    address: {
-      id: 8480,
-      street: ' 1',
-      city: null,
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28163',
+    "distance": 418714.81640221865,
+    "address": {
+      "id": 32,
+      "street": " 1",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38772"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 38,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Lib%C4%9Bjovice%20%28star%C3%BD%20z%C3%A1mek%29",
+      "website_url": null
     },
-    translation: {
-      id: 2808,
-      language: 'en',
-      name: 'Molitorov',
-      description: 'Molitorov is a castle in the village of the same name near Kouřimi in the district of Kolín. It was most likely founded in the middle of the seventeenth century as part of a farm. The preserved appearance is the result of reconstruction from the end of the eighteenth century and modifications according to the design of Dušan Jurkovič from the beginning of the twentieth century. The castle has been protected as a cultural monument since 1965.',
-      activity: 48795,
-    },
-    name: 'Molitorov',
-    description: 'Molitorov je zámek ve stejnojmenné vesnici u Kouřimi v okrese Kolín. Založen byl nejspíše v polovině sedmnáctého století jako součást hospodářského dvora. Dochovaná podoba je výsledkem přestavby z konce osmnáctého století a úprav podle návrhu Dušana Jurkoviče z počátku dvacátého století. Zámek je od roku 1965 chráněn jako kulturní památka.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Molitorov%2C_z%C3%A1mek.jpg/300px-Molitorov%2C_z%C3%A1mek.jpg',
+    "translation": null,
+    "comments": [],
+    "name": "Zámek Libějovice",
+    "description": "Starý zámek Libějovice je tvrz přestavěná na zámek v Libějovicích v okrese Strakonice. Renesanční zámek vznikl ve druhé polovině šestnáctého století přestavbou starší tvrze ze druhé poloviny čtrnáctého století. Mezi majitele sídla patřili Malovcové z Malovic, Rožmberkové, Švamberkové a Buquoyové, kteří v osmnáctém století západně od vesnice postavili nový libějovický zámek. Staré sídlo od té doby sloužilo jen úředníkům. Areál starého zámku je chráněn jako kulturní památka.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Lib%C4%9Bjovice_%28okres_Strakonice%29_%2819%29.jpg/400px-Lib%C4%9Bjovice_%28okres_Strakonice%29_%2819%29.jpg"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'W208611137',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "R2625845"
     },
-    point_field: 'SRID=4326;POINT (14.958891868591309 49.99489212036133)',
-    tags: [
-      'architecture',
-      'historic_architecture',
-      'fortifications',
-      'historic',
-      'interesting_places',
-      'manor_houses',
-      'castles',
+    "point_field": "SRID=4326;POINT (14.19135570526123 49.113338470458984)",
+    "tags": [
+      "architecture",
+      "historic_architecture",
+      "fortifications",
+      "historic",
+      "interesting_places",
+      "manor_houses",
+      "castles"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48797,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.9651985168457,
-      longitude: 14.97700023651123,
+    "id": 22,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.09557342529297,
+      "longitude": 14.187592506408691
     },
-    address: {
-      id: 8482,
-      street: ' ',
-      city: null,
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28161',
+    "distance": 420432.3282791549,
+    "address": {
+      "id": 17,
+      "street": " ",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38772"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 21,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Kostel%20Jm%C3%A9na%20Panny%20Marie%20%28Lomec%29",
+      "website_url": null
     },
-    translation: {
-      id: 2790,
-      language: 'en',
-      name: 'Church of Saint Matthew in Malotice',
-      description: "St. Matthew's Church in Malotice is a neo-Romanesque building from 1904. In 1309, the Gothic church of St. Matthew. It served as a parish church until the Thirty Years' War, when most of the village was destroyed. In the second half of the 17th century, it was restored, but was attached to the parish in Zásmuký. In 1787, it was rebuilt in the Baroque style.",
-      activity: 48797,
+    "translation": {
+      "id": 43,
+      "language": "en",
+      "name": "Church of the Name of the Virgin Mary (Lomec)",
+      "description": "Lomec is a pilgrimage site in South Bohemia. It is located five kilometers north of Netolice, in the cadastre of the village of Nestanice near the border of the districts of Strakonice and Prachatice. Thanks to archaeological excavations in 1925, a number of Slavic burial mounds were discovered under the top of the local hill, which probably date from the 6th–9th centuries AD. The local burial ground is among the best preserved of its kind in Bohemia and is ranked among the largest in South Bohemia. The name Lomec comes from the 14th century. It is derived from a nearby quarry, after which the gneiss hill with an altitude of 652 m, on which the present church is located, was named. The quarried stone was used, among other things, for the construction of the church.",
+      "activity": 22
     },
-    name: 'Church of Saint Matthew in Malotice',
-    description: 'Kostel svatého Matouše v Maloticích je neorománská stavba z roku 1904.V roce 1309 byl v Maloticích postaven gotický kostel sv. Matuše. Sloužil jako farní kostel až do třicetileté války, kdy byl z celou vesnicí z větší části zničen. V druhé polovině 17. století byl obnoven, ale byl připojen k farnosti v Zásmukách. V roce 1787 byl pak barokně přestavěn.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Malotice%2C_church.jpg/296px-Malotice%2C_church.jpg',
+    "comments": [],
+    "name": "Church of the Name of the Virgin Mary (Lomec)",
+    "description": "Lomec je poutní místo v jižních Čechách. Nachází se pět kilometrů severně od Netolic, v katastru vesnice Nestanice poblíž hranice okresů Strakonice a Prachatice.Díky archeologickým vykopávkám z roku 1925 byla pod vrcholem zdejšího kopce objevena řada slovanských mohyl, které pocházejí zřejmě z 6.–9. století po Kristu. Zdejší pohřebiště patří mezi nejzachovalejší tohoto druhu v Čechách a je řazeno mezi jedno z největších na jihu Čech.Název Lomec pochází ze 14. století. Je odvozen od nedalekého lomu, podle něhož byl pojmenován rulový vrch o nadmořské výšce 652 m, na kterém se dnešní kostel nachází. Vytěžený kámen byl mimo jiné použit právě na stavbu kostela.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/0/04/Kostel_Lomec.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q12030901',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "W436875445"
     },
-    point_field: 'SRID=4326;POINT (14.97700023651123 49.9651985168457)',
-    tags: [
-      'religion',
-      'churches',
-      'interesting_places',
-      'other_churches',
+    "point_field": "SRID=4326;POINT (14.187592506408691 49.09557342529297)",
+    "tags": [
+      "religion",
+      "churches",
+      "interesting_places",
+      "catholic_churches"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48799,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.93028259277344,
-      longitude: 14.98995304107666,
+    "id": 24,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.093955993652344,
+      "longitude": 14.185315132141113
     },
-    address: {
-      id: 7988,
-      street: ' ev.19',
-      city: null,
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28163',
+    "distance": 420676.2649875591,
+    "address": {
+      "id": 17,
+      "street": " ",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38772"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 23,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/K%C5%99%C3%AD%C5%BEov%C3%A1%20cesta%20%28Lomec%29",
+      "website_url": null
     },
-    translation: {
-      id: 2780,
-      language: 'en',
-      name: 'Hryzely',
-      description: 'Hryzely (also Šance, V Šancí or Na Starých sáncích) is an early medieval hillfort south of the village of the same name near Barchovice in the Kolín district. It existed from the eighth to the ninth century and the distinct remains of three ramparts and ditches have been preserved from it. It has been protected as a cultural monument since 1965.',
-      activity: 48799,
+    "translation": {
+      "id": 48,
+      "language": "en",
+      "name": "Stations of the Cross",
+      "description": "The Stations of the Cross in Lomec in Libějovice in the Strakonice region are located at the Lomec pilgrimage site with the Church of the Name of the Virgin Mary. The Stations of the Cross were created in 2005 as a memorial to Father František Hobizal. It consists of fourteen stations in the form of wooden posts with a chapel with a painting on top, which line the path from the church to the forest cemetery. The project for the creation of the path was supported by the municipalities of Libějovice, Malovice and the civic association Mája – Tvořivé Chelčice. The forest Stations of the Cross were consecrated on the first Saturday in June 2005 by Msgre. Prof. Karel Skalický.LibějoviceCrossing the Czech Republic: Pilgrimage Church of the Name of the Virgin Mary in Lomec.[unavailable source] 28.10.2013.",
+      "activity": 24
     },
-    name: 'Hryzely',
-    description: 'Hryzely (též Šance, V Šancích nebo Na Starých šancích) jsou raně středověké hradiště jižně od stejnojmenné vesnice u Barchovic v okrese Kolín. Existovalo v osmém až devátém století a dochovaly se z něj výrazné pozůstatky tří valů a příkopů. Od roku 1965 je chráněno jako kulturní památka.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Hryzely_-_p%C5%AFdorys_%28Jan_Kremla%2C_1903%29.png/262px-Hryzely_-_p%C5%AFdorys_%28Jan_Kremla%2C_1903%29.png',
+    "comments": [],
+    "name": "Křížová cesta",
+    "description": "Křížová cesta na Lomec v Libějovicích na Strakonicku se nachází u poutního místa Lomec s kostelem Jména Panny Marie.Křížová cesta vznikla roku 2005 jako vzpomínka na pátera Františka Hobizala. Tvoří ji čtrnáct zastavení v podobě dřevěných sloupků s kapličkou s obrazem na vrcholu, které lemují cestu od kostela k lesnímu hřbitovu. Projekt vzniku cesty podpořily obce Libějovice, Malovice a občanské sdružení Mája – Tvořivé Chelčice. Lesní křížovou cestu posvětil o první červnové sobotě roku 2005 Msgre. Prof. Karel Skalický.LibějoviceKřížem krážem Českem: Poutní kostel Jména Panny Marie na Lomci.[nedostupný zdroj] 28.10.2013.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Lomec_%28Lib%C4%9Bjovice%29_%28011%29.jpg/400px-Lomec_%28Lib%C4%9Bjovice%29_%28011%29.jpg"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q37294909',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "N8690863962"
     },
-    point_field: 'SRID=4326;POINT (14.98995304107666 49.93028259277344)',
-    tags: [
-      'fortifications',
-      'historic',
-      'monuments_and_memorials',
-      'archaeology',
-      'interesting_places',
-      'other_archaeological_sites',
-      'hillforts',
-      'monuments',
+    "point_field": "SRID=4326;POINT (14.185315132141113 49.093955993652344)",
+    "tags": [
+      "religion",
+      "other_temples",
+      "interesting_places"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48793,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.99775314331055,
-      longitude: 14.865330696105957,
+    "id": 37,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.15895080566406,
+      "longitude": 14.05960464477539
     },
-    address: {
-      id: 8479,
-      street: 'Českobrodská 17',
-      city: 'Kostelec nad Černými lesy',
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28163',
+    "distance": 420840.29447755637,
+    "address": {
+      "id": 29,
+      "street": " ",
+      "city": null,
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38773"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 34,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/%C5%98%C3%ADmskokatolick%C3%A1%20farnost%20B%C3%ADlsko",
+      "website_url": null
     },
-    translation: {
-      id: 2770,
-      language: 'en',
-      name: 'Brewery in Kostelec nad Černými lesy',
-      description: 'The Brewery Museum Kostelec nad Černými lesy is located on the grounds of the brewery in Kostelec nad Černými lesy.',
-      activity: 48793,
+    "translation": {
+      "id": 73,
+      "language": "en",
+      "name": "Church of St. James the Greater",
+      "description": "The Roman Catholic parish of Bílsko is a defunct territorial community of Roman Catholics within the Strakonice vicariate of the České Budějovice diocese. The rectory in Bílsko was founded in 1359. The current appearance of the parish church comes from modifications that were made at the instigation of Mikuláš Diviš Radkovec around 1630. Since 1961, the parish has not had a resident spiritual administrator and is administered from parishes in the area (either from Bavorov or from Vodňany).",
+      "activity": 37
     },
-    name: 'Brewery in Kostelec nad Černými lesy',
-    description: 'Pivovarské muzeum Kostelec nad Černými lesy se nachází v areálu pivovaru v Kostelci nad Černými lesy.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Pivovar_Kostelec_nad_%C4%8Cern%C3%BDmi_lesy.jpg/400px-Pivovar_Kostelec_nad_%C4%8Cern%C3%BDmi_lesy.jpg',
+    "comments": [],
+    "name": "kostel svatého Jakuba Většího",
+    "description": "Římskokatolická farnost Bílsko je zaniklé územní společenství římských katolíků v rámci strakonického vikariátu Českobudějovické diecéze.Plebánie v Bílsku byla založena v roce 1359. Současná podoba farního kostela pochází z úprav, které byly provedeny z popudu Mikuláše Diviše Radkovce kolem roku 1630. Od roku 1961 nemá farnost sídelního duchovního správce a je administrována z farností v okolí (buď z Bavorova, nebo z Vodňan).",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/B%C3%ADlsko_%286%29.JPG/400px-B%C3%ADlsko_%286%29.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q12045458',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "W265001944"
     },
-    point_field: 'SRID=4326;POINT (14.865330696105957 49.99775314331055)',
-    tags: [
-      'museums',
-      'cultural',
-      'interesting_places',
-      'other_museums',
-      'foods',
-      'biergartens',
-      'tourist_facilities',
+    "point_field": "SRID=4326;POINT (14.05960464477539 49.15895080566406)",
+    "tags": [
+      "religion",
+      "other_temples",
+      "interesting_places"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48789,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.99576950073242,
-      longitude: 14.862910270690918,
+    "id": 36,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.12129592895508,
+      "longitude": 14.09435749053955
     },
-    address: {
-      id: 8476,
-      street: 'náměstí Smiřických 1',
-      city: 'Kostelec nad Černými lesy',
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28163',
+    "distance": 422458.0305802132,
+    "address": {
+      "id": 28,
+      "street": " ev.35",
+      "city": "Bavorov",
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38773"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 33,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Bavorovsk%C3%A1%20str%C3%A1%C5%88",
+      "website_url": "https://wiki.openstreetmap.org/wiki/EEA:Nationally_designated_areas_import"
     },
-    translation: {
-      id: 2802,
-      language: 'en',
-      name: 'castle in Kostelec nad Černými lesy',
-      description: 'Castle Kostelec nad Černými lesy (until 1920: Černý Kostelec, German: Schwarzkosteletz) is a former noble residence in the village of the same name in the Praha-východ district in the Central Bohemian Region. The original castle called Černý Kostelec was first mentioned in 1348, although the area here was settled by colonists already in the first half of the 13th century. In the mentioned year, Margrave Jan Jindřich, brother of Emperor Charles IV, agreed. in the contract concluded by his father Jan Luxemburgský in the 1st quarter of the 14th century, with the exchange of the manor and castle "Costelicz in Nygra Sylva" for Náchod Castle.',
-      activity: 48789,
+    "translation": {
+      "id": 71,
+      "language": "en",
+      "name": "Bavarian hillside",
+      "description": "Bavorovská stráň is a natural monument, registered no. 1825, east of Bavorov in the Strakonice district, in the valley of the Blanice river, on the western slope of Svobodná hora. Administered by the AOPK České Budějovice. The territory is located at an altitude of 418 to 436 m above sea level. The protected area was declared by the Strakonice District Office Regulation No. 6/96 of March 5, 1996 with an effective date of July 1, 1996.",
+      "activity": 36
     },
-    name: 'castle in Kostelec nad Černými lesy',
-    description: 'Zámek Kostelec nad Černými lesy (do roku 1920: Černý Kostelec, německy: Schwarzkosteletz) je někdejší šlechtické sídlo ve stejnojmenné obci v okrese Praha-východ ve Středočeském kraji.Původní hrad s názvem Černý Kostelec je poprvé zmiňován v roce 1348, ačkoli zdejší území bylo osídleno kolonisty již v 1. polovině 13. století. Ve zmíněném roce souhlasil markrabě Jan Jindřich, bratr císaře Karla IV. ve smlouvě uzavřené jeho otcem Janem Lucemburským v 1. čtvrtině 14. století, s výměnou panství a hradu „Costelicz in Nygra Sylva“ za hrad Náchod.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Kostelec_nad_%C4%8Cern%C3%BDmi_lesy%2C_z%C3%A1mek.JPG/266px-Kostelec_nad_%C4%8Cern%C3%BDmi_lesy%2C_z%C3%A1mek.JPG',
+    "comments": [],
+    "name": "Bavorská stráň",
+    "description": "Bavorovská stráň je přírodní památka ev. č. 1825, východně od Bavorova v okrese Strakonice, v údolí řeky Blanice, na západním svahu Svobodné hory. Správa AOPK České Budějovice. Území se rozkládá v nadmořské výšce 418 až 436 m n. m.Chráněné území bylo vyhlášeno nařízením Okresního úřadu Strakonice číslo 6/96 ze dne 5. března 1996 s datem účinnosti od 1. července 1996.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Natural_monument_Bavorska_stran_in_winter_%2810%29.JPG/400px-Natural_monument_Bavorska_stran_in_winter_%2810%29.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'R1589899',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "R2331069"
     },
-    point_field: 'SRID=4326;POINT (14.862910270690918 49.99576950073242)',
-    tags: [
-      'fortifications',
-      'historic',
-      'interesting_places',
-      'castles',
+    "point_field": "SRID=4326;POINT (14.09435749053955 49.12129592895508)",
+    "tags": [
+      "natural_monuments",
+      "natural",
+      "interesting_places",
+      "nature_reserves"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48792,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.993682861328125,
-      longitude: 14.84887981414795,
+    "id": 33,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.12224197387695,
+      "longitude": 14.076635360717773
     },
-    address: {
-      id: 8478,
-      street: 'V Koupadlech 656',
-      city: 'Kostelec nad Černými lesy',
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28163',
+    "distance": 423193.99842729623,
+    "address": {
+      "id": 25,
+      "street": " ",
+      "city": "Bavorov",
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38773"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 30,
+      "wikipedia_url": "https://cs.wikipedia.org/wiki/Kostel%20Nanebevzet%C3%AD%20Panny%20Marie%20%28Bavorov%29",
+      "website_url": null
     },
-    translation: {
-      id: 2771,
-      language: 'en',
-      name: "Budil's villa",
-      description: 'Villa Ing. Václav Budil, also called Buvila, is a summer house in functionalist style, built by architect Jaroslav Fragner for engineer Václav Budil in Kostelec nad Černými lesy. It is located in V Koupadlech Street, No. 656. This summer residence was designed by the architect Jaroslav Fragner for his important customer, Ing. Václav Budil, director of the ESSO power plant (Elektrárenský svaz středolabských okreků) in Kolín, for whom he had already designed his Kolín villa (1928-1929) and the new building of the ESSO power plant (1930-1932). The design is influenced by the work of the Swiss architect Le Corbusier. The villa is privately owned. On May 20, 2013, it was declared a cultural monument of the Czech Republic.',
-      activity: 48792,
+    "translation": {
+      "id": 66,
+      "language": "en",
+      "name": "Church of the Assumption",
+      "description": "The Church of the Assumption of the Virgin Mary in the South Bohemian town of Bavorov is the dominant feature of the town and one of the most important Gothic buildings of South Bohemian Gothic architecture.",
+      "activity": 33
     },
-    name: 'Budilova vila',
-    description: 'Vila Ing. Václava Budila, zvaná též Buvila je letní dům ve funkcionalistickém stylu, který postavil architekt Jaroslav Fragner pro inženýra Václava Budila v Kostelci nad Černými lesy. Nachází se v ulici V Koupadlech, čp. 656.Toto letní sídlo navrhl architekt Jaroslav Fragner pro svého významného zákazníka, Ing. Václava Budila, ředitele elektrárny ESSO (Elektrárenský svaz středolabských okresů) v Kolíně, pro kterého již před tím navrhl jeho kolínskou vilu (1928-1929) a novostavbu elektrárny ESSO (1930–1932). Návrh je ovlivněn tvorbou švýcarského architekta Le Corbusiera.Vila je v soukromém vlastnictví. Dne 20. května 2013 byla prohlášena kulturní památkou České republiky.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Kostelec_nad_%C4%8Cern%C3%BDmi_lesy%2C_vila_V%C3%A1clava_Budila.jpg/400px-Kostelec_nad_%C4%8Cern%C3%BDmi_lesy%2C_vila_V%C3%A1clava_Budila.jpg',
+    "comments": [],
+    "name": "Church of the Assumption",
+    "description": "Kostel Nanebevzetí Panny Marie v jihočeském městě Bavorov je dominantou města a jednou z nejvýznamnějších gotických staveb jihočeského gotického stavebnictví.",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Kostel_Nanebevzet%C3%AD_Panny_Marie_Bavorov.jpg/266px-Kostel_Nanebevzet%C3%AD_Panny_Marie_Bavorov.jpg"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q37427143',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "Q37002220"
     },
-    point_field: 'SRID=4326;POINT (14.84887981414795 49.993682861328125)',
-    tags: [
-      'historic_architecture',
-      'architecture',
-      'interesting_places',
-      'manor_houses',
+    "point_field": "SRID=4326;POINT (14.076635360717773 49.12224197387695)",
+    "tags": [
+      "religion",
+      "churches",
+      "interesting_places",
+      "other_churches"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "cs",
+    "owner": null
   },
   {
-    id: 48530,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.87234878540039,
-      longitude: 14.973488807678223,
+    "id": 19,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.048980712890625,
+      "longitude": 14.196616172790527
     },
-    address: {
-      id: 7515,
-      street: '3359 ',
-      city: null,
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28507',
+    "distance": 424102.25909484655,
+    "address": {
+      "id": 15,
+      "street": "Mírové Náměstí ",
+      "city": "Netolice",
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38411"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 19,
+      "wikipedia_url": "https://ar.wikipedia.org/wiki/%3A%D8%AA%D9%88%D9%86%20%D9%87%D8%A7%D9%84%20%D8%A7%D9%88%D9%81%20%D9%86%D9%8A%D8%AA%D9%88%D9%84%D9%8A%D8%B3",
+      "website_url": null
     },
-    translation: {
-      id: 2249,
-      language: 'en',
-      name: 'Church of the Assumption of the Virgin Mary in Úžice',
-      description: 'The Church of the Assumption of the Virgin Mary in Úžice is a branch church in the cemetery by the main road in the middle of the village of Úžice in the Kutnohorsk district of the Central Bohemian Region. Originally Romanesque from the 12th century, it was a parish church until 2009, after which it was transferred to the administration of the Sázav parish. The church was built in the Romanesque style around 1175 and is thus one of the oldest monuments in the local region. The foundations, part of the nave masonry and the tower windows were preserved from the original building. In 1896, the Kutnohorsk company Antonín Mölzer built an organ on the new nave of the church.',
-      activity: 48530,
+    "translation": {
+      "id": 37,
+      "language": "en",
+      "name": "Town hall",
+      "description": "Town Hall of Netolice is a theatre in the Czech Republic. Town Hall of Netolice was first opened to the public in 1869. Town Hall of Netolice – images, audio and video recordings on Wikimedia Commons",
+      "activity": 19
     },
-    name: 'Church of the Assumption of the Virgin Mary in Úžice',
-    description: 'Kostel Nanebevzetí Panny Marie v Úžicích je filiální kostel na hřbitově u hlavní silnice uprostřed obce Úžice v kutnohorském okrese Středočeského kraje. Původně románský z 12. století byl do roku 2009 farním, poté byl převeden do správy sázavské farnosti.Kostel byl vystavěn v románském slohu kolem roku 1175 a patří tak mezi nejstarší památky zdejšího kraje. Z původní stavby se dochovaly základy, část lodního zdiva a věžní okna.V roce 1896 byly kutnohorskou firmou Antonín Mölzer na novém kůru kostela postaveny varhany.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/%C3%9A%C5%BEice%2C_kostel.jpg/300px-%C3%9A%C5%BEice%2C_kostel.jpg',
+    "comments": [],
+    "name": "Radnice",
+    "description": "تون هال اوف نيتوليس (Town Hall of Netolice) مسرح فى تشيكيا.تون هال اوف نيتوليس اتفتح للجمهور لأول مره سنه 1869تون هال اوف نيتوليس – صور وتسجيلات صوتيه و مرئيه على ويكيميديا كومونز (الإنجليزية)",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Netolice_radnice.JPG/300px-Netolice_radnice.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'Q28509549',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "N5324177523"
     },
-    point_field: 'SRID=4326;POINT (14.973488807678223 49.87234878540039)',
-    tags: [
-      'religion',
-      'churches',
-      'interesting_places',
-      'other_churches',
+    "point_field": "SRID=4326;POINT (14.196616172790527 49.048980712890625)",
+    "tags": [
+      "cultural",
+      "theatres_and_entertainments",
+      "interesting_places",
+      "other_theatres"
     ],
-    original_language: 'cs',
-    owner: null,
+    "original_language": "ar",
+    "owner": null
   },
   {
-    id: 48524,
-    liked_by_user: false,
-    coordinates: {
-      latitude: 49.86724090576172,
-      longitude: 14.955810546875,
+    "id": 20,
+    "liked_by_user": false,
+    "coordinates": {
+      "latitude": 49.0491828918457,
+      "longitude": 14.196032524108887
     },
-    address: {
-      id: 7513,
-      street: ' 22',
-      city: null,
-      state: 'Střední Čechy',
-      country: 'Česká republika',
-      postal_code: '28506',
+    "distance": 424110.63031821,
+    "address": {
+      "id": 15,
+      "street": "Mírové Náměstí ",
+      "city": "Netolice",
+      "state": "Jihozápad",
+      "country": "Česká republika",
+      "postal_code": "38411"
     },
-    external_links: {
-      id: 7067,
-      wikipedia_url: null,
-      website_url: null,
+    "external_links": {
+      "id": 19,
+      "wikipedia_url": "https://ar.wikipedia.org/wiki/%3A%D8%AA%D9%88%D9%86%20%D9%87%D8%A7%D9%84%20%D8%A7%D9%88%D9%81%20%D9%86%D9%8A%D8%AA%D9%88%D9%84%D9%8A%D8%B3",
+      "website_url": null
     },
-    translation: {
-      id: 2240,
-      language: 'en',
-      name: 'Talmberg Castle',
-      description: 'Talmberk (German: Burg Talenberg, Burg Talmberg (1297), Burg Tallenberg) is a castle ruin partly built over with family houses in the village of the same name about 3 km north of Ratají nad Sázavou in the district of Kutná Hora. It stands on a promontory with steep slopes at an altitude of 365 meters. It has been protected as a cultural monument since 1966. The castle was probably built at the beginning of the 14th century by Arnošt, who came from the Kounice family, and belonged to his family until the second half of the 15th century. In 1473, Bedřich Ojíř from Očedělice is listed as the owner, and in 1483, Bedřich from Šumburk and Talmberk. In 1533, the castle is listed as deserted.',
-      activity: 48524,
+    "translation": {
+      "id": 40,
+      "language": "en",
+      "name": "Netolice",
+      "description": "Town Hall of Netolice is a theatre in the Czech Republic. Town Hall of Netolice was first opened to the public in 1869. Town Hall of Netolice – images, audio and video recordings on Wikimedia Commons",
+      "activity": 20
     },
-    name: 'Talmberg Castle',
-    description: 'Talmberk (německy Burg Talenberg, Burg Talmberg (1297), Burg Tallenberg) je zřícenina hradu částečně zastavěná rodinnými domy ve stejnojmenné vesnici asi 3 km severně od Ratají nad Sázavou v okrese Kutná Hora. Stojí na ostrožně se strmými svahy v nadmořské výšce 365 metrů. Od roku 1966 je chráněn jako kulturní památka.Hrad postavil na počátku 14. století pravděpodobně Arnošt, který pocházel z rozrodu Kouniců, a jeho rodu patřil až do druhé poloviny 15. století. V roce 1473 je jako majitel uváděn Bedřich Ojíř z Očedělic a v roce 1483 Bedřich ze Šumburka a Talmberka. Roku 1533 se hrad uvádí jako pustý.',
-    images: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Talmberk.jpg/400px-Talmberk.jpg',
+    "comments": [],
+    "name": "Netolice",
+    "description": "تون هال اوف نيتوليس (Town Hall of Netolice) مسرح فى تشيكيا.تون هال اوف نيتوليس اتفتح للجمهور لأول مره سنه 1869تون هال اوف نيتوليس – صور وتسجيلات صوتيه و مرئيه على ويكيميديا كومونز (الإنجليزية)",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Netolice_radnice.JPG/300px-Netolice_radnice.JPG"
     ],
-    destination_resource: 'open_street_map',
-    migration_data: {
-      xid: 'N3785304907',
+    "destination_resource": "open_street_map",
+    "migration_data": {
+      "xid": "N4458716921"
     },
-    point_field: 'SRID=4326;POINT (14.955810546875 49.86724090576172)',
-    tags: [
-      'architecture',
-      'historic_architecture',
-      'fortifications',
-      'historic',
-      'interesting_places',
-      'destroyed_objects',
-      'castles',
+    "point_field": "SRID=4326;POINT (14.196032524108887 49.0491828918457)",
+    "tags": [
+      "cultural",
+      "theatres_and_entertainments",
+      "interesting_places",
+      "other_theatres"
     ],
-    original_language: 'cs',
-    owner: null,
-  },
+    "original_language": "ar",
+    "owner": null
+  }
 ]

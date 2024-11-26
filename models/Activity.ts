@@ -3,6 +3,7 @@ import { AddressModel } from './Address'
 import { CoordinatesModel } from './Coordinates'
 import { ExternalLinksModel } from './ExternalLinks'
 import { TranslatedField } from './TranslatedField'
+import { CommentModel } from './Comment'
 
 type TranslatedObj = {
   id: number,
@@ -27,11 +28,13 @@ export class ActivityModel {
 
   private _likedByUser: boolean
 
-  private _distance?: number
+  readonly _distance?: number
 
   readonly _external: ExternalLinksModel
 
   readonly _tags: string[]
+
+  readonly _comments: Array<CommentModel>
 
   constructor(
     id: number,
@@ -45,6 +48,7 @@ export class ActivityModel {
     distance?: number,
     tags: string[] = [],
     translation: TranslatedObj | undefined = undefined,
+    comments: Array<CommentModel> = []
   ) {
     this._id = id
     this._name = new TranslatedField(name, translation?.name)
@@ -55,6 +59,7 @@ export class ActivityModel {
     this._likedByUser = likedByUser
     this._external = externalLinks
     this._tags = tags
+    this._comments = comments
 
     if (distance) {
       this._distance = distance
@@ -107,5 +112,9 @@ export class ActivityModel {
 
   public get tags(): string[] {
     return this._tags
+  }
+
+  public get comments(): Array<CommentModel> {
+    return this._comments
   }
 }

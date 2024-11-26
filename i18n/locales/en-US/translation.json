@@ -27,7 +27,13 @@
     "external_links": "External links",
     "show_translated": "Show translation",
     "show_original": "Show original",
-    "away": "from you"
+    "away": "from you",
+    "comment": {
+      "comments": "Comments",
+      "add_comment": "Add a comment",
+      "send": "Send",
+      "no_comments": "No comments yet"
+    }
   },
   "login_confirm": {
     "verification_code": "Verification code",

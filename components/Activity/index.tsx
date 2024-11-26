@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, {memo, useEffect, useMemo, useRef, useState} from 'react'
 import {
   Dimensions,
   ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
@@ -14,6 +14,11 @@ import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import Tags from '@/components/Tags'
 import { useLocalTransaction } from '@/hooks/useLocalTranslation'
+import Animated from 'react-native-reanimated';
+// import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet, {BottomSheetFlatList, BottomSheetModal, BottomSheetScrollView} from "@gorhom/bottom-sheet";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import Comments from "@/components/Activity/Comments";
 
 type Props = {
   activity: ActivityModel
@@ -111,7 +116,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   }
 
   return (
-    <SafeAreaView
+    <View
       style={{
         height: '100%',
       }}
@@ -209,13 +214,12 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 containerColor={likedByUser ? 'rgba(50,0,0,.5)' : 'rgba(0,0,0,.5)'}
                 onPress={likeAction}
               />
-              <IconButton
-                icon="comment"
-                iconColor="white"
-                containerColor="rgba(0,0,0,.5)"
-                size={35}
-                onPress={() => console.log('comment')}
+
+              <Comments
+                comments={activity.comments}
+                activityId={activity.id}
               />
+
               <IconButton
                 icon="share"
                 iconColor="white"
@@ -360,7 +364,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
           </Card.Content>
         </Card>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   )
 }
 

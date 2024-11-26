@@ -1,6 +1,6 @@
 import { IActivity } from '@/services/activities/types'
 import {
-  ActivityModel, AddressModel, CoordinatesModel, ExternalLinksModel,
+  ActivityModel, AddressModel, CoordinatesModel, ExternalLinksModel, CommentModel
 } from '@/models'
 
 export const activityTransformer = (iActivity: IActivity): ActivityModel => {
@@ -22,6 +22,14 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     iActivity.external_links?.website_url || undefined,
   )
 
+  const comments = (iActivity?.comments || []).map((comment) => {
+    return new CommentModel(
+      comment.user,
+      comment.comment,
+      new Date(comment.created_at)
+    )
+  })
+
   return new ActivityModel(
     iActivity.id,
     iActivity.name,
@@ -33,6 +41,7 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     externalLinks,
     iActivity.distance,
     iActivity.tags,
-    iActivity.translation,
+    iActivity.translation || undefined,
+    comments
   )
 }

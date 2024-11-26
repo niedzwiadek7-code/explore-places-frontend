@@ -10,7 +10,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import 'react-native-reanimated'
 import '@/i18n'
 
-import { useMaterial3Theme } from '@pchmn/expo-material3-theme'
+// import { useMaterial3Theme } from '@pchmn/expo-material3-theme'
 import {
   MD3LightTheme, MD3DarkTheme, PaperProvider,
 } from 'react-native-paper'
@@ -18,6 +18,8 @@ import { ToastProvider } from 'react-native-paper-toast'
 import { AuthProvider } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -34,10 +36,12 @@ SplashScreen.preventAutoHideAsync()
 
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme()
-  const { theme } = useMaterial3Theme({
-    // fallbackSourceColor: '#3B5998',
-    sourceColor: '#3B5998',
-  })
+  // const { theme } = useMaterial3Theme({
+  //   fallbackSourceColor: '#3B5998',
+  //   fallbackSourceColor: '#FFFFFF',
+  //   sourceColor: '#3B5998',
+    // sourceColor: '#FFF000',
+  // })
 
   const { sessionId } = useCustomRouter()
 
@@ -50,18 +54,22 @@ const RootLayoutNav = () => {
   }, [sessionId])
 
   const paperTheme = colorScheme === 'dark'
-    ? { ...MD3DarkTheme, colors: theme.dark }
-    : { ...MD3LightTheme, colors: theme.light }
+    ? { ...MD3DarkTheme }
+    : { ...MD3LightTheme }
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ToastProvider>
-        <Stack initialRouteName="(login)">
-          <Stack.Screen name="(login)" options={{ headerShown: false }} />
-          <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        </Stack>
-      </ToastProvider>
-    </PaperProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <PaperProvider theme={paperTheme}>
+          <ToastProvider>
+            <Stack initialRouteName="(login)">
+              <Stack.Screen name="(login)" options={{ headerShown: false }} />
+              <Stack.Screen name="(home)" options={{ headerShown: false }} />
+            </Stack>
+          </ToastProvider>
+        </PaperProvider>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   )
 }
 
