@@ -4,7 +4,7 @@ import {
   FlatList, ImageBackground, SafeAreaView,
 } from 'react-native'
 import { Card, Text } from 'react-native-paper'
-import { TabsProvider, Tabs, TabScreen } from 'react-native-paper-tabs'
+import { TabsProvider } from 'react-native-paper-tabs'
 import { useTranslation } from 'react-i18next'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import { ActivityModel } from '@/models'
@@ -12,12 +12,14 @@ import { useFetch } from '@/hooks/useFetch'
 import LoadingView from '@/components/UI/LoadingView'
 import CustomList from '@/components/CustomList'
 import Activity from '@/components/Activity'
+import { useCoordinates } from '@/context/coordinates/Coordinates'
 
 const TabTwoScreen = () => {
   // TODO: show this points on map
   const [showList, setShowList] = useState(false)
   const [index, setIndex] = useState<number>(0)
-  const { t, i18n } = useTranslation('translation', { keyPrefix: 'favourites' })
+  const { i18n } = useTranslation('translation', { keyPrefix: 'favourites' })
+  const { actualPosition } = useCoordinates()
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -36,8 +38,9 @@ const TabTwoScreen = () => {
   const fetchData = useCallback(
     async (): Promise<ActivityModel[]> => ActivitiesSingleton.getInstance().getLikedActivities(
       i18n.language,
+      actualPosition || undefined,
     ),
-    [i18n.language],
+    [i18n.language, actualPosition],
   )
 
   const {
@@ -114,52 +117,38 @@ const TabTwoScreen = () => {
     <TabsProvider
       defaultIndex={0}
     >
-      <Tabs>
-        <TabScreen
-          label={t('likes')}
-        >
-          <SafeAreaView style={{
-            flex: 1,
-            marginVertical: 5,
-          }}
-          >
-            {
-              showList
-                ? (
-                  <CustomList
-                    data={data}
-                    renderItem={(activity) => <Activity activity={activity} />}
-                    index={index}
-                  />
-                ) : (
-                  <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id.toString()}
-                    numColumns={2}
-                    showsHorizontalScrollIndicator
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      flexWrap: 'wrap',
-                    }}
-                    contentContainerStyle={{
-                      flex: 1,
-                    }}
-                  />
-                )
+      <SafeAreaView style={{
+        flex: 1,
+        marginVertical: 5,
+      }}
+      >
+        {
+          showList
+            ? (
+              <CustomList
+                data={data}
+                renderItem={(activity) => <Activity activity={activity} />}
+                index={index}
+              />
+            ) : (
+              <FlatList
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+                numColumns={2}
+                showsHorizontalScrollIndicator
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}
+                contentContainerStyle={{
+                  flex: 1,
+                }}
+              />
+            )
              }
-          </SafeAreaView>
-        </TabScreen>
-
-        <TabScreen
-          label={t('saved')}
-        >
-          <SafeAreaView>
-            <Text>{t('saved')}</Text>
-          </SafeAreaView>
-        </TabScreen>
-      </Tabs>
+      </SafeAreaView>
     </TabsProvider>
   )
 }

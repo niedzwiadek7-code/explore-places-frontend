@@ -1,24 +1,21 @@
-import React, {memo, useEffect, useMemo, useRef, useState} from 'react'
+import React, {
+  memo, useState,
+} from 'react'
 import {
   Dimensions,
-  ImageBackground, Linking, SafeAreaView, ScrollView, TouchableOpacity, View,
+  ImageBackground, Linking, ScrollView, TouchableOpacity, View,
 } from 'react-native'
 import {
   Card, IconButton, Text, useTheme,
 } from 'react-native-paper'
 import { useToast } from 'react-native-paper-toast'
 import { useTranslation } from 'react-i18next'
-import * as Location from 'expo-location'
 import { ActivityModel, CoordinatesModel } from '@/models'
 import ModalComponent from '@/components/UI/Modal'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import Tags from '@/components/Tags'
 import { useLocalTransaction } from '@/hooks/useLocalTranslation'
-import Animated from 'react-native-reanimated';
-// import BottomSheet from 'reanimated-bottom-sheet';
-import BottomSheet, {BottomSheetFlatList, BottomSheetModal, BottomSheetScrollView} from "@gorhom/bottom-sheet";
-import {GestureHandlerRootView} from "react-native-gesture-handler";
-import Comments from "@/components/Activity/Comments";
+import Comments from '@/components/Activity/Comments'
 
 type Props = {
   activity: ActivityModel
@@ -30,7 +27,6 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const theme = useTheme()
   const toaster = useToast()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
-  const [distance, setDistance] = useState<number | null>(activity.distance || null)
   const {
     isTranslated,
     toggleTranslation,
@@ -51,33 +47,6 @@ const Activity: React.FC<Props> = ({ activity }) => {
       console.error("Couldn't load page", error)
     }
   }
-
-  const getActualPosition = async (): Promise<CoordinatesModel | null> => {
-    const { status } = await Location.requestForegroundPermissionsAsync()
-    if (status !== 'granted') {
-      return null
-    }
-    const location = await Location.getCurrentPositionAsync({})
-    return new CoordinatesModel(
-      location.coords.latitude,
-      location.coords.longitude,
-    )
-  }
-
-  useEffect(() => {
-    const getDistance = async () => {
-      const coordinates = await getActualPosition()
-      if (!coordinates) {
-        return
-      }
-      const distanceTmp = CoordinatesModel.getDistance(
-        activity.coordinates,
-        coordinates,
-      )
-      setDistance(distanceTmp)
-    }
-    getDistance()
-  }, [])
 
   const likeAction = async () => {
     if (likedByUser) {
@@ -181,7 +150,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
             </Text>
 
             {
-              distance && (
+              activity.distance && (
                 <Text
                   variant="bodyLarge"
                   style={{
@@ -194,7 +163,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     textShadowRadius: 0.6,
                   }}
                 >
-                  {`${CoordinatesModel.transformDistance(distance)} ${t('away')}`}
+                  {`${CoordinatesModel.transformDistanceFromKilometers(activity.distance)} ${t('away')}`}
                 </Text>
               )
             }

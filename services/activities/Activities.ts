@@ -42,11 +42,16 @@ export class Activities {
     return true
   }
 
-  async getLikedActivities(language: string) {
+  async getLikedActivities(
+    language: string,
+    coordinates?: CoordinatesModel,
+  ) {
     const results = await this.apiService.post<IActivity[], IGetLikedActivitiesData>(
       '/api/activities/liked-activities/',
       {
         language: language.split('-')[0],
+        latitude: coordinates?.latitude,
+        longitude: coordinates?.longitude,
       },
     )
 

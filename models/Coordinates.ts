@@ -55,4 +55,14 @@ export class CoordinatesModel {
     }
     return `${Math.round(distance)} m`
   }
+
+  public static transformDistanceFromKilometers(distance: number): string {
+    if (distance > 10) {
+      return `${distance.toFixed(0)} km`
+    }
+    if (distance > 1) {
+      return `${distance.toFixed(1)} km`
+    }
+    return `${Math.round(distance * 1000)} m`
+  }
 }

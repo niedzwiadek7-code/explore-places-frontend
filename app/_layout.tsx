@@ -15,11 +15,12 @@ import {
   MD3LightTheme, MD3DarkTheme, PaperProvider,
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { AuthProvider } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
-import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import { CoordinatesProvider } from '@/context/coordinates/Coordinates'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -40,7 +41,7 @@ const RootLayoutNav = () => {
   //   fallbackSourceColor: '#3B5998',
   //   fallbackSourceColor: '#FFFFFF',
   //   sourceColor: '#3B5998',
-    // sourceColor: '#FFF000',
+  // sourceColor: '#FFF000',
   // })
 
   const { sessionId } = useCustomRouter()
@@ -101,7 +102,9 @@ const RootLayout = () => {
 
   return (
     <AuthProvider>
-      <RootLayoutNav />
+      <CoordinatesProvider>
+        <RootLayoutNav />
+      </CoordinatesProvider>
     </AuthProvider>
   )
 }
