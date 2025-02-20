@@ -10,7 +10,9 @@
     "change_language": "Zmień język aplikacji",
     "pick_language": "Wybierz język",
     "logout": "Wyloguj się",
-    "app_logout": "Wyloguj się z aplikacji"
+    "app_logout": "Wyloguj się z aplikacji",
+    "dark_theme": "Tryb ciemny",
+    "light_theme": "Tryb jasny"
   },
   "home": {
     "home_page": "Strona główna",

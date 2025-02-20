@@ -16,6 +16,7 @@ import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import Tags from '@/components/Tags'
 import { useLocalTransaction } from '@/hooks/useLocalTranslation'
 import Comments from '@/components/Activity/Comments'
+import { useThemeContext } from '@/context/theme/Theme'
 
 type Props = {
   activity: ActivityModel
@@ -24,7 +25,7 @@ type Props = {
 const Activity: React.FC<Props> = ({ activity }) => {
   const [image, setImage] = useState(activity.images.get(0))
   const [likedByUser, setLikedByUser] = useState(activity.likedByUser)
-  const theme = useTheme()
+  const { theme } = useThemeContext()
   const toaster = useToast()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component' })
   const {
@@ -88,6 +89,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
     <View
       style={{
         height: '100%',
+        backgroundColor: theme.colors.background,
       }}
       onTouchStart={trackViewedActivity}
     >
@@ -117,11 +119,9 @@ const Activity: React.FC<Props> = ({ activity }) => {
       <ImageBackground
         source={{ uri: image.value }}
         imageStyle={{
-          // borderRadius: 15,
           objectFit: 'cover',
         }}
         style={{
-          // margin: 10,
           flex: 1,
         }}
       >
@@ -156,7 +156,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                   style={{
                     fontFamily: 'OpenSans',
                     color: 'white',
-                    // fontWeight: 900,
+                    fontWeight: 900,
                     textDecorationStyle: 'solid',
                     textShadowColor: 'black',
                     textShadowOffset: { width: 1, height: 1 },
@@ -218,6 +218,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 <ScrollView
                   style={{
                     maxHeight: Dimensions.get('window').height * 0.7,
+                    backgroundColor: theme.colors.background,
                   }}
                 >
                   <Text
@@ -235,6 +236,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     style={{
                       fontFamily: 'OpenSans',
                       marginTop: 20,
+                      color: theme.colors.onBackground,
                     }}
                   >
                     {localTranslate(activity.description)}
@@ -272,6 +274,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
                     variant="bodyMedium"
                     style={{
                       fontFamily: 'OpenSans',
+                      color: theme.colors.onBackground,
                     }}
                   >
                     {activity.address.toString()}
@@ -297,26 +300,29 @@ const Activity: React.FC<Props> = ({ activity }) => {
                           }}
                         >
                           {
-                          activity.externalLinks.wikipedia ? (
-                            <IconButton
-                              icon="wikipedia"
-                              size={40}
-                              iconColor="black"
-                              mode="contained"
-                              onPress={() => openURL(activity.externalLinks.wikipedia)}
-                            />
-                          ) : null
-                        }
+                            activity.externalLinks.wikipedia ? (
+                              <IconButton
+                                icon="wikipedia"
+                                size={40}
+                                iconColor={theme.colors.onBackground}
+                                // containerColor={theme.colors.surface}
+                                mode="contained"
+                                onPress={() => openURL(activity.externalLinks.wikipedia)}
+                              />
+                            ) : null
+                          }
                           {
-                          activity.externalLinks.website ? (
-                            <IconButton
-                              icon="web"
-                              size={40}
-                              mode="contained"
-                              onPress={() => openURL(activity.externalLinks.website)}
-                            />
-                          ) : null
-                        }
+                            activity.externalLinks.website ? (
+                              <IconButton
+                                icon="web"
+                                size={40}
+                                mode="contained"
+                                iconColor={theme.colors.onBackground}
+                                // containerColor={theme.colors.surface}
+                                onPress={() => openURL(activity.externalLinks.website)}
+                              />
+                            ) : null
+                          }
                         </View>
                       </>
                     )

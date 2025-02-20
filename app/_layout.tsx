@@ -3,7 +3,6 @@
 
 import React, { useEffect } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { useColorScheme } from 'react-native'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -12,7 +11,7 @@ import '@/i18n'
 
 // import { useMaterial3Theme } from '@pchmn/expo-material3-theme'
 import {
-  MD3LightTheme, MD3DarkTheme, PaperProvider,
+  PaperProvider,
 } from 'react-native-paper'
 import { ToastProvider } from 'react-native-paper-toast'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -21,6 +20,7 @@ import { AuthProvider } from '@/context/auth/Auth'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import { CoordinatesProvider } from '@/context/coordinates/Coordinates'
+import { ThemeProvider, useThemeContext } from '@/context/theme/Theme'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,14 +36,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 
 const RootLayoutNav = () => {
-  const colorScheme = useColorScheme()
-  // const { theme } = useMaterial3Theme({
-  //   fallbackSourceColor: '#3B5998',
-  //   fallbackSourceColor: '#FFFFFF',
-  //   sourceColor: '#3B5998',
-  // sourceColor: '#FFF000',
-  // })
-
   const { sessionId } = useCustomRouter()
 
   useEffect(() => {
@@ -54,14 +46,16 @@ const RootLayoutNav = () => {
     ActivitiesSingleton.getInstance().getActivityViewsService().init()
   }, [sessionId])
 
-  const paperTheme = colorScheme === 'dark'
-    ? { ...MD3DarkTheme }
-    : { ...MD3LightTheme }
+  // const paperTheme = colorScheme === 'dark'
+  //   ? { ...MD3DarkTheme }
+  //   : { ...MD3LightTheme }
+
+  const { theme } = useThemeContext()
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
-        <PaperProvider theme={paperTheme}>
+        <PaperProvider theme={theme}>
           <ToastProvider>
             <Stack initialRouteName="(login)">
               <Stack.Screen name="(login)" options={{ headerShown: false }} />
@@ -102,9 +96,11 @@ const RootLayout = () => {
 
   return (
     <AuthProvider>
-      <CoordinatesProvider>
-        <RootLayoutNav />
-      </CoordinatesProvider>
+      <ThemeProvider>
+        <CoordinatesProvider>
+          <RootLayoutNav />
+        </CoordinatesProvider>
+      </ThemeProvider>
     </AuthProvider>
   )
 }

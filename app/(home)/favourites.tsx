@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
   BackHandler,
-  FlatList, ImageBackground, SafeAreaView,
+  FlatList, ImageBackground, SafeAreaView, StyleSheet,
 } from 'react-native'
 import { Card, Text } from 'react-native-paper'
 import { TabsProvider } from 'react-native-paper-tabs'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from 'expo-router'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import { ActivityModel } from '@/models'
 import { useFetch } from '@/hooks/useFetch'
@@ -13,13 +14,15 @@ import LoadingView from '@/components/UI/LoadingView'
 import CustomList from '@/components/CustomList'
 import Activity from '@/components/Activity'
 import { useCoordinates } from '@/context/coordinates/Coordinates'
+import { useThemeContext } from '@/context/theme/Theme'
 
 const TabTwoScreen = () => {
-  // TODO: show this points on map
   const [showList, setShowList] = useState(false)
   const [index, setIndex] = useState<number>(0)
   const { i18n } = useTranslation('translation', { keyPrefix: 'favourites' })
   const { actualPosition } = useCoordinates()
+  const { theme } = useThemeContext()
+  const navigation = useNavigation()
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -54,6 +57,9 @@ const TabTwoScreen = () => {
 
   useEffect(() => {
     setData(data.filter((activity) => activity.likedByUser))
+    navigation.setOptions({
+      headerShown: !showList,
+    })
   }, [showList])
 
   if (loading) {
@@ -65,6 +71,7 @@ const TabTwoScreen = () => {
       style={{
         flex: 0.5,
         height: 275,
+        backgroundColor: theme.colors.background, // Dostosuj tło do motywu
       }}
       onTouchEnd={() => {
         setShowList(!showList)
@@ -97,7 +104,7 @@ const TabTwoScreen = () => {
               variant="bodyMedium"
               style={{
                 fontFamily: 'OpenSans',
-                fontWeight: 900,
+                fontWeight: '900',
                 color: 'white',
                 textDecorationStyle: 'solid',
                 textShadowColor: 'black',
@@ -114,40 +121,36 @@ const TabTwoScreen = () => {
   )
 
   return (
-    <TabsProvider
-      defaultIndex={0}
-    >
+    <TabsProvider defaultIndex={0}>
       <SafeAreaView style={{
+        backgroundColor: theme.colors.background,
         flex: 1,
-        marginVertical: 5,
       }}
       >
-        {
-          showList
-            ? (
-              <CustomList
-                data={data}
-                renderItem={(activity) => <Activity activity={activity} />}
-                index={index}
-              />
-            ) : (
-              <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={2}
-                showsHorizontalScrollIndicator
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}
-                contentContainerStyle={{
-                  flex: 1,
-                }}
-              />
-            )
-             }
+        {showList ? (
+          <CustomList
+            data={data}
+            renderItem={(activity) => <Activity activity={activity} />}
+            index={index}
+          />
+        ) : (
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            showsHorizontalScrollIndicator
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              backgroundColor: theme.colors.background, // Dostosuj tło do motywu
+            }}
+            contentContainerStyle={{
+              flex: 1,
+            }}
+          />
+        )}
       </SafeAreaView>
     </TabsProvider>
   )

@@ -10,7 +10,9 @@
     "change_language": "Change app language",
     "pick_language": "Pick a language",
     "logout": "Log out",
-    "app_logout": "Log out from the app"
+    "app_logout": "Log out from the app",
+    "dark_theme": "Dark mode",
+    "light_theme": "Light mode"
   },
   "home": {
     "home_page": "Home page",

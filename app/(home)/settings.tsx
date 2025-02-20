@@ -8,6 +8,7 @@ import Storage from '@/services/storage/Storage'
 import ModalComponent from '@/components/UI/Modal'
 import { useAuth } from '@/context/auth/Auth'
 import { AuthSingleton } from '@/services/auth/AuthSingleton'
+import { useThemeContext } from '@/context/theme/Theme'
 
 const renderIcon = (color: string, style: object, icon: string) => (
   <List.Icon color={color} style={style} icon={icon} />
@@ -20,10 +21,9 @@ const renderFlag = (isoCode: string) => (
 const Settings = () => {
   const { t, i18n } = useTranslation('translation', { keyPrefix: 'settings' })
   const { logout } = useAuth()
+  const { toggleTheme, isDark, theme } = useThemeContext()
 
   const [isLogout, setIsLogout] = useState(false)
-
-  const toaster = useToast()
 
   const changeLanguage = async (lang: string) => {
     await Storage.setItem('language', lang)
@@ -44,14 +44,21 @@ const Settings = () => {
   }
 
   return (
-    <>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+      }}
+    >
       <List.Item
         title={t('theme')}
-        description={t('change_theme')}
+        description={isDark ? t('dark_theme') : t('light_theme')}
+        // description={t('change_theme')}
         left={({ color, style }) => renderIcon(color, style, 'palette')}
-        onPress={() => toaster.show({
-          message: t('in_progress'),
-        })}
+        // onPress={() => toaster.show({
+        //   message: t('in_progress'),
+        // })}
+        onPress={toggleTheme}
       />
       <ModalComponent
         button={(
@@ -96,7 +103,7 @@ const Settings = () => {
         right={() => showLoading(isLogout)}
         onPress={localLogout}
       />
-    </>
+    </SafeAreaView>
   )
 }
 

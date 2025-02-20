@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import React, { memo, useRef } from 'react'
 import {
-  Card, IconButton, Avatar, Text, useTheme, Icon,
+  Card, IconButton, Avatar, Text, Icon,
 } from 'react-native-paper'
 import {
   BottomSheetModal,
@@ -14,6 +14,7 @@ import { CommentModel } from '@/models'
 import TextArea from '@/components/UI/TextArea'
 import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
 import DateUtils from '@/utils/Date'
+import { useThemeContext } from '@/context/theme/Theme'
 
 type Props = {
   comments: CommentModel[]
@@ -25,30 +26,31 @@ type FormData = {
   activityId: number
 }
 
-const Comment: React.FC<{comment: CommentModel}> = ({ comment }) => {
-  const theme = useTheme()
+const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
+  const { theme } = useThemeContext()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component.comment' })
 
   return (
     <Card
       style={{
         marginTop: 10,
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.background,
         marginHorizontal: 10,
-        // borderBottomColor: theme.colors.secondary,
-        // borderStyle: 'solid',
-        // borderBottomWidth: 1,
       }}
-      // elevation={0}
     >
       <Card.Title
         title={comment.author}
         subtitle={`${DateUtils.calculateTimeToNow(comment.date)} ${t('ago')}`}
+        titleStyle={{
+          color: theme.colors.onBackground,
+        }}
+        subtitleStyle={{
+          color: theme.colors.onBackground,
+        }}
         left={(props) => (
           <Avatar.Icon
             {...props}
             icon="account"
-            // color='white'
             theme={{
               colors: {
                 primary: theme.colors.secondary,
@@ -58,10 +60,13 @@ const Comment: React.FC<{comment: CommentModel}> = ({ comment }) => {
         )}
         titleVariant="titleMedium"
         subtitleVariant="bodySmall"
-        // right={(props) => <IconButton {...props} icon="dots-vertical" />}
       />
       <Card.Content>
-        <Text> {comment.content} </Text>
+        <Text
+          style={{ color: theme.colors.onSurface }}
+        >
+          {comment.content}
+        </Text>
       </Card.Content>
     </Card>
   )
@@ -69,7 +74,7 @@ const Comment: React.FC<{comment: CommentModel}> = ({ comment }) => {
 
 const Comments: React.FC<Props> = ({ comments, activityId }) => {
   const commentSheetRef = useRef<BottomSheetModal>(null)
-  const theme = useTheme()
+  const { theme } = useThemeContext()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component.comment' })
 
   const {
@@ -84,7 +89,6 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
   const addComment = async (data: FormData) => {
     await ActivitiesSingleton.getInstance().createComment(data.activityId, data.comment)
     setValue('comment', '')
-    // TODO: here should be username
     comments.push(new CommentModel('You', data.comment, new Date()))
   }
 
@@ -106,6 +110,7 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
         enableDynamicSizing={false}
         enableOverDrag={false}
         enablePanDownToClose
+        backgroundStyle={{ backgroundColor: theme.colors.surface }}
       >
         <BottomSheetView
           style={{
@@ -113,51 +118,53 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'space-between',
+            backgroundColor: theme.colors.background,
           }}
         >
           <Text
             variant="titleLarge"
             style={{
               textAlign: 'center',
+              color: theme.colors.onBackground,
             }}
           >
             {t('comments')}
           </Text>
 
           {
-              comments.length ? (
-                <BottomSheetVirtualizedList<CommentModel>
-                  data={comments}
-                  renderItem={({ item }) => <Comment comment={item} />}
-                  keyExtractor={(item) => `${item.date.toISOString()} ${item.author}`}
-                  getItemCount={(data) => data.length}
-                  getItem={(data, index) => data[index]}
-                  contentContainerStyle={{ paddingBottom: 20 }}
-                />
-              ) : (
-                <View
-                  style={{
-                    marginTop: 15,
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: 10,
-                  }}
-                >
-                  <Text>
-                    {t('no_comments')}
-                  </Text>
+            comments.length ? (
+              <BottomSheetVirtualizedList<CommentModel>
+                data={comments}
+                renderItem={({ item }) => <Comment comment={item} />}
+                keyExtractor={(item) => `${item.date.toISOString()} ${item.author}`}
+                getItemCount={(data) => data.length}
+                getItem={(data, index) => data[index]}
+                contentContainerStyle={{ paddingBottom: 20 }}
+              />
+            ) : (
+              <View
+                style={{
+                  marginTop: 15,
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <Text style={{ color: theme.colors.onBackground }}>
+                  {t('no_comments')}
+                </Text>
 
-                  <Icon
-                    source="comment-off-outline"
-                    size={70}
-                    color={theme.colors.secondary}
-                  />
-                </View>
-              )
-            }
+                <Icon
+                  source="comment-off-outline"
+                  size={70}
+                  color={theme.colors.secondary}
+                />
+              </View>
+            )
+          }
 
           <View
             style={{
@@ -185,7 +192,8 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     error={Boolean(errors.comment?.message)}
-
+                    style={{ backgroundColor: theme.colors.surface }}
+                    textColor={theme.colors.onSurface}
                   />
                 )}
               />

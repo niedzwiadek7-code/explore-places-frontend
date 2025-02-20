@@ -5,10 +5,12 @@ import { Tabs } from 'expo-router'
 import { BottomNavigation, Icon } from 'react-native-paper'
 import { useTranslation } from 'react-i18next'
 import useCustomRouter from '@/hooks/useRouter/useRouter'
+import { useThemeContext } from '@/context/theme/Theme'
 
 const Layout = () => {
   const { router, authenticated, isMounted } = useCustomRouter()
   const { t } = useTranslation('translation', { keyPrefix: 'home' })
+  const { theme } = useThemeContext()
 
   useEffect(() => {
     if (isMounted && !authenticated) {
@@ -22,6 +24,10 @@ const Layout = () => {
     <Tabs
       screenOptions={{
         headerShown: true,
+        headerStyle: {
+          backgroundColor: theme.colors.background,
+        },
+        headerTintColor: theme.colors.onBackground,
       }}
       tabBar={({
         state, descriptors, insets,
