@@ -14,6 +14,7 @@ const LOCATION_REFRESH_INTERVAL = 10000
 const Home = () => {
   const [activities, setActivities] = useState<ActivityModel[]>([])
   const { i18n } = useTranslation()
+  const [actualPosition, setActualPosition] = useState<CoordinatesModel | null>(null)
 
   const getActualPosition = async (): Promise<CoordinatesModel | null> => {
     const { status } = await Location.requestForegroundPermissionsAsync()
@@ -28,13 +29,15 @@ const Home = () => {
   }
 
   const fetchData = useCallback(
-    async () => {
-      // console.log(i18n.language)
-      const coordinates = await getActualPosition()
+    async (
+      ignoreIds: (string | number)[] = [],
+    ) => {
+      const coordinates = actualPosition || await getActualPosition()
       const activitiesFetched = await ActivitiesSingleton.getInstance().getActivities(
         ACTIVITIES_COUNT,
         i18n.language,
         coordinates || undefined,
+        ignoreIds,
       )
 
       const activityPromises = activitiesFetched.reduce<Promise<boolean>[]>(
@@ -49,13 +52,22 @@ const Home = () => {
       Promise.all(activityPromises)
       return activitiesFetched
     },
-    [i18n.language],
+    [i18n.language, actualPosition],
   )
 
   useEffect(() => {
+    const getCoords = async () => {
+      const coords = await getActualPosition()
+      if (coords) {
+        setActualPosition(coords)
+      }
+    }
+
     const locationInterval = setInterval(async () => {
-      getActualPosition()
+      await getCoords()
     }, LOCATION_REFRESH_INTERVAL)
+
+    getCoords()
 
     return () => {
       clearInterval(locationInterval)

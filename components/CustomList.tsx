@@ -1,7 +1,8 @@
 import React, {
-  ReactElement, memo, useRef, useState,
+  ReactElement, useRef, useState,
 } from 'react'
-import { FlatList, ViewToken } from 'react-native'
+import { FlatList, View, ViewToken } from 'react-native'
+import { ActivityIndicator, useTheme } from 'react-native-paper'
 
 type IBasicObj = {
   id: string | number
@@ -10,8 +11,30 @@ type IBasicObj = {
 type IProps<T extends IBasicObj> = {
   data: T[],
   renderItem: (item: T) => ReactElement,
-  fetchMoreData?: () => Promise<T[]>,
+  fetchMoreData?: (ignoreIds: (string | number)[]) => Promise<T[]>,
   index?: number,
+}
+
+type ISmallLoadingProps = {
+  isFetching: boolean
+}
+
+const SmallLoading: React.FC<ISmallLoadingProps> = ({ isFetching }) => {
+  const theme = useTheme()
+
+  if (!isFetching) {
+    return null
+  }
+
+  return (
+    <View
+      style={{
+        padding: 12,
+      }}
+    >
+      <ActivityIndicator size="small" color={theme.colors.primary} />
+    </View>
+  )
 }
 
 const CustomList = <T extends IBasicObj>(
@@ -35,8 +58,13 @@ const CustomList = <T extends IBasicObj>(
     const actualIndex = viewableItems[0].index
     if (actualIndex && actualIndex > localData.length - 5 && fetchMoreData) {
       setIsFetching(true)
-      const newData = (await fetchMoreData()).filter((e) => !localData.find((l) => l.id === e.id))
-      setLocalData([...localData, ...newData])
+      const newData = (await fetchMoreData(localData.map((e) => e.id)))
+        .filter((e) => !localData.find((l) => l.id === e.id))
+      const newLocalData = [...localData, ...newData]
+      // if (newLocalData.length > 25) {
+      //   newLocalData = newLocalData.slice(newLocalData.length - 25)
+      // }
+      setLocalData(newLocalData)
       setIsFetching(false)
     }
   }
@@ -67,13 +95,14 @@ const CustomList = <T extends IBasicObj>(
       pagingEnabled
       onLayout={async () => {
         // TODO: Fix this hack
-        const wait = new Promise((resolve) => setTimeout(resolve, 0))
-        await wait
+        // const wait = new Promise((resolve) => setTimeout(resolve, 0))
+        // await wait
         listRef.current?.scrollToIndex({
           index,
           animated: false,
         })
       }}
+      ListFooterComponent={<SmallLoading isFetching={isFetching} />}
     />
   )
 }

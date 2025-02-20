@@ -15,13 +15,14 @@ export class Activities {
     count: number,
     language: string,
     coordinates?: CoordinatesModel,
+    ignoreIds?: (string | number)[],
   ) {
     const results = await this.apiService.post<
       IActivity[],
       IGetActivitiesData
     >(
       `/api/activities/get-activities/?count=${count}`,
-      getActivitiesDataRequestTransformer(language, coordinates),
+      getActivitiesDataRequestTransformer(language, coordinates, ignoreIds),
     )
 
     if (!results.data) {
