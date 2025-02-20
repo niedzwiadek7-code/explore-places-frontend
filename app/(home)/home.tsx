@@ -53,13 +53,6 @@ const Home = () => {
   )
 
   useEffect(() => {
-    const getStartData = async () => {
-      const localData = await fetchData()
-      setActivities(localData)
-    }
-
-    getStartData()
-
     const locationInterval = setInterval(async () => {
       getActualPosition()
     }, LOCATION_REFRESH_INTERVAL)
@@ -67,6 +60,17 @@ const Home = () => {
     return () => {
       clearInterval(locationInterval)
     }
+  }, [])
+
+  useEffect(() => {
+    const getStartData = async () => {
+      const localData = await fetchData()
+      setActivities(localData)
+    }
+
+    setTimeout(() => {
+      getStartData()
+    }, 100)
   }, [fetchData])
 
   if (!activities.length) {

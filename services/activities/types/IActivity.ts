@@ -16,9 +16,6 @@ export type IActivity = {
     state: string
     country: string
     postal_code: string
-  }
-
-  coordinates: {
     latitude: number
     longitude: number
   }
