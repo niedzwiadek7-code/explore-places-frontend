@@ -35,7 +35,7 @@ const CustomList = <T extends IBasicObj>(
     const actualIndex = viewableItems[0].index
     if (actualIndex && actualIndex > localData.length - 5 && fetchMoreData) {
       setIsFetching(true)
-      const newData = await fetchMoreData()
+      const newData = (await fetchMoreData()).filter((e) => !localData.find((l) => l.id === e.id))
       setLocalData([...localData, ...newData])
       setIsFetching(false)
     }
