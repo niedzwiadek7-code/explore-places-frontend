@@ -26,6 +26,7 @@ export const activityTransformer = (iActivity: IActivity): ActivityModel => {
     comment.user,
     comment.comment,
     new Date(comment.created_at),
+    comment.rating,
   ))
 
   return new ActivityModel(

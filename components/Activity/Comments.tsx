@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import React, { memo, useRef } from 'react'
 import {
-  Card, IconButton, Avatar, Text, Icon,
+  IconButton, Text, Icon,
 } from 'react-native-paper'
 import {
   BottomSheetModal,
@@ -9,87 +9,24 @@ import {
   BottomSheetVirtualizedList,
 } from '@gorhom/bottom-sheet'
 import { useTranslation } from 'react-i18next'
-import { Controller, useForm } from 'react-hook-form'
 import { CommentModel } from '@/models'
-import TextArea from '@/components/UI/TextArea'
-import { ActivitiesSingleton } from '@/services/activities/ActivitiesSingleton'
-import DateUtils from '@/utils/Date'
 import { useThemeContext } from '@/context/theme/Theme'
+import Comment from '@/components/Activity/Comment'
+import InputComment from '@/components/Activity/InputComment'
 
 type Props = {
   comments: CommentModel[]
   activityId: number
 }
 
-type FormData = {
-  comment: string
-  activityId: number
-}
-
-const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
-  const { theme } = useThemeContext()
-  const { t } = useTranslation('translation', { keyPrefix: 'activity_component.comment' })
-
-  return (
-    <Card
-      style={{
-        marginTop: 10,
-        backgroundColor: theme.colors.background,
-        marginHorizontal: 10,
-      }}
-    >
-      <Card.Title
-        title={comment.author}
-        subtitle={`${DateUtils.calculateTimeToNow(comment.date)} ${t('ago')}`}
-        titleStyle={{
-          color: theme.colors.onBackground,
-        }}
-        subtitleStyle={{
-          color: theme.colors.onBackground,
-        }}
-        left={(props) => (
-          <Avatar.Icon
-            {...props}
-            icon="account"
-            theme={{
-              colors: {
-                primary: theme.colors.secondary,
-              },
-            }}
-          />
-        )}
-        titleVariant="titleMedium"
-        subtitleVariant="bodySmall"
-      />
-      <Card.Content>
-        <Text
-          style={{ color: theme.colors.onSurface }}
-        >
-          {comment.content}
-        </Text>
-      </Card.Content>
-    </Card>
-  )
-}
-
 const Comments: React.FC<Props> = ({ comments, activityId }) => {
   const commentSheetRef = useRef<BottomSheetModal>(null)
   const { theme } = useThemeContext()
   const { t } = useTranslation('translation', { keyPrefix: 'activity_component.comment' })
+  const [allComments, setAllComments] = React.useState<CommentModel[]>(comments)
 
-  const {
-    control, handleSubmit, formState: { errors, isSubmitting }, setValue,
-  } = useForm<FormData>({
-    mode: 'onSubmit',
-    defaultValues: {
-      activityId,
-    },
-  })
-
-  const addComment = async (data: FormData) => {
-    await ActivitiesSingleton.getInstance().createComment(data.activityId, data.comment)
-    setValue('comment', '')
-    comments.push(new CommentModel('You', data.comment, new Date()))
+  const onComment = async (comment: CommentModel) => {
+    setAllComments((prev) => [...prev, comment])
   }
 
   return (
@@ -132,9 +69,9 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
           </Text>
 
           {
-            comments.length ? (
+            allComments.length ? (
               <BottomSheetVirtualizedList<CommentModel>
-                data={comments}
+                data={allComments}
                 renderItem={({ item }) => <Comment comment={item} />}
                 keyExtractor={(item) => `${item.date.toISOString()} ${item.author}`}
                 getItemCount={(data) => data.length}
@@ -166,69 +103,11 @@ const Comments: React.FC<Props> = ({ comments, activityId }) => {
             )
           }
 
-          <View
-            style={{
-              paddingVertical: 10,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <Controller
-                name="comment"
-                control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: t('required_field'),
-                  },
-                }}
-                render={({ field: { value, onChange, onBlur } }) => (
-                  <TextArea
-                    label={t('type_comment')}
-                    mode="flat"
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    error={Boolean(errors.comment?.message)}
-                    style={{ backgroundColor: theme.colors.surface }}
-                    textColor={theme.colors.onSurface}
-                  />
-                )}
-              />
+          <InputComment
+            onComment={onComment}
+            activityId={activityId}
+          />
 
-              {
-                errors.comment?.message && (
-                  <Text
-                    style={{
-                      color: theme.colors.error,
-                      fontSize: 12,
-                    }}
-                  >
-                    {errors.comment?.message}
-                  </Text>
-                )
-              }
-            </View>
-
-            {
-              isSubmitting ? (
-                <Icon
-                  size={25}
-                  source="loading"
-                  color={theme.colors.primary}
-                />
-              ) : (
-                <IconButton
-                  size={25}
-                  icon="send"
-                  iconColor={theme.colors.primary}
-                  onPress={handleSubmit(addComment)}
-                />
-              )
-            }
-          </View>
         </BottomSheetView>
       </BottomSheetModal>
     </View>

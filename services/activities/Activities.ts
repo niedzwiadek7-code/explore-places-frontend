@@ -70,8 +70,19 @@ export class Activities {
     return ActivitiesViewSingleton.getInstance(requestFn)
   }
 
-  async createComment(activityId: number, comment: string) {
-    const result = await this.apiService.post('/api/activities/comments/', { activity: activityId, comment })
+  async createComment(
+    activityId: number,
+    comment: string,
+    rating: number,
+  ) {
+    const result = await this.apiService.post(
+      '/api/activities/comments/',
+      {
+        activity: activityId,
+        comment,
+        rating,
+      },
+    )
     return result.result === 'SUCCESS'
   }
 }

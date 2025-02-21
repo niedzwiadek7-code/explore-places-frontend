@@ -71,5 +71,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/require-default-props': 0,
+    'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
   },
 }

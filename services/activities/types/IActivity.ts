@@ -43,6 +43,7 @@ export type IActivity = {
     comment: string
     created_at: string
     activity: number,
-    user: string
+    user: string,
+    rating: number,
   }>
 }
