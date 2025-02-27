@@ -52,6 +52,7 @@ export default class ApiService {
   getHeader(headers: HeadersType = {}): HeadersType {
     const defaultHeaders: HeadersType = {
       'Content-Type': 'application/json',
+      Referer: this.baseUrl,
       ...headers,
     }
 
@@ -104,6 +105,7 @@ export default class ApiService {
 
       return standardResponse
     } catch (err) {
+      console.log(err)
       return {
         statusCode: 500,
         result: 'ERROR',

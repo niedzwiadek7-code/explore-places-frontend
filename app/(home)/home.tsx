@@ -19,24 +19,29 @@ const Home = () => {
     async (
       ignoreIds: (string | number)[] = [],
     ) => {
-      const activitiesFetched = await ActivitiesSingleton.getInstance().getActivities(
-        ACTIVITIES_COUNT,
-        i18n.language,
-        actualPosition || undefined,
-        ignoreIds,
-      )
+      try {
+        const activitiesFetched = await ActivitiesSingleton.getInstance().getActivities(
+          ACTIVITIES_COUNT,
+          i18n.language,
+          actualPosition || undefined,
+          ignoreIds,
+        )
 
-      const activityPromises = activitiesFetched.reduce<Promise<boolean>[]>(
-        (acc, activity) => {
-          const imagePromises = activity.images.items.map((e) => Image.prefetch(e))
-          acc.push(...imagePromises)
-          return acc
-        },
-        [],
-      )
+        const activityPromises = activitiesFetched.reduce<Promise<boolean>[]>(
+          (acc, activity) => {
+            const imagePromises = activity.images.items.map((e) => Image.prefetch(e))
+            acc.push(...imagePromises)
+            return acc
+          },
+          [],
+        )
 
-      Promise.all(activityPromises)
-      return activitiesFetched
+        Promise.all(activityPromises)
+        return activitiesFetched
+      } catch (err) {
+        console.error(err)
+        return []
+      }
     },
     [i18n.language, actualPosition],
   )
@@ -47,10 +52,8 @@ const Home = () => {
       setActivities(localData)
     }
 
-    setTimeout(() => {
-      getStartData()
-    }, 100)
-  }, [fetchData])
+    getStartData()
+  }, [])
 
   if (!activities.length) {
     return <LoadingView />
