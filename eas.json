@@ -10,12 +10,12 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_BACKEND_BASE_URL": "https://new-travel-app-backend-production.up.railway.app/"
+        "EXPO_PUBLIC_BACKEND_BASE_URL": "https://new-travel-app-backend.vercel.app/"
       }
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_BACKEND_BASE_URL": "https://new-travel-app-backend-production.up.railway.app/"
+        "EXPO_PUBLIC_BACKEND_BASE_URL": "https://new-travel-app-backend.vercel.app/"
       }
     }
   },
